@@ -2,6 +2,8 @@
 .astro/
 .claude/
 .claude/settings.local.json
+assets/
+design/
 dist/
 node_modules/
 reference/

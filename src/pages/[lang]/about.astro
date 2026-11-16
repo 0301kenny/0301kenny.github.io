@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Todo from '../../components/Todo.astro';
 import '../../styles/site.css';
-import { langs, type Lang } from '../../i18n';
+import { langs, asset, type Lang } from '../../i18n';
 import { profile, sections as s, legacy, timeline } from '../../data/profile';
 
 export function getStaticPaths() {
@@ -20,7 +20,7 @@ const t = {
     'zh-tw': '我是鄭偉助（Kenny），東海大學美術系畢業。前十年做品牌、包裝與印前，帶過設計團隊；2018 年起轉向產品設計，現在在 WOTA 負責跨平台旅宿產品的需求規劃、介面設計與前端協作，並把 AI 整合進整個工作流程。',
     en: 'I am Kenny Cheng, a fine arts graduate of Tunghai University. I spent my first ten years in brand, packaging, and prepress, leading design teams. Since 2018 I have worked in product design; at WOTA I plan, design, and help build cross-platform hospitality products, with AI integrated across my workflow.',
   },
-  photo: { 'zh-tw': '照片待補', en: 'Photo TBD' },
+  photo: { 'zh-tw': '鄭偉助 Kenny Cheng 的照片', en: 'Portrait of Kenny Cheng' },
   facts: [
     { title: { 'zh-tw': '工具', en: 'Tools' }, body: { 'zh-tw': 'Figma · Claude Code · ChatGPT · Codex · Jira · Notion · HTML / CSS · Vue', en: 'Figma · Claude Code · ChatGPT · Codex · Jira · Notion · HTML / CSS · Vue' } },
     { title: { 'zh-tw': '語言', en: 'Languages' }, body: { 'zh-tw': '中文（母語）· 台語（中等）· 英文（讀寫中等）', en: 'Mandarin (native) · Taiwanese (intermediate) · English (intermediate reading and writing)' } },
@@ -33,7 +33,7 @@ const title = t.title[lang].split('\n');
 <Base lang={lang} title={`${t.eyebrow} · Kenny Cheng`} description={t.intro[lang]} path="about">
   <section class="page-head">
     <div class="wrap about-hero">
-      <div class="photo">{t.photo[lang]}</div>
+      <img class="photo" src={asset('img/kenny-portrait.jpg')} alt={t.photo[lang]} width="480" height="720">
       <div>
         <div class="eyebrow">{t.eyebrow}</div>
         <h1>{title.map((l, i) => <>{i > 0 && <br />}{l}</>)}</h1>

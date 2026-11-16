@@ -1,0 +1,64 @@
+---
+import Todo from './Todo.astro';
+import { ui, asset, type Lang } from '../i18n';
+import type { Block } from '../data/cases';
+
+interface Props { blocks: Block[]; lang: Lang }
+const { blocks, lang } = Astro.props;
+---
+{blocks.map((bk) => {
+  switch (bk.t) {
+    case 'p':
+      return <p>{bk.text[lang]}{bk.todo && <Todo lang={lang} />}</p>;
+    case 'h3':
+      return <h3>{bk.text[lang]}</h3>;
+    case 'callout':
+      return <div class="callout"><b>{bk.title[lang]}</b><p>{bk.text[lang]}</p></div>;
+    case 'decision':
+      return (
+        <div class="decision">
+          <div class="q">{bk.q[lang]}</div>
+          <div class="a">{bk.a[lang]}{bk.todo && <Todo lang={lang} />}</div>
+          <p>{bk.text[lang]}</p>
+        </div>
+      );
+    case 'figure':
+      return (
+        <figure class="fig">
+          <div class={bk.phone ? 'frame phone-fig' : 'frame'}>
+            {bk.src.map((src) => <img src={asset(src)} alt={bk.alt[lang]} loading="lazy" />)}
+          </div>
+          <figcaption>{bk.caption[lang]}</figcaption>
+        </figure>
+      );
+    case 'table':
+      return (
+        <>
+          <table>
+            <thead><tr><th>{ui.case.stage[lang]}</th><th>{ui.case.aiDoes[lang]}</th><th>{ui.case.iDo[lang]}</th></tr></thead>
+            <tbody>{bk.rows.map(([a, b, c]) => <tr><td>{a[lang]}</td><td>{b[lang]}</td><td>{c[lang]}</td></tr>)}</tbody>
+          </table>
+          {bk.note && <p class="note">{bk.note[lang]}</p>}
+        </>
+      );
+    case 'stats':
+      return <div class="issues">{bk.items.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>;
+    case 'guard':
+      return <div class="guard">{bk.items.map(([title, code, desc]) => <div><b>{title[lang]}</b><code>{code}</code><br />{desc[lang]}</div>)}</div>;
+    case 'flow':
+      return <div class="flow">{bk.items.map((it, i) => <>{i > 0 && <i aria-hidden="true">→</i>}<span>{it[lang]}</span></>)}</div>;
+    case 'versions':
+      return <ol class="versions">{bk.items.map(([v, text]) => <li><b>{v}</b>{text[lang]}</li>)}</ol>;
+    case 'compare':
+      return (
+        <div class="compare">
+          <div class="head"><b>{ui.case.evidence[lang]}</b></div>
+          <div class="cols">
+            <div class="col"><small>{ui.case.aiDraft[lang]}</small>{bk.ai[lang]}</div>
+            <div class="col me"><small>{ui.case.myRevision[lang]}</small>{bk.me[lang]}</div>
+          </div>
+          <p>{bk.source[lang]}</p>
+        </div>
+      );
+  }
+})}

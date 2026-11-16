@@ -1,0 +1,127 @@
+---
+import { profile } from '../../data/profile';
+
+const c = profile.contact;
+const portfolioLabel = c.portfolio.replace(/^https?:\/\//, '');
+const linkedinLabel = c.linkedin.replace(/^https?:\/\/(www\.)?/, '');
+
+const wota = [
+  '將 Journey Rewards 會員獎勵規則落成 PRD v2.2 與 5 份 IA：整合衝突的規則版本，定義 18 種兌換狀態、逐題定案 28 項升等規則，規劃分段上線（停寫積分、功能旗標、資料遷移），並攔下新提案中 4 處被改寫的會員權益。',
+  '發起網站行為分析，交叉驗證錄影、Mixpanel 與事件定義：找出登入牆瓶頸（訪客 9%、會員 50% 走到訂單表單），7 輪自我驗證推翻 4 項錯誤結論，整理 41 項附證據的改版清單並建立每週自動追蹤。',
+  '主導官網 3.0 產品規劃：自建 79 頁進度表逐頁控管設計到驗收，主持 UAT 收斂 30 項問題，讓訂房、會籍購買與續約改為線上自助；並訂出 6 大類 17 個情境的通知信規格。',
+  '負責 LINE LIFF 訂房的 PM 與驗收：2026 年 5 月對外推出、7 月正式發布信用卡購買會籍與英文版；整理 Figma、程式、文件三方衝突 42 項，並規劃從官網導流到 LINE 的策略。',
+  '規劃酒店設施與政策資料庫：在專案方向偏離時重新檢討，拍板 6 項業務決策與五道品質關卡，用 Mixpanel 排定前 200 家（涵蓋 70% 預約成功用戶），內部 QA 問題率從 25% 降到 6%（尚未上線）。',
+  '以 PM 身分指揮 AI 推進產品：2.5 週完成 AI 旅遊顧問開發計畫 v2，收斂 32 項決策與約 60 個任務（提案中）；用 Claude Code 建置 UI Spec 工具，上線前抓到 2 個影響會員的 bug。',
+];
+
+const rong = [
+  '帶領 4 人以下設計團隊，負責產品 UI 視覺系統、UX Flow、Sitemap、Wireframe 與互動原型。',
+  '設計響應式網站介面，與工程師協作前端互動頁面，並提出使用者體驗改善方案。',
+];
+
+const skills = [
+  ['產品', 'PRD · 需求拆解 · 規則與例外情境 · 分段上線規劃 · UAT 驗收 · Jira'],
+  ['數據', 'Mixpanel · Clarity 錄影 · GTM 事件定義 · 漏斗分析 · 每週追蹤'],
+  ['設計', 'Figma · IA · User Flow · 互動原型 · Design System'],
+  ['AI 與前端', 'Claude Code · ChatGPT · Codex · HTML / CSS · Vue / Quasar'],
+];
+---
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>鄭偉助 Kenny Cheng · Product Manager 履歷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  :root { --ink: #0E2240; --ink-2: #3D4D66; --ink-3: #76849A; --line: #D9E0EA; --accent: #2F64A8; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #E9EDF2; }
+  body { font-family: 'Inter', 'Noto Sans TC', 'PingFang TC', sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 210mm; height: 297mm; margin: 0 auto; background: #fff; padding: 14mm 15mm 12mm; display: flex; flex-direction: column; overflow: hidden; }
+  @media screen { .page { margin: 24px auto; box-shadow: 0 4px 24px rgba(14,34,64,.12); } }
+  a { color: inherit; text-decoration: none; }
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 10mm; padding-bottom: 4mm; border-bottom: 1.4pt solid var(--ink); }
+  h1 { margin: 0; font-weight: 300; font-size: 24pt; letter-spacing: .02em; line-height: 1.15; }
+  h1 small { font-size: 13pt; color: var(--ink-3); margin-left: 3mm; letter-spacing: 0; }
+  .role { margin-top: 1.6mm; font-size: 10.5pt; font-weight: 500; color: var(--accent); letter-spacing: .02em; }
+  .contact { text-align: right; font-size: 8.6pt; line-height: 1.65; color: var(--ink-2); white-space: nowrap; }
+  .summary { margin: 3.6mm 0 0; font-size: 9.4pt; line-height: 1.7; color: var(--ink-2); }
+  h2 { margin: 4.6mm 0 2mm; font-size: 9pt; font-weight: 600; letter-spacing: .16em; color: var(--accent); text-transform: uppercase; display: flex; align-items: center; gap: 3mm; }
+  h2::after { content: ""; flex: 1; height: .6pt; background: var(--line); }
+  .job { margin-bottom: 2.6mm; }
+  .job-head { display: flex; justify-content: space-between; align-items: baseline; gap: 4mm; }
+  .job-head b { font-size: 10.4pt; font-weight: 600; }
+  .job-head span.org { font-size: 9.4pt; color: var(--ink-2); margin-left: 2mm; }
+  .job-head time { font-size: 8.6pt; color: var(--ink-3); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  ul { margin: 1.2mm 0 0; padding-left: 4.2mm; }
+  li { font-size: 8.9pt; line-height: 1.6; color: var(--ink-2); margin-bottom: .7mm; }
+  li::marker { color: var(--accent); }
+  .early { display: grid; grid-template-columns: auto 1fr auto; gap: .9mm 3mm; font-size: 8.9pt; color: var(--ink-2); align-items: baseline; }
+  .early b { font-weight: 600; color: var(--ink); font-size: 9.4pt; }
+  .early time { color: var(--ink-3); font-size: 8.6pt; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .bottom { display: grid; grid-template-columns: 1.55fr 1fr; gap: 8mm; }
+  .skills { display: grid; grid-template-columns: auto 1fr; gap: 1.1mm 3mm; font-size: 8.9pt; line-height: 1.55; }
+  .skills dt { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .skills dd { margin: 0; color: var(--ink-2); }
+  .side p { margin: 0 0 1.4mm; font-size: 8.9pt; line-height: 1.55; color: var(--ink-2); }
+  .side p b { color: var(--ink); font-weight: 600; }
+  footer { margin-top: auto; padding-top: 3mm; border-top: .6pt solid var(--line); font-size: 8pt; color: var(--ink-3); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div>
+      <h1>鄭偉助<small>Kenny Cheng</small></h1>
+      <div class="role">Product Manager｜產品設計與前端背景 · AI-Integrated</div>
+    </div>
+    <div class="contact">
+      <div><a href={`mailto:${c.email}`}>{c.email}</a>{c.phone && <> · {c.phone}</>}</div>
+      <div><a href={c.portfolio}>{portfolioLabel}</a></div>
+      <div><a href={c.linkedin}>{linkedinLabel}</a></div>
+      <div>新北市 · 可接受遠端或混合辦公</div>
+    </div>
+  </header>
+
+  <p class="summary">具 8 年產品設計經驗的產品規劃者。擅長把複雜的業務規則變成可交付的規格，用數據與使用者行為找出問題、排定優先，並一路追到驗收上線。在高端旅宿訂房平台負責官網、LINE LIFF 與白牌的需求定義與交付，並用 AI 推進產品。</p>
+
+  <h2>工作經歷</h2>
+  <div class="job">
+    <div class="job-head"><div><b>Product Designer · PM</b><span class="org">WOTA 沃塔國際旅行社 · 高端旅宿訂房平台</span></div><time>2023.03 — 現在</time></div>
+    <ul>{wota.map((t) => <li>{t}</li>)}</ul>
+  </div>
+  <div class="job">
+    <div class="job-head"><div><b>UI/UX Designer</b><span class="org">融創新科</span></div><time>2018.08 — 2023.03</time></div>
+    <ul>{rong.map((t) => <li>{t}</li>)}</ul>
+  </div>
+
+  <h2>品牌視覺與印前基礎</h2>
+  <div class="early">
+    <b>視覺設計總監</b><span>台中廣天宮 · 多媒體開發主管，品牌視覺、網站規劃與專案驗收</span><time>2014.04 — 2018.02</time>
+    <b>設計總監</b><span>岱展有限公司 · 帶領 3–4 人，CIS、包裝、型錄與印前發包</span><time>2010.10 — 2013.12</time>
+    <b>美編 / 美術企劃</b><span>平面文宣、出版編排與印刷製作</span><time>2008.10 — 2010.09</time>
+  </div>
+
+  <div class="bottom">
+    <div>
+      <h2>核心能力</h2>
+      <dl class="skills">{skills.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}</dl>
+    </div>
+    <div class="side">
+      <h2>學歷與語言</h2>
+      <p><b>東海大學</b> 美術系 學士</p>
+      <p><b>語言</b> 中文 · 台語（中等）<br>英文（讀寫中等）</p>
+      <h2>作品集</h2>
+      <p>4 個完整案例，建議先看：會員獎勵規則、網站行為分析</p>
+      <p><a href={c.portfolio}>{portfolioLabel}</a></p>
+    </div>
+  </div>
+
+  <footer><span>鄭偉助 Kenny Cheng · Product Manager</span><span>2026.11</span></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import '../../styles/site.css';
+import { langs, asset, type Lang } from '../../i18n';
+import { profile, sections as s, downloads } from '../../data/profile';
+
+export function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+---
+<Base lang={lang} title={`${s.download.title[lang]} · Kenny Cheng`} description={s.download.lead[lang]} path="resume">
+  <section class="page-head">
+    <div class="wrap">
+      <div class="eyebrow">{s.download.eyebrow}</div>
+      <h1>{s.download.title[lang]}</h1>
+      <p>{s.download.lead[lang]}</p>
+    </div>
+  </section>
+  <section style="padding-top:0">
+    <div class="wrap">
+      <div class="dl-grid">
+        {downloads.map((d) => (
+          <div class="dl">
+            <span class="ext">{d.ext[lang]}</span><b>{d.title[lang]}</b><span>{d.desc[lang]}</span>
+            {d.file
+              ? <a class={d.primary ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} href={asset(d.file)} download>PDF ↓</a>
+              : <span class={d.primary ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} aria-disabled="true">{s.download.pending[lang]}</span>}
+          </div>
+        ))}
+      </div>
+      <div class="contact">
+        <div><h3>{s.download.contactTitle[lang]}</h3><p>{profile.contact.location[lang]}</p></div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href={`mailto:${profile.contact.email}`}>Email</a>
+          <a class="btn btn-ghost" href={profile.contact.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

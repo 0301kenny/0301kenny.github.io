@@ -1,0 +1,63 @@
+---
+import { htmlLang, otherLang, ui, url, type Lang } from '../i18n';
+import { profile } from '../data/profile';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  path?: string;
+}
+
+const { lang, title, description, path = '' } = Astro.props;
+const alt = otherLang(lang);
+const home = url(lang);
+---
+<!doctype html>
+<html lang={htmlLang[lang]}>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content={description}>
+  <title>{title}</title>
+  <link rel="alternate" hreflang={htmlLang[alt]} href={url(alt, path)}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip" href="#main">{ui.nav.skip[lang]}</a>
+  {lang === 'en' && <div class="lang-note">{ui.draftEn.en}</div>}
+  <header class="nav">
+    <div class="wrap">
+      <a class="brand" href={home}>{profile.nameEn}{lang === 'zh-tw' && <small>{profile.name['zh-tw']}</small>}</a>
+      <nav aria-label={ui.nav.mainMenu[lang]}>
+        <ul>
+          <li><a href={`${home}#work`}>{ui.nav.work[lang]}</a></li>
+          <li><a href={`${home}#approach`}>{ui.nav.approach[lang]}</a></li>
+          <li><a href={`${home}#legacy`}>{ui.nav.legacy[lang]}</a></li>
+          <li><a href={url(lang, 'about')}>{ui.nav.about[lang]}</a></li>
+        </ul>
+      </nav>
+      <div class="nav-right">
+        <div class="lang" role="group" aria-label={ui.nav.language[lang]}>
+          <a href={url('zh-tw', path)} aria-current={lang === 'zh-tw' ? 'true' : undefined} lang="zh-Hant">中</a>
+          <a href={url('en', path)} aria-current={lang === 'en' ? 'true' : undefined} lang="en">EN</a>
+        </div>
+        <a class="btn btn-primary btn-sm" href={url(lang, 'resume')}>{ui.nav.resume[lang]}</a>
+      </div>
+    </div>
+  </header>
+  <main id="main">
+    <slot />
+  </main>
+  <footer>
+    <div class="wrap">
+      <span>© 2026 Kenny Cheng 鄭偉助</span>
+      <span>{ui.footerBuilt[lang]} · <a href={profile.contact.github} target="_blank" rel="noopener">{ui.source[lang]}</a></span>
+    </div>
+  </footer>
+</body>
+</html>

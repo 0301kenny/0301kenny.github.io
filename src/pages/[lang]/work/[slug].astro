@@ -1,0 +1,71 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Blocks from '../../../components/Blocks.astro';
+import Tiers from '../../../components/Tiers.astro';
+import '../../../styles/case.css';
+import { langs, ui, url, asset, type Lang } from '../../../i18n';
+import { cases, neighbors, capLabel, type Cap } from '../../../data/cases';
+
+export function getStaticPaths() {
+  return langs.flatMap((lang) => cases.map((c) => ({ params: { lang, slug: c.slug } })));
+}
+
+const lang = Astro.params.lang as Lang;
+const c = cases.find((x) => x.slug === Astro.params.slug)!;
+const { prev, next } = neighbors(c.slug);
+const caps: Cap[] = ['pm', 'ui', 'fe'];
+const capsText = (list: Cap[]) => (list.length === 3 ? ui.case.all[lang] : list.map((k) => (k === 'ui' ? 'UI' : k === 'fe' ? 'FE' : 'PM')).join(' · '));
+const lines = c.title[lang].split('\n');
+---
+<Base lang={lang} title={`${c.cardTitle[lang]} · Kenny Cheng`} description={c.lead[lang]} path={`work/${c.slug}`}>
+  <div class="wrap">
+    <div class="crumb"><a href={`${url(lang)}#work`}>{ui.nav.work[lang]}</a> / Case {c.no}</div>
+    <div class="summary">
+      <div>
+        <span class="eyebrow">{c.eyebrow}</span>
+        <h1>{lines.map((l, i) => <>{i > 0 && <br />}{l}</>)}</h1>
+        <p class="lead">{c.lead[lang]}</p>
+        <dl class="meta">{c.meta.map(([k, v]) => <div><dt>{k[lang]}</dt><dd>{v[lang]}</dd></div>)}</dl>
+        <div class="kpis">{c.kpis.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>
+      </div>
+      <figure>
+        {c.hero.kind === 'image' ? <img src={asset(c.hero.src)} alt={c.hero.alt[lang]} /> : <Tiers />}
+        <figcaption>{c.hero.caption[lang]}</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="filter" role="region" aria-label={ui.case.filterLabel[lang]}>
+    <div class="wrap">
+      <span>{ui.case.filterLabel[lang]}</span>
+      <div class="seg" role="group" aria-label={ui.case.filterLabel[lang]}>
+        <button type="button" data-f="all" aria-pressed="true">{ui.case.all[lang]}</button>
+        {caps.map((k) => <button type="button" data-f={k} aria-pressed="false">{capLabel[k]}</button>)}
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap layout">
+    <nav class="toc" aria-label={ui.case.toc[lang]}>
+      <ol>{c.sections.map((sec) => <li><a href={`#${sec.id}`}>{sec.toc[lang]}<span class="caps">{capsText(sec.caps)}</span></a></li>)}</ol>
+    </nav>
+    <article>
+      {c.sections.map((sec) => (
+        <section id={sec.id} data-cap={sec.caps.join(' ')}>
+          <div class="tags">{sec.tags.map((t) => <span class="tag">{t}</span>)}</div>
+          <h2>{sec.title[lang]}</h2>
+          <Blocks blocks={sec.blocks} lang={lang} />
+        </section>
+      ))}
+    </article>
+  </div>
+
+  <nav class="pager" aria-label={lang === 'zh-tw' ? '其他案例' : 'More cases'}>
+    <a href={url(lang, `work/${prev.slug}`)}><small>{ui.case.prev[lang]}</small><b>{prev.cardTitle[lang]}</b></a>
+    <a href={url(lang, `work/${next.slug}`)}><small>{ui.case.next[lang]}</small><b>{next.cardTitle[lang]}</b></a>
+  </nav>
+</Base>
+
+<script>
+  import '../../../components/case-client.js';
+</script>

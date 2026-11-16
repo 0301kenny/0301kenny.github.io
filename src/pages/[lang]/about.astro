@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import Todo from '../../components/Todo.astro';
+import '../../styles/site.css';
+import { langs, type Lang } from '../../i18n';
+import { profile, sections as s, legacy, timeline } from '../../data/profile';
+
+export function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tx = <V,>(v: V | Record<Lang, V>): V =>
+  v && typeof v === 'object' && lang in (v as object) ? (v as Record<Lang, V>)[lang] : (v as V);
+
+const t = {
+  eyebrow: 'About',
+  title: { 'zh-tw': '從平面、品牌到產品，\n一路都在解決「怎麼讓人看懂」', en: 'From print and brand to product,\nalways about making things clear' },
+  intro: {
+    'zh-tw': '我是鄭偉助（Kenny），東海大學美術系畢業。前十年做品牌、包裝與印前，帶過設計團隊；2018 年起轉向產品設計，現在在 WOTA 負責跨平台旅宿產品的需求規劃、介面設計與前端協作，並把 AI 整合進整個工作流程。',
+    en: 'I am Kenny Cheng, a fine arts graduate of Tunghai University. I spent my first ten years in brand, packaging, and prepress, leading design teams. Since 2018 I have worked in product design; at WOTA I plan, design, and help build cross-platform hospitality products, with AI integrated across my workflow.',
+  },
+  photo: { 'zh-tw': '照片待補', en: 'Photo TBD' },
+  facts: [
+    { title: { 'zh-tw': '工具', en: 'Tools' }, body: { 'zh-tw': 'Figma · Claude Code · ChatGPT · Codex · Jira · Notion · HTML / CSS · Vue', en: 'Figma · Claude Code · ChatGPT · Codex · Jira · Notion · HTML / CSS · Vue' } },
+    { title: { 'zh-tw': '語言', en: 'Languages' }, body: { 'zh-tw': '中文（母語）· 台語（中等）· 英文（讀寫中等）', en: 'Mandarin (native) · Taiwanese (intermediate) · English (intermediate reading and writing)' } },
+    { title: { 'zh-tw': '學歷', en: 'Education' }, body: { 'zh-tw': '東海大學 美術系 學士', en: 'BFA, Tunghai University' } },
+  ],
+  legacyTitle: { 'zh-tw': '過往成就', en: 'Foundation' },
+};
+const title = t.title[lang].split('\n');
+---
+<Base lang={lang} title={`${t.eyebrow} · Kenny Cheng`} description={t.intro[lang]} path="about">
+  <section class="page-head">
+    <div class="wrap about-hero">
+      <div class="photo">{t.photo[lang]}</div>
+      <div>
+        <div class="eyebrow">{t.eyebrow}</div>
+        <h1>{title.map((l, i) => <>{i > 0 && <br />}{l}</>)}</h1>
+        <p class="lead" style="color:var(--ink-2)">{t.intro[lang]}</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:32px">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">{s.experience.eyebrow}</div><h2>{s.experience.title[lang]}</h2></div></div>
+      <ol class="timeline">
+        {timeline.map((it) => (
+          <li class={it.now ? 'now' : undefined}><span class="when">{it.when}</span><div><b>{tx(it.title)}</b><div class="co">{it.org[lang]}</div></div></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="legacy">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">{s.legacy.eyebrow}</div><h2>{t.legacyTitle[lang]}</h2></div><p>{s.legacy.lead[lang]}</p></div>
+      <div class="legacy-grid">
+        {legacy.map((l) => (
+          <div class="legacy-card"><h3>{l.title[lang]}</h3><span class="when">{l.when[lang]}</span><ul>{l.items[lang].map((x) => <li>{x}</li>)}{'works' in l && l.works.map((w) => <li><a href={w.url} target="_blank" rel="noopener" class="work-link">{w.title[lang]} ↗</a></li>)}</ul></div>
+        ))}
+      </div>
+      <p style="margin-top:28px"><a class="btn btn-ghost" href={profile.contact.behance} target="_blank" rel="noopener">{s.legacy.behance[lang]}</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap facts">
+      {t.facts.map((f) => <div><b>{f.title[lang]}</b><p>{f.body[lang]}</p></div>)}
+    </div>
+  </section>
+</Base>

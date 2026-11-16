@@ -1,0 +1,144 @@
+---
+import Base from '../../layouts/Base.astro';
+import Tiers from '../../components/Tiers.astro';
+import Todo from '../../components/Todo.astro';
+import '../../styles/site.css';
+import { langs, ui, url, asset, type Lang } from '../../i18n';
+import { profile, sections as s, approach, legacy, timeline, downloads } from '../../data/profile';
+import { cases } from '../../data/cases';
+
+export function getStaticPaths() {
+  return langs.map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tx = <V,>(v: V | Record<Lang, V>): V =>
+  v && typeof v === 'object' && lang in (v as object) ? (v as Record<Lang, V>)[lang] : (v as V);
+---
+<Base lang={lang} title={`${profile.nameEn} · Product Designer`} description={profile.heroLead[lang]}>
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <div class="eyebrow">{profile.title}</div>
+        <h1>{profile.heroTitle[lang].map((line, i) => (
+          <>{i > 0 && lang === 'zh-tw' && i === profile.heroTitle[lang].length - 1 && <br />}{i > 0 && lang === 'en' && <br />}<span class="nw" set:html={line} /></>
+        ))}</h1>
+        <p class="lead">{profile.heroLead[lang]}</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#work">{profile.ctaWork[lang]}</a>
+          <a class="btn btn-ghost" href={url(lang, 'resume')}>{profile.ctaResume[lang]}</a>
+        </div>
+        <div class="stats">
+          {profile.stats.map((st) => <div class="stat"><b>{st.value}</b><span>{st.label[lang]}</span></div>)}
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="shot shot-a"><img src={asset('img/real/official-home.jpg')} alt="" width="1568" height="740"></div>
+        <div class="shot shot-b"><img src={asset('img/real/liff-home.jpg')} alt="" width="782" height="1440"></div>
+        <span class="tag">{profile.heroTag[lang]}</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="work" aria-labelledby="work-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">{s.work.eyebrow}</div><h2 id="work-title">{s.work.title[lang]}</h2></div>
+        <p>{s.work.lead[lang]}</p>
+      </div>
+      <div class="cases">
+        {cases.map((c) => (
+          <a class="case" href={url(lang, `work/${c.slug}`)}>
+            <div class="case-media">
+              {c.card.kind === 'phones' && (
+                <div class="phones">{c.card.src!.map((src) => <img src={asset(src)} alt="" width="782" height="1440" loading="lazy" />)}</div>
+              )}
+              {c.card.kind === 'image' && <img src={asset(c.card.src![0])} alt="" loading="lazy" />}
+              {c.card.kind === 'tiers' && <Tiers />}
+              <span class="label">{c.card.label[lang]}</span>
+            </div>
+            <div class="case-body">
+              <span class="no">CASE {c.no} · {c.period}</span>
+              <h3>{c.cardTitle[lang]}</h3>
+              <p>{c.lead[lang]}</p>
+              <div class="chips">{c.chips.map((ch, i) => <span class={i === 0 ? 'chip gold' : 'chip'}>{ch}</span>)}</div>
+              <div class="kpis">{c.kpis.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>
+              <span class="more">{ui.case.read[lang]}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="chain" id="approach" aria-labelledby="approach-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">{s.approach.eyebrow}</div><h2 id="approach-title">{s.approach.title[lang]}</h2></div>
+        <p>{s.approach.lead[lang]}</p>
+      </div>
+      <div class="chain-grid">
+        {approach.map((st) => <div class="step"><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p>{st.body[lang]}</p></div>)}
+      </div>
+      <div class="ai-bar"><span><b>AI-Integrated Workflow</b>　{s.approach.barLeft[lang]}</span><span>{s.approach.barRight[lang]}</span></div>
+    </div>
+  </section>
+
+  <section class="legacy" id="legacy" aria-labelledby="legacy-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">{s.legacy.eyebrow}</div><h2 id="legacy-title">{s.legacy.title[lang].map((t) => <span class="nw">{t}</span>)}</h2></div>
+        <p>{s.legacy.lead[lang]}</p>
+      </div>
+      <div class="legacy-grid">
+        {legacy.map((l) => (
+          <div class="legacy-card">
+            <h3>{l.title[lang]}</h3><span class="when">{l.when[lang]}</span>
+            <ul>{l.items[lang].map((it) => <li>{it}</li>)}{'works' in l && l.works.map((w) => <li><a href={w.url} target="_blank" rel="noopener" class="work-link">{w.title[lang]} ↗</a></li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <p style="margin-top:28px"><a class="btn btn-ghost" href={profile.contact.behance} target="_blank" rel="noopener">{s.legacy.behance[lang]}</a></p>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="exp-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">{s.experience.eyebrow}</div><h2 id="exp-title">{s.experience.title[lang]}</h2></div>
+        <p>{s.experience.lead[lang]}</p>
+      </div>
+      <ol class="timeline">
+        {timeline.map((t) => (
+          <li class={t.now ? 'now' : undefined}><span class="when">{t.when}</span><div><b>{tx(t.title)}</b><div class="co">{t.org[lang]}</div></div></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="resume" aria-labelledby="resume-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">{s.download.eyebrow}</div><h2 id="resume-title">{s.download.title[lang]}</h2></div>
+        <p>{s.download.lead[lang]}</p>
+      </div>
+      <div class="dl-grid">
+        {downloads.map((d) => (
+          <div class="dl">
+            <span class="ext">{d.ext[lang]}</span><b>{d.title[lang]}</b><span>{d.desc[lang]}</span>
+            {d.file
+              ? <a class={d.primary ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} href={asset(d.file)} download>PDF ↓</a>
+              : <span class={d.primary ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} aria-disabled="true">{s.download.pending[lang]}</span>}
+          </div>
+        ))}
+      </div>
+      <div class="contact">
+        <div><h3>{s.download.contactTitle[lang]}</h3><p>{profile.contact.location[lang]}</p></div>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href={`mailto:${profile.contact.email}`}>Email</a>
+          <a class="btn btn-ghost" href={profile.contact.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

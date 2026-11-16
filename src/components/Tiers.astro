@@ -1,0 +1,8 @@
+---
+const tiers = [['Basic', 22], ['Elite', 46], ['Platinum', 72], ['Noir', 100]] as const;
+---
+<div class="rules" aria-hidden="true">
+  {tiers.map(([name, w]) => (
+    <div class="tier"><b>{name}</b><div class="bar" style={`--w:${w}%`}></div></div>
+  ))}
+</div>

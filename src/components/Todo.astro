@@ -1,0 +1,5 @@
+---
+import { ui, type Lang } from '../i18n';
+const { lang } = Astro.props as { lang: Lang };
+---
+<span class="todo">{ui.todo[lang]}</span>

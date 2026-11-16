@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Tiers from '../../components/Tiers.astro';
 import Todo from '../../components/Todo.astro';
+import Diagram from '../../components/Diagram.astro';
 import '../../styles/site.css';
 import { langs, ui, url, asset, type Lang } from '../../i18n';
 import { profile, sections as s, approach, legacy, timeline, downloads } from '../../data/profile';
@@ -55,6 +56,7 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
               )}
               {c.card.kind === 'image' && <img src={asset(c.card.src![0])} alt="" loading="lazy" />}
               {c.card.kind === 'tiers' && <Tiers />}
+              {c.card.kind === 'diagram' && <div class="card-diagram"><Diagram kind={c.card.diagram!} lang={lang} /></div>}
               <span class="label">{c.card.label[lang]}</span>
             </div>
             <div class="case-body">
@@ -84,6 +86,20 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
     </div>
   </section>
 
+  <section id="experience" aria-labelledby="exp-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">{s.experience.eyebrow}</div><h2 id="exp-title">{s.experience.title[lang]}</h2></div>
+        <p>{s.experience.lead[lang]}</p>
+      </div>
+      <ol class="timeline">
+        {timeline.map((t) => (
+          <li class={t.now ? 'now' : undefined}><span class="when">{t.when}</span><div><b>{tx(t.title)}</b><div class="co">{t.org[lang]}</div></div></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
   <section class="legacy" id="legacy" aria-labelledby="legacy-title">
     <div class="wrap">
       <div class="section-head">
@@ -102,20 +118,6 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
     </div>
   </section>
 
-  <section id="experience" aria-labelledby="exp-title">
-    <div class="wrap">
-      <div class="section-head">
-        <div><div class="eyebrow">{s.experience.eyebrow}</div><h2 id="exp-title">{s.experience.title[lang]}</h2></div>
-        <p>{s.experience.lead[lang]}</p>
-      </div>
-      <ol class="timeline">
-        {timeline.map((t) => (
-          <li class={t.now ? 'now' : undefined}><span class="when">{t.when}</span><div><b>{tx(t.title)}</b><div class="co">{t.org[lang]}</div></div></li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
   <section id="resume" aria-labelledby="resume-title" style="padding-top:0">
     <div class="wrap">
       <div class="section-head">
@@ -123,12 +125,12 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
         <p>{s.download.lead[lang]}</p>
       </div>
       <div class="dl-grid">
-        {downloads.map((d) => (
+        {(lang === 'en' ? [...downloads].sort((a, b) => Number(b.file.endsWith('_en.pdf')) - Number(a.file.endsWith('_en.pdf'))) : downloads).map((d) => (
           <div class="dl">
             <span class="ext">{d.ext[lang]}</span><b>{d.title[lang]}</b><span>{d.desc[lang]}</span>
             {d.file
-              ? <a class={d.primary ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} href={asset(d.file)} download>PDF ↓</a>
-              : <span class={d.primary ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} aria-disabled="true">{s.download.pending[lang]}</span>}
+              ? <a class={(lang === 'en' ? d.file.endsWith('_en.pdf') : d.primary) ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} href={asset(d.file)} download>PDF ↓</a>
+              : <span class={(lang === 'en' ? d.file.endsWith('_en.pdf') : d.primary) ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} aria-disabled="true">{s.download.pending[lang]}</span>}
           </div>
         ))}
       </div>

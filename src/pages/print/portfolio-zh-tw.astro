@@ -161,7 +161,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? '/' 
             <h3>成果</h3>
             {outcome && <p class="outcome">{outcome.text[lang]}</p>}
           </div>
-          {table && <div class="ai">{table.note?.[lang]}</div>}
+          {table?.note && <div class="ai">{table.note[lang]}</div>}
         </div>
       </div>
       <footer><span>鄭偉助 Kenny Cheng · 作品集摘要</span><span>Case {cs.no} / 04</span></footer>

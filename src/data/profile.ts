@@ -6,18 +6,18 @@ export const profile = {
   title: 'Product Designer · AI-Integrated Product Design',
   heroTitle: {
     'zh-tw': ['從產品問題', '到上線介面，', '用 <em>AI</em> 串起每一步。'],
-    en: ['From Product Strategy', 'to Working Prototypes.'],
+    en: ['From product problems', 'to working interfaces,', 'with <em>AI</em> at every step.'],
   },
   heroLead: {
-    'zh-tw': '8 年產品設計經驗，品牌視覺出身的產品設計師。整合 PM、UI/UX 與前端實作，在旅宿產品中負責跨平台的需求規劃、介面設計與交付驗證。',
-    en: 'A product designer with 8 years of experience and a foundation in brand and visual design. I combine product management, UI/UX, and frontend implementation to plan, design, and ship cross-platform hospitality products.',
+    'zh-tw': '8 年以上產品設計經驗。整合 PM、UI/UX 與前端實作，在旅宿訂房產品中負責跨平台的需求規劃、介面設計與交付驗證。',
+    en: 'A product designer with 8+ years of experience. I combine product management, UI/UX, and frontend implementation to plan, design, and ship cross-platform hotel booking products.',
   } as T,
   ctaWork: { 'zh-tw': '看代表作品 ↓', en: 'See selected work ↓' } as T,
   ctaResume: { 'zh-tw': '下載一頁履歷', en: 'Download resume' } as T,
   stats: [
     { value: '8+', label: { 'zh-tw': '年產品設計經驗', en: 'years in product design' } },
-    { value: '4', label: { 'zh-tw': '個平台共用後端', en: 'platforms, one backend' } },
-    { value: '600+', label: { 'zh-tw': '項團隊開發任務參與', en: 'team dev tasks contributed' } },
+    { value: '3', label: { 'zh-tw': '個前台共用一套後端', en: 'customer channels, one backend' } },
+    { value: '600+', label: { 'zh-tw': '項團隊開發任務參與', en: 'team dev tasks I took part in' } },
     { value: '129', label: { 'zh-tw': '個 UI 狀態規格', en: 'UI states specified' } },
   ],
   heroTag: { 'zh-tw': 'WOTA 官網 × LINE LIFF', en: 'WOTA website × LINE mini-app' } as T,
@@ -39,22 +39,22 @@ export const sections = {
     title: { 'zh-tw': '四個案例，看見研究、PM、設計與前端如何串成一條線', en: 'Four cases connecting research, product, design, and frontend' } as T,
     lead: {
       'zh-tw': '每個案例都寫清楚：要解決的問題、我負責的範圍、AI 參與了什麼，以及我如何驗證結果。',
-      en: 'Each case covers the problem, what I owned, how AI was involved, and how I verified the result.',
+      en: 'Each case covers the problem, what I was responsible for, how AI was used, and how I validated the result.',
     } as T,
   },
   approach: {
     eyebrow: 'How I Work',
     title: { 'zh-tw': 'AI 加速每一步，判斷與品質由我負責', en: 'AI speeds up every step. Judgment and quality stay with me.' } as T,
     lead: {
-      'zh-tw': '不是同時會三種職位，而是能把同一個產品從定義、設計、實作到驗證完整推進。',
-      en: 'Not three job titles at once, but one person who can move a product from definition to design, build, and validation.',
+      'zh-tw': '我能把同一個產品從定義、設計、實作到驗證完整推進。AI 負責擷取、整理與實作，方向、取捨與驗收由我決定。',
+      en: 'I can take one product from definition through design, build, and validation. AI handles extraction, drafting, and implementation; direction, trade-offs, and sign-off stay with me.',
     } as T,
     barLeft: { 'zh-tw': 'ChatGPT · Claude Code · Codex · Figma AI，貫穿全流程', en: 'ChatGPT · Claude Code · Codex · Figma AI across the workflow' } as T,
     barRight: { 'zh-tw': 'Human-led：需求取捨、設計品質與交付責任', en: 'Human-led: scope, design quality, and delivery' } as T,
   },
   legacy: {
     eyebrow: 'Foundation · 2008 — 2018',
-    title: { 'zh-tw': ['十年品牌視覺與印前，', '是我介面品質的底子'], en: ['Ten years of brand and print', 'behind my interface quality'] },
+    title: { 'zh-tw': ['十年品牌視覺與印前，', '是我介面品質的底子'], en: ['Ten years of brand and print design', 'shaped my eye for interface detail'] },
     lead: {
       'zh-tw': '擔任設計總監與視覺設計總監期間，負責品牌識別、包裝與印刷製作。這些經驗讓我對排版、色彩與細節有更高的標準。',
       en: 'As design director and visual design director, I led brand identity, packaging, and print production. That work set my bar for typography, color, and detail.',
@@ -65,8 +65,8 @@ export const sections = {
     eyebrow: 'Experience',
     title: { 'zh-tw': '經歷', en: 'Career timeline' } as T,
     lead: {
-      'zh-tw': '東海大學美術系畢業。2018 年起專注於產品設計，之前十年累積品牌與視覺設計經驗。',
-      en: 'BFA, Tunghai University. Focused on product design since 2018, after ten years in brand and visual design.',
+      'zh-tw': '2018 年起專注於產品設計，至今 8 年；更早之前做了十年品牌與視覺設計。東海大學美術系畢業。',
+      en: 'Focused on product design since 2018, after ten years in brand and visual design. BFA, Tunghai University.',
     } as T,
   },
   download: {
@@ -82,7 +82,7 @@ export const sections = {
 };
 
 export const approach = [
-  { n: '01', title: 'Discover', role: 'Research', body: { 'zh-tw': '使用者訪談、問卷與數據觀察，找出真正要解決的問題。', en: 'Interviews, surveys, and data to find the real problem.' } },
+  { n: '01', title: 'Discover', role: 'Research', body: { 'zh-tw': '看使用者行為錄影、交叉比對數據，找出真正要解決的問題。', en: 'Session recordings cross-checked with data to find the real problem.' } },
   { n: '02', title: 'Define', role: 'PM', body: { 'zh-tw': '釐清商業目標與規則，寫成 PRD、User Story 與例外情境。', en: 'Clarify goals and rules into PRDs, user stories, and edge cases.' } },
   { n: '03', title: 'Design', role: 'UI / UX', body: { 'zh-tw': '資訊架構、流程與介面設計，建立元件與設計 Token。', en: 'Information architecture, flows, UI, components, and design tokens.' } },
   { n: '04', title: 'Build', role: 'Frontend', body: { 'zh-tw': 'HTML/CSS 與 Vue 實作，用 Claude Code 把設計直接做進專案。', en: 'HTML/CSS and Vue, building designs into the codebase with Claude Code.' } },

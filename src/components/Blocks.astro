@@ -1,5 +1,6 @@
 ---
 import Todo from './Todo.astro';
+import Diagram from './Diagram.astro';
 import { ui, asset, type Lang } from '../i18n';
 import type { Block } from '../data/cases';
 
@@ -44,7 +45,9 @@ const { blocks, lang } = Astro.props;
     case 'stats':
       return <div class="issues">{bk.items.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>;
     case 'guard':
-      return <div class="guard">{bk.items.map(([title, code, desc]) => <div><b>{title[lang]}</b><code>{code}</code><br />{desc[lang]}</div>)}</div>;
+      return <div class="guard">{bk.items.map(([title, code, desc]) => <div><b>{title[lang]}</b>{code && <code>{code}</code>}<br />{desc[lang]}</div>)}</div>;
+    case 'diagram':
+      return <figure class="fig"><div class="frame"><Diagram kind={bk.kind} lang={lang} /></div><figcaption>{bk.caption[lang]}</figcaption></figure>;
     case 'flow':
       return <div class="flow">{bk.items.map((it, i) => <>{i > 0 && <i aria-hidden="true">→</i>}<span>{it[lang]}</span></>)}</div>;
     case 'versions':

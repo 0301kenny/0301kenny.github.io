@@ -27,7 +27,7 @@ export const ui = {
   nav: {
     work: { 'zh-tw': '代表作品', en: 'Work' },
     approach: { 'zh-tw': '工作方式', en: 'Approach' },
-    legacy: { 'zh-tw': '過往成就', en: 'Foundation' },
+    legacy: { 'zh-tw': '品牌基礎', en: 'Foundation' },
     about: { 'zh-tw': '關於我', en: 'About' },
     resume: { 'zh-tw': '下載履歷', en: 'Resume' },
     mainMenu: { 'zh-tw': '主選單', en: 'Main menu' },

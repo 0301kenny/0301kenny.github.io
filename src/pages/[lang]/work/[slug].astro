@@ -52,7 +52,7 @@ const lines = c.title[lang].split('\n');
     <article>
       {c.sections.map((sec) => (
         <section id={sec.id} data-cap={sec.caps.join(' ')}>
-          <div class="tags">{sec.tags.map((t) => <span class="tag">{t}</span>)}</div>
+          <div class="tags">{sec.tags.map((t) => <span class="tag">{t === 'Outcome' && lang === 'zh-tw' ? '成果' : t}</span>)}</div>
           <h2>{sec.title[lang]}</h2>
           <Blocks blocks={sec.blocks} lang={lang} />
         </section>

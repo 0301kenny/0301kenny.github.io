@@ -21,12 +21,12 @@ const lang = Astro.params.lang as Lang;
   <section style="padding-top:0">
     <div class="wrap">
       <div class="dl-grid">
-        {downloads.map((d) => (
+        {(lang === 'en' ? [...downloads].sort((a, b) => Number(b.file.endsWith('_en.pdf')) - Number(a.file.endsWith('_en.pdf'))) : downloads).map((d) => (
           <div class="dl">
             <span class="ext">{d.ext[lang]}</span><b>{d.title[lang]}</b><span>{d.desc[lang]}</span>
             {d.file
-              ? <a class={d.primary ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} href={asset(d.file)} download>PDF ↓</a>
-              : <span class={d.primary ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} aria-disabled="true">{s.download.pending[lang]}</span>}
+              ? <a class={(lang === 'en' ? d.file.endsWith('_en.pdf') : d.primary) ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} href={asset(d.file)} download>PDF ↓</a>
+              : <span class={(lang === 'en' ? d.file.endsWith('_en.pdf') : d.primary) ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} aria-disabled="true">{s.download.pending[lang]}</span>}
           </div>
         ))}
       </div>

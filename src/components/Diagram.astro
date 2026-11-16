@@ -1,0 +1,86 @@
+---
+// 依專案文件數據重繪的示意圖（中英雙語、行內 SVG）
+import type { Lang } from '../i18n';
+
+interface Props { kind: 'channels' | 'rules' | 'funnel'; lang: Lang }
+const { kind, lang } = Astro.props;
+const zh = lang === 'zh-tw';
+const t = (a: string, b: string) => (zh ? a : b);
+
+const ruleItems = [
+  t('官網與 LIFF 介面', 'Web & LIFF UI'), t('PRD', 'PRD'), t('後端 API', 'Backend API'),
+  t('點數帳本', 'Points ledger'), t('QA 測試案例', 'QA test cases'), t('客服 FAQ', 'Support FAQ'),
+];
+const W = 290; // 100% 長條的寬度
+const bars = [
+  { title: t('點「選擇價格」後，走到訂單表單', 'Reached the booking form after "Select rate"'), rows: [[t('訪客', 'Guests'), 9], [t('會員', 'Members'), 50]] },
+  { title: t('走到表單之後的轉換', 'Conversion once on the form'), rows: [[t('訪客', 'Guests'), 50], [t('會員', 'Members'), 46]] },
+] as const;
+---
+<div class="diagram">
+  {kind === 'channels' && (
+    <svg viewBox="0 0 480 300" role="img" aria-label={t('官網、LINE LIFF、銀行白牌三個前台共用一套後端與後台，並共用 735 個元件、11 個元件庫與四語系 3,548 個字串', 'Website, LINE LIFF, and bank white-label sites share one backend and admin, plus 735 components, 11 libraries, and 3,548 strings in four languages')}>
+      {[t('官網', 'Website'), 'LINE LIFF', t('銀行白牌', 'White label')].map((label, i) => (
+        <g>
+          <rect x={10 + i * 160} y="10" width="140" height="56" rx="10" fill="var(--d-bg)" stroke="var(--d-line)" />
+          <text x={80 + i * 160} y="44" text-anchor="middle" font-size="16" font-weight="600" fill="var(--d-ink)">{label}</text>
+          <line x1={80 + i * 160} y1="66" x2={80 + i * 160} y2="106" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-c)" />
+        </g>
+      ))}
+      <defs><marker id="arr-c" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker></defs>
+      <rect x="10" y="110" width="460" height="56" rx="10" fill="var(--d-ink)" />
+      <text x="240" y="144" text-anchor="middle" font-size="16" font-weight="600" fill="#fff">{t('共用一套後端與後台', 'One shared backend and admin')}</text>
+      <rect x="10" y="186" width="460" height="104" rx="10" fill="var(--d-gold-soft)" />
+      <text x="240" y="212" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-gold)">{t('三個前台共用的設計基礎', 'Design foundation shared by all three')}</text>
+      {[['735', t('個共用元件', 'components')], ['11', t('個元件庫', 'libraries')], ['3,548', t('個字串 × 4 語系', 'strings, 4 languages')]].map(([v, l], i) => (
+        <g>
+          <text x={88 + i * 152} y="252" text-anchor="middle" font-size="24" fill="var(--d-ink)">{v}</text>
+          <text x={88 + i * 152} y="276" text-anchor="middle" font-size="15" fill="var(--d-ink-2)">{l}</text>
+        </g>
+      ))}
+    </svg>
+  )}
+
+  {kind === 'rules' && (
+    <svg viewBox="0 0 480 300" role="img" aria-label={t('一條規則（住三付二的贈送房晚也要計入）要同時改 6 個地方：官網與 LIFF 介面、PRD、後端 API、點數帳本、QA 測試案例、客服 FAQ', 'One rule (complimentary nights count too) must change in six places at once: web and LIFF UI, PRD, backend API, points ledger, QA test cases, support FAQ')}>
+      <rect x="70" y="10" width="340" height="66" rx="10" fill="var(--d-ink)" />
+      <text x="240" y="38" text-anchor="middle" font-size="16" font-weight="600" fill="#fff">{t('一條規則', 'One rule')}</text>
+      <text x="240" y="61" text-anchor="middle" font-size="14" fill="#C5D1E0">{t('例：「住三付二」贈送的房晚也要計入', 'e.g. free nights in "stay 3, pay 2" count too')}</text>
+      <defs><marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker></defs>
+      <line x1="240" y1="76" x2="240" y2="104" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-r)" />
+      <rect x="10" y="108" width="460" height="182" rx="10" fill="var(--d-surface)" />
+      <text x="240" y="134" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-gold)">{t('必須同時修改的 6 個地方', 'Six places that must change together')}</text>
+      {ruleItems.map((label, i) => (
+        <g>
+          <rect x={22 + (i % 3) * 148} y={150 + Math.floor(i / 3) * 66} width="140" height="52" rx="8" fill="var(--d-bg)" stroke="var(--d-line)" />
+          <text x={92 + (i % 3) * 148} y={181 + Math.floor(i / 3) * 66} text-anchor="middle" font-size="16" fill="var(--d-ink)">{label}</text>
+        </g>
+      ))}
+    </svg>
+  )}
+
+  {kind === 'funnel' && (
+    <svg viewBox="0 0 420 300" role="img" aria-label={t('點選擇價格後，訪客 9%、會員 50% 走到訂單表單；走到表單後，訪客轉換 50%、會員 46%。落差出在登入這一步', 'After "Select rate," 9% of guests and 50% of members reached the form; once there, guests converted at 50% and members at 46%. The gap is the login step')}>
+      {bars.map((g, gi) => (
+        <g>
+          <text x="10" y={22 + gi * 118} font-size="16" font-weight="600" fill="var(--d-ink)">{g.title}</text>
+          {g.rows.map(([label, v], ri) => (
+            <g>
+              <text x="10" y={59 + gi * 118 + ri * 36} font-size="15" fill="var(--d-ink-2)">{label}</text>
+              <rect x="64" y={42 + gi * 118 + ri * 36} width={W} height="24" rx="5" fill="var(--d-surface)" />
+              <rect x="64" y={42 + gi * 118 + ri * 36} width={(W * v) / 100} height="24" rx="5" fill={ri === 0 ? 'var(--d-gold)' : 'var(--d-ink)'} />
+              <text x={72 + (W * v) / 100} y={60 + gi * 118 + ri * 36} font-size="16" font-weight="600" fill="var(--d-ink)">{v}%</text>
+            </g>
+          ))}
+        </g>
+      ))}
+      <rect x="10" y="244" width="400" height="48" rx="10" fill="var(--d-gold-soft)" />
+      <text x="210" y="274" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-ink)">{t('落差出在登入這一步；登入後只有 44% 回到表單', 'The gap is login. Only 44% return after it')}</text>
+    </svg>
+  )}
+</div>
+
+<style>
+  .diagram { width: 100%; max-width: 560px; margin: 0 auto; --d-bg: #FFFFFF; --d-surface: #F2F5F9; --d-ink: #0E2240; --d-ink-2: #44556E; --d-ink-3: #7D8BA0; --d-line: #DCE3EC; --d-gold: #2F64A8; --d-gold-soft: #E3EDF8; }
+  .diagram svg { width: 100%; height: auto; display: block; font-family: var(--sans); }
+</style>

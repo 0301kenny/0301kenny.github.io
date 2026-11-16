@@ -52,10 +52,10 @@ const { blocks, lang } = Astro.props;
     case 'compare':
       return (
         <div class="compare">
-          <div class="head"><b>{ui.case.evidence[lang]}</b></div>
+          <div class="head"><b>{(bk.title ?? ui.case.evidence)[lang]}</b></div>
           <div class="cols">
-            <div class="col"><small>{ui.case.aiDraft[lang]}</small>{bk.ai[lang]}</div>
-            <div class="col me"><small>{ui.case.myRevision[lang]}</small>{bk.me[lang]}</div>
+            <div class="col"><small>{(bk.aiLabel ?? ui.case.aiDraft)[lang]}</small>{bk.ai[lang]}</div>
+            <div class="col me"><small>{(bk.meLabel ?? ui.case.myRevision)[lang]}</small>{bk.me[lang]}</div>
           </div>
           <p>{bk.source[lang]}</p>
         </div>

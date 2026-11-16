@@ -15,7 +15,7 @@ export type Block =
   | { t: 'guard'; items: [T, string, T][] }
   | { t: 'flow'; items: T[] }
   | { t: 'versions'; items: [string, T][] }
-  | { t: 'compare'; ai: T; me: T; source: T };
+  | { t: 'compare'; ai: T; me: T; source: T; title?: T; aiLabel?: T; meLabel?: T };
 
 export interface Section {
   id: string;
@@ -219,8 +219,12 @@ export const cases: Case[] = [
             [b('規格', 'Specs'), b('產生 PRD 與兌換規格初稿、例外情境檢查清單', 'Draft the PRD, redemption spec, and edge-case checklist'), b('確認使用者體驗與交付範圍', 'Confirm the experience and delivery scope')],
             [b('前台', 'Frontend'), b('以 Claude Code 調整頁面、文字與路由', 'Adjust pages, copy, and routes with Claude Code'), b('審查畫面與程式、跟著節點驗收', 'Review screens and code, sign off at each gate')],
           ] },
-          { t: 'callout', title: b('攔下被改寫的權益', 'Catching changed benefits'), text: b('新提案的 16 頁 Wireframe 逐頁對照 UI Spec，攔下 4 處權益與文案被改寫，例如接送少了「禮賓」、特定酒店的早餐禮遇消失。', 'Comparing a new 16-page wireframe against the UI Spec caught 4 places where benefits or copy had silently changed, such as a missing concierge transfer and a dropped breakfast benefit.') },
-          { t: 'compare', ai: b('升等積分的 28 題待決規則，AI 每題都附上選項與建議方案。', 'For the 28 open upgrade rules, the AI gave options and a recommendation for each.'), me: b('其中 4 題我沒有選建議方案：房晚計入日、本期累計方式、一律降一級，以及新增規則 ⑦。最後定案「效期結束歸零、一律降一級」，並確立「沒有降級就是保級，不另設已保級狀態」。', 'On 4 of them I chose against the recommendation: the credit date, the period total, always drop one tier, and a new rule 7. The final rules: reset at term end and drop one tier, with "no downgrade means retained" so there is no separate retained state.'), source: b('2026 年 10 月 · 確認升等積分規則時', 'Oct 2026 · while settling the upgrade-points rules') },
+          { t: 'compare',
+            title: b('過程證據：AI 比對，我判斷', 'Evidence: AI compares, I judge'),
+            aiLabel: b('AI 負責', 'AI did'), meLabel: b('我的判斷', 'My judgment'),
+            ai: b('新版兌換流程概念稿有 16 頁。我用 Codex 逐頁和 UI Spec 比對，列出所有文字與欄位的差異。', 'A new redemption-flow concept ran 16 pages. I had Codex compare every page against the UI Spec and list each text and field difference.'),
+            me: b('我從差異裡挑出 4 處改到會員權益的地方：機場接送少了「禮賓」、通關服務刪掉「出境」、特定酒店的早餐禮遇消失、「Elite 可兌換」被寫成「Elite 規格」。這 4 處標出來交給團隊，避免新稿在不知不覺中改掉已定案的權益。', 'From those differences I picked out 4 that changed member benefits: the airport transfer lost "concierge," the fast-track service dropped "departure," a hotel breakfast benefit disappeared, and "Elite can redeem" became "Elite spec." I flagged them for the team so a new draft could not quietly rewrite settled benefits.'),
+            source: b('2026 年 11 月 · 審查新版兌換流程概念稿時', 'Nov 2026 · while reviewing a new redemption-flow concept') },
         ],
       },
       {

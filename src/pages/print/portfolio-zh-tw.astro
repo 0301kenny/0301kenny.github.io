@@ -148,7 +148,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? '/' 
           <dl class="meta">{cs.meta.map(([k, v]) => <div><dt>{k[lang]}</dt><dd>{v[lang]}</dd></div>)}</dl>
           <div class="kpis">{cs.kpis.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>
           {goal && <div class="goal"><b>{goal.title[lang]}</b>{goal.text[lang]}</div>}
-          {compare && <div class="evidence"><h3>過程證據：我如何修正 AI</h3><p>{compare.me[lang]}</p><small>{compare.source[lang]}</small></div>}
+          {compare && <div class="evidence"><h3>{compare.title ? compare.title[lang] : '過程證據：我如何修正 AI'}</h3><p>{compare.me[lang]}</p><small>{compare.source[lang]}</small></div>}
         </div>
         <div class="right">
           <div class="shot"><img src={heroSrc(cs)} alt="" /></div>

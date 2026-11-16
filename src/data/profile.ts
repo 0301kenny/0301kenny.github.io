@@ -29,7 +29,7 @@ export const profile = {
     linkedin: 'https://www.linkedin.com/in/kenny-cheng-5240381ab',
     behance: 'https://www.behance.net/kennycheng0301',
     github: 'https://github.com/0301kenny',
-    location: { 'zh-tw': '新北市 · 可接受遠端或混合辦公', en: 'New Taipei City · Remote or hybrid' } as T,
+    location: { 'zh-tw': '新北市 · 可至台北市、新竹、桃園工作 · 接受遠端或混合辦公', en: 'New Taipei City · Open to Taipei, Hsinchu, or Taoyuan · Remote or hybrid' } as T,
   },
 };
 
@@ -71,10 +71,10 @@ export const sections = {
   },
   download: {
     eyebrow: 'Download',
-    title: { 'zh-tw': '下載文件', en: 'Downloads' } as T,
+    title: { 'zh-tw': '履歷與作品集', en: 'Resume and portfolio' } as T,
     lead: {
-      'zh-tw': '依職缺選擇版本。所有 PDF 都是可選取文字的格式，方便 ATS 系統讀取。',
-      en: 'Pick the version that fits the role. Every PDF has selectable text for ATS systems.',
+      'zh-tw': '一頁履歷與作品集摘要，方便面試前快速瀏覽，或轉給團隊一起看。',
+      en: 'A one-page resume and a portfolio summary to skim before we talk or share with your team.',
     } as T,
     contactTitle: { 'zh-tw': '一起聊聊產品？', en: "Let's talk about your product" } as T,
     pending: { 'zh-tw': '製作中', en: 'Coming soon' } as T,
@@ -129,8 +129,8 @@ export const timeline = [
 ];
 
 export const downloads = [
-  { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': '中文履歷', en: 'Resume (Chinese)' }, desc: { 'zh-tw': 'Product Designer 主版本', en: 'Product Designer, main version' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_zh.pdf', primary: true },
-  { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': 'PM 版履歷', en: 'Resume (PM)' }, desc: { 'zh-tw': '偏產品管理職缺', en: 'For product management roles' }, file: 'files/KennyCheng_ProductManager_Resume_2026_zh.pdf' },
-  { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': 'English Resume', en: 'English Resume' }, desc: { 'zh-tw': '外商與遠端職缺', en: 'International and remote roles' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_en.pdf' },
-  { ext: { 'zh-tw': 'PDF · 5 頁', en: 'PDF · 5 pages' }, title: { 'zh-tw': '作品集摘要', en: 'Portfolio summary' }, desc: { 'zh-tw': '四個案例的重點整理', en: 'Highlights of the four cases' }, file: 'files/KennyCheng_Portfolio_Summary_2026_zh.pdf' },
+  { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': '中文履歷', en: 'Resume (Chinese)' }, desc: { 'zh-tw': '產品設計經歷、代表成果與核心能力', en: 'Product design experience, key results, and skills, in Chinese' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_zh.pdf', primary: true },
+  { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': 'PM 版履歷', en: 'Resume (PM)' }, desc: { 'zh-tw': '著重需求定義、規格撰寫與交付驗收', en: 'Focused on requirements, specs, and delivery, in Chinese' }, file: 'files/KennyCheng_ProductManager_Resume_2026_zh.pdf' },
+  { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': 'English Resume', en: 'English Resume' }, desc: { 'zh-tw': '英文版履歷', en: 'Product design experience, key results, and skills' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_en.pdf' },
+  { ext: { 'zh-tw': 'PDF · 5 頁', en: 'PDF · 5 pages' }, title: { 'zh-tw': '作品集摘要', en: 'Portfolio summary (Chinese)' }, desc: { 'zh-tw': '四個案例的關鍵決策與成果，一案一頁', en: 'Key decisions and results of the four cases, one page each' }, file: 'files/KennyCheng_Portfolio_Summary_2026_zh.pdf' },
 ];

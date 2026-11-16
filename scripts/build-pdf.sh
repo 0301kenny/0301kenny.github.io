@@ -13,4 +13,5 @@ build() {
 build resume-zh-tw KennyCheng_ProductDesigner_Resume_2026_zh.pdf
 build resume-en KennyCheng_ProductDesigner_Resume_2026_en.pdf
 build resume-pm-zh-tw KennyCheng_ProductManager_Resume_2026_zh.pdf
+build portfolio-zh-tw KennyCheng_Portfolio_Summary_2026_zh.pdf
 rm -rf "$PROFILE"

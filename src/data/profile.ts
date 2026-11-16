@@ -132,5 +132,5 @@ export const downloads = [
   { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': '中文履歷', en: 'Resume (Chinese)' }, desc: { 'zh-tw': 'Product Designer 主版本', en: 'Product Designer, main version' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_zh.pdf', primary: true },
   { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': 'PM 版履歷', en: 'Resume (PM)' }, desc: { 'zh-tw': '偏產品管理職缺', en: 'For product management roles' }, file: 'files/KennyCheng_ProductManager_Resume_2026_zh.pdf' },
   { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': 'English Resume', en: 'English Resume' }, desc: { 'zh-tw': '外商與遠端職缺', en: 'International and remote roles' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_en.pdf' },
-  { ext: { 'zh-tw': 'PDF · 精簡版', en: 'PDF · summary' }, title: { 'zh-tw': '作品集摘要', en: 'Portfolio summary' }, desc: { 'zh-tw': '四個案例的重點整理', en: 'Highlights of the four cases' }, file: '' },
+  { ext: { 'zh-tw': 'PDF · 5 頁', en: 'PDF · 5 pages' }, title: { 'zh-tw': '作品集摘要', en: 'Portfolio summary' }, desc: { 'zh-tw': '四個案例的重點整理', en: 'Highlights of the four cases' }, file: 'files/KennyCheng_Portfolio_Summary_2026_zh.pdf' },
 ];

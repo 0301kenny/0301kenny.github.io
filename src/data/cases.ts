@@ -58,11 +58,11 @@ export const cases: Case[] = [
     cardTitle: b('WOTA 跨平台旅宿訂房體驗', 'WOTA cross-platform hotel booking'),
     lead: b(
       '從主導官網 3.0 改版，到推出 LINE LIFF 訂房。官網、LIFF、白牌三個前台共用同一個後端，在不同平台限制下讓訂房、會員與四種語系保持一致。',
-      'From leading the website 3.0 redesign to launching LINE LIFF booking. Three storefronts share one backend; I kept booking, membership, and four languages consistent across them.',
+      'From leading the website redesign (v3.0) to launching hotel booking inside LINE (a LIFF mini-app). Three storefronts share one backend; I kept booking, membership, and four languages consistent across them.',
     ),
     chips: ['Product Design', 'UX Flow', 'i18n', 'Frontend'],
     meta: [
-      [b('我的角色', 'My role'), b('官網 3.0 產品規劃與 UI/UX 主導 · LIFF UI 與驗收', 'Led website 3.0 planning and UI/UX · LIFF UI and QA')],
+      [b('我的角色', 'My role'), b('官網 3.0 產品規劃與 UI/UX 主導 · LIFF UI 與驗收', 'Led website v3.0 planning and UI/UX · LIFF UI and QA')],
       [b('產品', 'Product'), b('高端旅宿訂房平台', 'Luxury hotel booking')],
       [b('期間', 'Period'), b('2023.03 — 現在', '2023.03 — now')],
       [b('平台', 'Platforms'), b('官網 · LIFF · 白牌 · 後台', 'Web · LIFF · white label · admin')],
@@ -85,12 +85,12 @@ export const cases: Case[] = [
         title: b('訂房和會籍要人工處理，三個前台說法又不一致', 'Manual bookings and memberships, and three storefronts out of sync'),
         blocks: [
           { t: 'p', text: b('舊官網以內容和文章為主，訂房與會員流程分散，很多客製需求要靠人工處理。公司希望引導客人加入會員後自行訂房。', 'The old site was content-first. Booking and membership flows were scattered and many requests were handled manually. The company wanted members to book on their own.') },
-          { t: 'p', text: b('之後 LINE LIFF 和銀行白牌陸續加入。三個前台共用同一個後端，但各有不同的使用情境與技術限制，只要流程、文案或規則對不上，客人就會在不同入口看到不同說法。', 'Then LINE LIFF and bank white-label sites joined. All three share one backend but have different contexts and limits, so any drift in flow, copy, or rules shows up as conflicting answers.') },
+          { t: 'p', text: b('之後 LINE LIFF 和銀行白牌陸續加入。三個前台共用同一個後端，但各有不同的使用情境與技術限制，只要流程、文案或規則對不上，客人就會在不同入口看到不同說法。', 'Then a LINE mini-app (LIFF) and bank white-label sites joined. All three share one backend but have different contexts and limits, so any drift in flow, copy, or rules shows up as conflicting answers.') },
           { t: 'callout', title: b('目標', 'Goal'), text: b('讓客人不論從哪個入口進來，都能用一致的流程完成搜尋、訂房與會員操作，並且支援繁中、簡中、英文、日文 4 種語系。', 'Whichever door guests use, they search, book, and manage membership through the same flow, in Traditional Chinese, Simplified Chinese, English, and Japanese.') },
           { t: 'h3', text: b('時間軸', 'Timeline') },
           { t: 'versions', items: [
-            ['2023', b('主導官網 3.0 產品規劃與全站 UI/UX：研究競品、建立參考庫、自建進度表逐頁控管', 'Led website 3.0 planning and UI/UX: competitive research, reference library, page-by-page tracking')],
-            ['2024', b('主持 UAT 收斂 30 項問題，官網 3.0 上線（推估 4 月）', 'Ran UAT on 30 issues; website 3.0 launched (est. April)')],
+            ['2023', b('主導官網 3.0 產品規劃與全站 UI/UX：研究競品、建立參考庫、自建進度表逐頁控管', 'Led website v3.0 planning and UI/UX: competitive research, reference library, page-by-page tracking')],
+            ['2024', b('主持 UAT 收斂 30 項問題，官網 3.0 上線（推估 4 月）', 'Ran UAT on 30 issues; website v3.0 launched (est. April)')],
             ['2025', b('整理四語 locale 檔與 i18n SOP；LIFF 登入註冊開發', 'Four-language locale files and i18n SOP; LIFF sign-in work')],
             ['2026', b('LINE LIFF 5 月對外推出、7 月正式發布；Figma i18n 治理', 'LINE LIFF launched in May, full release in July; Figma i18n governance')],
           ] },
@@ -109,7 +109,7 @@ export const cases: Case[] = [
         id: 'design', caps: ['ui'], tags: ['UI / UX'], toc: b('介面設計', 'Design'),
         title: b('一套元件，撐起官網、LIFF 與 Email', 'One component system across web, LIFF, and email'),
         blocks: [
-          { t: 'p', text: b('官網 3.0 的 Figma 設計檔共 28 頁，抽樣 12 個模組約 310 個桌機與手機畫面，每頁附給工程的行為說明。元件頁有 735 個元件，拆成 11 個共用元件庫，供官網、LIFF、Email 共用。', 'The website 3.0 Figma file has 28 pages; 12 sampled modules alone hold about 310 desktop and mobile screens, each with behavior notes for engineering. 735 components are split into 11 shared libraries used by the website, LIFF, and email.') },
+          { t: 'p', text: b('官網 3.0 的 Figma 設計檔共 28 頁，抽樣 12 個模組約 310 個桌機與手機畫面，每頁附給工程的行為說明。元件頁有 735 個元件，拆成 11 個共用元件庫，供官網、LIFF、Email 共用。', 'The website v3.0 Figma file has 28 pages; 12 sampled modules alone hold about 310 desktop and mobile screens, each with behavior notes for engineering. 735 components are split into 11 shared libraries used by the website, LIFF, and email.') },
           { t: 'figure', src: ['img/real/official-room-list.jpg'], alt: b('WOTA 官網房型列表', 'WOTA website room list'), caption: realShot },
           { t: 'p', text: b('LIFF 是在 LINE 裡打開的網頁，畫面更窄、操作更依賴大拇指。設計延續官網的高端調性，Figma 共 24 頁、約 238 個手機畫面、259 個元件，並寫成設計系統手冊 v1.3。', 'LIFF runs inside LINE: narrower and thumb-first. The design carries the website\'s luxury tone across 24 Figma pages, about 238 mobile screens, and 259 components, documented in design system v1.3.') },
           { t: 'figure', phone: true, src: ['img/real/liff-home.jpg', 'img/real/liff-hotel-detail.jpg', 'img/real/liff-room-list.jpg'], alt: b('LINE LIFF 首頁、酒店詳情與房型列表', 'LINE LIFF home, hotel detail, and room list'), caption: realShot },
@@ -121,7 +121,7 @@ export const cases: Case[] = [
         id: 'build', caps: ['fe'], tags: ['FE'], toc: b('實作與驗證', 'Build'),
         title: b('從 UAT 到四語同步，把設計和程式對齊', 'From UAT to four-language sync, keeping design and code aligned'),
         blocks: [
-          { t: 'p', text: b('官網 3.0 的切版由工程師完成，我負責逐頁比對設計還原度：2023 年 8 月到 2024 年 3 月留下 54 張修正截圖，UAT 回報 30 項並收斂。2026 年起，我搭配 AI 參與 LIFF 前端，收斂了 250 多處樣式技術債，也整理出 Figma、程式、文件三方衝突 42 項。', 'Engineers built website 3.0; I verified fidelity page by page, logging 54 correction screenshots and closing 30 UAT issues. From 2026 I worked on LIFF frontend with AI, cleaning up 250+ style inconsistencies and listing 42 conflicts across Figma, code, and docs.') },
+          { t: 'p', text: b('官網 3.0 的切版由工程師完成，我負責逐頁比對設計還原度：2023 年 8 月到 2024 年 3 月留下 54 張修正截圖，UAT 回報 30 項並收斂。2026 年起，我搭配 AI 參與 LIFF 前端，收斂了 250 多處樣式技術債，也整理出 Figma、程式、文件三方衝突 42 項。', 'Engineers built website v3.0; I verified fidelity page by page, logging 54 correction screenshots and closing 30 UAT issues. From 2026 I worked on LIFF frontend with AI, cleaning up 250+ style inconsistencies and listing 42 conflicts across Figma, code, and docs.') },
           { t: 'table', note: todoTable, rows: [
             [b('規格', 'Specs'), b('整理跨平台需求、比對官網與 LIFF 文件差異', 'Summarize cross-platform needs, diff website and LIFF docs'), b('決定哪些流程要一致、哪些保留平台差異', 'Decide which flows must match and which stay platform-specific')],
             [b('文案', 'Copy'), b('產出 774 個 i18n key 的比對表與建議對照', 'Generate the 774-key comparison and suggested matches'), b('判斷差異是否合理、親自審核 138 筆判定', 'Judge each difference; personally reviewed 138 decisions')],
@@ -137,13 +137,13 @@ export const cases: Case[] = [
         id: 'outcome', caps: ['pm', 'ui', 'fe'], tags: ['Outcome'], toc: b('成果與反思', 'Outcome'),
         title: b('訂房與會籍改為線上自助，LINE 成為新通路', 'Self-service booking and membership, plus a new LINE channel'),
         blocks: [
-          { t: 'p', text: b('官網 3.0 上線後，訂房、會籍購買、續約與信用卡付款都能線上自助完成。LINE LIFF 在 2026 年 5 月對外推出，7 月正式發布信用卡購買會籍、英文版與 Flex 訂房通知。', 'After website 3.0, booking, membership purchase, renewal, and card payment became self-service. LINE LIFF launched publicly in May 2026, with card-based membership purchase, English, and Flex booking notifications in July.') },
+          { t: 'p', text: b('官網 3.0 上線後，訂房、會籍購買、續約與信用卡付款都能線上自助完成。LINE LIFF 在 2026 年 5 月對外推出，7 月正式發布信用卡購買會籍、英文版與 Flex 訂房通知。', 'After website v3.0, booking, membership purchase, renewal, and card payment became self-service. LINE LIFF launched publicly in May 2026, with card-based membership purchase, English, and Flex booking notifications in July.') },
           { t: 'h3', text: b('關於成效數字', 'About impact numbers') },
           { t: 'p', text: b('這兩次改版目前沒有可以歸因到個人的營收或轉換數據，所以這裡只寫交付範圍。官網改版前沒有 Mixpanel 資料，LIFF 也不在同一個追蹤專案裡。', 'There are no revenue or conversion figures attributable to me for these releases, so this page reports scope only. Mixpanel data starts after the redesign, and LIFF is tracked separately.') },
           { t: 'h3', text: b('還沒完成的', 'Still open') },
           { t: 'p', text: b('209 個無法配對的文案 key 仍需逐一判斷；LIFF 元件庫的完整盤點也還在進行中。', '209 unmatched keys still need review, and a full LIFF component inventory is in progress.') },
           { t: 'h3', text: b('如果重來一次', 'If I did it again') },
-          { t: 'p', text: b('官網 3.0 改版前沒有追蹤資料，LIFF 也不在同一個追蹤專案裡，所以現在很難證明這兩次改版帶來多少成效。下次改版前，我會先定義要看的指標和事件，讓上線前後可以直接比較。', 'There was no tracking before website 3.0, and LIFF sits in a separate project, so it is hard to prove what these releases achieved. Next time I will define metrics and events before launch so before and after can be compared directly.') },
+          { t: 'p', text: b('官網 3.0 改版前沒有追蹤資料，LIFF 也不在同一個追蹤專案裡，所以現在很難證明這兩次改版帶來多少成效。下次改版前，我會先定義要看的指標和事件，讓上線前後可以直接比較。', 'There was no tracking before website v3.0, and LIFF sits in a separate project, so it is hard to prove what these releases achieved. Next time I will define metrics and events before launch so before and after can be compared directly.') },
         ],
       },
     ],
@@ -265,7 +265,7 @@ export const cases: Case[] = [
     kpis: [
       ['129', b('個狀態畫面', 'state screens')],
       ['5', b('層防線', 'safeguard layers')],
-      ['2', b('個正式站 bug 提前發現', 'production bugs caught early')],
+      ['2', b('個正式站 bug 提前發現', 'live bugs found by the tool')],
     ],
     hero: {
       kind: 'image',
@@ -328,7 +328,7 @@ export const cases: Case[] = [
       },
       {
         id: 'outcome', caps: ['pm', 'ui', 'fe'], tags: ['Outcome'], toc: b('成果與反思', 'Outcome'),
-        title: b('還沒上線，就先抓到正式站的 bug', 'Catching production bugs before shipping'),
+        title: b('還沒上線，就先抓到正式站的 bug', 'Finding live bugs before the tool itself shipped'),
         blocks: [
           { t: 'p', text: b('11 月 6 日完成第一階段：18 支頁面、63 個檢視，8 項驗證全過，並提前抓到 2 個會影響正式站會員的 Rewards 卡 bug，以及前後端欄位命名不一致。到 11 月 12 日擴充為 129 個狀態畫面。', 'Phase 1 finished on November 6: 18 pages and 63 views, all 8 checks passed, and 2 Rewards card bugs affecting live members were caught, plus mismatched field names between frontend and backend. By November 12 it grew to 129 state screens.') },
           { t: 'h3', text: b('驗證結果', 'Verification') },
@@ -360,7 +360,7 @@ export const cases: Case[] = [
       [b('狀態', 'Status'), b('建議已交付，改版待開發', 'Recommendations delivered, fixes pending')],
     ],
     kpis: [
-      ['9% / 50%', b('訪客與會員走到訂單表單', 'guests vs members reach checkout')],
+      ['9% / 50%', b('訪客與會員走到訂單表單', 'guests vs members reach the booking form')],
       ['44%', b('登入後回到表單', 'return to form after login')],
       ['41', b('項附證據的問題清單', 'evidence-backed issues')],
     ],

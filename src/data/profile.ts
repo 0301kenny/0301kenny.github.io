@@ -10,7 +10,7 @@ export const profile = {
   },
   heroLead: {
     'zh-tw': '8 年產品設計經驗，品牌視覺出身的產品設計師。整合 PM、UI/UX 與前端實作，在旅宿產品中負責跨平台的需求規劃、介面設計與交付驗證。',
-    en: 'A product designer with 8 years in product design and a background in brand and visual design. I combine product management, UI/UX, and frontend implementation to plan, design, and ship cross-platform hospitality products.',
+    en: 'A product designer with 8 years of experience and a foundation in brand and visual design. I combine product management, UI/UX, and frontend implementation to plan, design, and ship cross-platform hospitality products.',
   } as T,
   ctaWork: { 'zh-tw': '看代表作品 ↓', en: 'See selected work ↓' } as T,
   ctaResume: { 'zh-tw': '下載一頁履歷', en: 'Download resume' } as T,
@@ -20,7 +20,7 @@ export const profile = {
     { value: '600+', label: { 'zh-tw': '項團隊開發任務參與', en: 'team dev tasks contributed' } },
     { value: '129', label: { 'zh-tw': '個 UI 狀態規格', en: 'UI states specified' } },
   ],
-  heroTag: { 'zh-tw': 'WOTA 官網 × LINE LIFF', en: 'WOTA website × LINE LIFF' } as T,
+  heroTag: { 'zh-tw': 'WOTA 官網 × LINE LIFF', en: 'WOTA website × LINE mini-app' } as T,
   contact: {
     email: 'a0911157626@gmail.com',
     phone: '0934-040-212',
@@ -63,7 +63,7 @@ export const sections = {
   },
   experience: {
     eyebrow: 'Experience',
-    title: { 'zh-tw': '經歷', en: 'Experience' } as T,
+    title: { 'zh-tw': '經歷', en: 'Career timeline' } as T,
     lead: {
       'zh-tw': '東海大學美術系畢業。2018 年起專注於產品設計，之前十年累積品牌與視覺設計經驗。',
       en: 'BFA, Tunghai University. Focused on product design since 2018, after ten years in brand and visual design.',
@@ -124,7 +124,7 @@ export const timeline = [
   { when: '2023.03 — Now', now: true, title: 'Product Designer', org: { 'zh-tw': 'WOTA 沃塔國際旅行社 · 旅宿訂房平台、會員獎勵、郵輪產品', en: 'Wota Lifestyle · hotel booking platform, member rewards, cruise products' } },
   { when: '2018.08 — 2023.03', title: 'UI/UX Designer', org: { 'zh-tw': '融創新科 · 帶領 4 人以下設計團隊，負責 UI 系統、UX Flow 與 RWD', en: 'Fusion Next · led a design team of up to 4, UI systems, UX flows, and RWD' } },
   { when: '2014.04 — 2018.02', title: { 'zh-tw': '視覺設計總監', en: 'Visual Design Director' }, org: { 'zh-tw': '台中廣天宮 · 多媒體開發主管，品牌視覺與網站規劃', en: 'Taichung Guangtian Temple · multimedia lead, brand visuals and web' } },
-  { when: '2010.10 — 2013.12', title: { 'zh-tw': '設計總監', en: 'Design Director' }, org: { 'zh-tw': '岱展有限公司 · 帶領 3–4 人，品牌、包裝與 CIS', en: 'Daizhan · team of 3–4, brand, packaging, and identity' } },
+  { when: '2010.10 — 2013.12', title: { 'zh-tw': '設計總監', en: 'Design Director' }, org: { 'zh-tw': '岱展有限公司 · 帶領 3–4 人，品牌、包裝與 CIS', en: 'Daizhan (food retail) · team of 3–4, brand, packaging, and identity' } },
   { when: '2008.10 — 2010.09', title: { 'zh-tw': '美術企劃 / 美編', en: 'Graphic Designer' }, org: { 'zh-tw': '平面設計、出版編排與印刷製作', en: 'Graphic design, publication layout, and print production' } },
 ];
 

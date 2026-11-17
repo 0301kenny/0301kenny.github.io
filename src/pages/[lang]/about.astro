@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Todo from '../../components/Todo.astro';
 import '../../styles/site.css';
 import { langs, asset, type Lang } from '../../i18n';
-import { profile, sections as s, legacy, timeline } from '../../data/profile';
+import { profile, sections as s, legacy, timeline, testimonials, workingWithMe, earlyWorks } from '../../data/profile';
 
 export function getStaticPaths() {
   return langs.map((lang) => ({ params: { lang } }));
@@ -26,6 +26,13 @@ const t = {
     { title: { 'zh-tw': '語言', en: 'Languages' }, body: { 'zh-tw': '中文（母語）· 台語（中等）· 英文（讀寫中等）', en: 'Mandarin (native) · Taiwanese (intermediate) · English (intermediate reading and writing)' } },
     { title: { 'zh-tw': '學歷', en: 'Education' }, body: { 'zh-tw': '東海大學 美術系 學士', en: 'BFA, Tunghai University' } },
   ],
+  quotes: {
+    eyebrow: 'Testimonials',
+    title: { 'zh-tw': '合作過的人怎麼說', en: 'What colleagues say' },
+    note: { 'zh-tw': '', en: 'Translated from Chinese.' },
+  },
+  early: { 'zh-tw': '這段時期的作品', en: 'Work from this period' },
+  working: { eyebrow: 'Collaboration', title: { 'zh-tw': '和我合作', en: 'Working with me' } },
   legacyTitle: { 'zh-tw': '品牌與視覺設計基礎', en: 'Brand and print foundation' },
 };
 const title = t.title[lang].split('\n');
@@ -47,8 +54,36 @@ const title = t.title[lang].split('\n');
       <div class="section-head"><div><div class="eyebrow">{s.experience.eyebrow}</div><h2>{s.experience.title[lang]}</h2></div></div>
       <ol class="timeline">
         {timeline.map((it) => (
-          <li class={it.now ? 'now' : undefined}><span class="when">{it.when}</span><div><b>{tx(it.title)}</b><div class="co">{it.org[lang]}</div></div></li>
+          <li class={it.now ? 'now' : undefined}><span class="when">{it.when}</span><div><b>{tx(it.title)}</b><div class="co">{it.org[lang]}</div>
+            {'key' in it && it.key === 'fusion' && (
+              <p class="early"><span class="early-label">{t.early[lang]}</span>
+                {earlyWorks.map((w, i) => (
+                  <>{i > 0 && <> <span class="sep" aria-hidden="true">·</span> </>}<a href={w.url} target="_blank" rel="noopener">{w.name}<span class="early-meta"> {w.type[lang]} · {w.year}</span> ↗<span class="thumb" aria-hidden="true"><img src={asset(w.img)} alt="" width="560" height="350" loading="lazy" /></span></a></>
+                ))}
+              </p>
+            )}
+          </div></li>
         ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="quotes" aria-labelledby="quotes-title">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">{t.quotes.eyebrow}</div><h2 id="quotes-title">{t.quotes.title[lang]}</h2></div>{t.quotes.note[lang] && <p>{t.quotes.note[lang]}</p>}</div>
+      <div class="quote-grid">
+        {testimonials.map((q) => (
+          <figure class="quote"><blockquote>{q.quote[lang]}</blockquote><figcaption>{q.by[lang]}</figcaption></figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="working" aria-labelledby="working-title">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">{t.working.eyebrow}</div><h2 id="working-title">{t.working.title[lang]}</h2></div></div>
+      <ol class="working-list">
+        {workingWithMe.map((w) => <li><h3>{w.title[lang]}</h3><p>{w.body[lang]}</p></li>)}
       </ol>
     </div>
   </section>

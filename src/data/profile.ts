@@ -122,11 +122,35 @@ export const legacy = [
 
 export const timeline = [
   { when: '2023.03 — Now', now: true, title: 'Product Designer', org: { 'zh-tw': 'WOTA 沃塔國際旅行社 · 旅宿訂房平台、會員獎勵、郵輪產品', en: 'Wota Lifestyle · hotel booking platform, member rewards, cruise products' } },
-  { when: '2018.08 — 2023.03', title: 'UI/UX Designer', org: { 'zh-tw': '融創新科 · 帶領 4 人以下設計團隊，負責 UI 系統、UX Flow 與 RWD', en: 'Fusion Next · led a design team of up to 4, UI systems, UX flows, and RWD' } },
+  { when: '2018.08 — 2023.03', key: 'fusion', title: 'UI/UX Designer', org: { 'zh-tw': '融創新科 · 帶領 4 人以下設計團隊，負責 UI 系統、UX Flow 與 RWD', en: 'Fusion Next · led a design team of up to 4, UI systems, UX flows, and RWD' } },
   { when: '2014.04 — 2018.02', title: { 'zh-tw': '視覺設計總監', en: 'Visual Design Director' }, org: { 'zh-tw': '台中廣天宮 · 多媒體開發主管，品牌視覺與網站規劃', en: 'Taichung Guangtian Temple · multimedia lead, brand visuals and web' } },
   { when: '2010.10 — 2013.12', title: { 'zh-tw': '設計總監', en: 'Design Director' }, org: { 'zh-tw': '岱展有限公司 · 帶領 3–4 人，品牌、包裝與 CIS', en: 'Daizhan (food retail) · team of 3–4, brand, packaging, and identity' } },
   { when: '2008.10 — 2010.09', title: { 'zh-tw': '美術企劃 / 美編', en: 'Graphic Designer' }, org: { 'zh-tw': '平面設計、出版編排與印刷製作', en: 'Graphic design, publication layout, and print production' } },
 ];
+
+// 融創時期作品（Behance），只在 About 時間軸簡短帶過
+export const earlyWorks = [
+  { name: 'Sight', type: { 'zh-tw': '行車記錄器', en: 'Dash cam' }, year: '2020', url: 'https://www.behance.net/gallery/97365753/Sight-dash-cam-', img: 'img/behance/sight.jpg' },
+  { name: 'Doweing', type: { 'zh-tw': '旅遊足跡 App', en: 'Travel journal app' }, year: '2020', url: 'https://www.behance.net/gallery/97367211/Doweing', img: 'img/behance/doweing.jpg' },
+  { name: 'Healthy Way', type: { 'zh-tw': '飲食健身 App', en: 'Food & fitness app' }, year: '2020', url: 'https://www.behance.net/gallery/106837503/Healthy-way', img: 'img/behance/healthy.jpg' },
+  { name: 'travel to map', type: { 'zh-tw': '旅遊網站', en: 'Travel website' }, year: '2021', url: 'https://www.behance.net/gallery/128260943/travel-to-map', img: 'img/behance/travel.jpg' },
+] as const;
+
+// 同事評語：中文為原話，不潤飾；英文為翻譯
+export const testimonials = [
+  { quote: { 'zh-tw': '擅於跨部門進行合作溝通及討論。', en: 'Great at working across teams, communicating and talking things through.' }, by: { 'zh-tw': '融創新科 APP 工程師 · 合作 4 年', en: 'App engineer at Fusion Next · worked together for 4 years' } },
+  { quote: { 'zh-tw': '台風穩健，能掌握訪談、提案報告的舒服節奏。', en: 'Steady on stage, and keeps interviews and pitches at a comfortable pace.' }, by: { 'zh-tw': 'UX 工作坊同事', en: 'Teammate from a UX workshop' } },
+  { quote: { 'zh-tw': '訪談中能與受訪者迅速的建立情感認同及和緩的氛圍。', en: 'In interviews, quickly builds rapport with participants and puts them at ease.' }, by: { 'zh-tw': 'UX 工作坊同事', en: 'Teammate from a UX workshop' } },
+  { quote: { 'zh-tw': '團隊中願承擔第一個上場的壓力，並肩負最重的任務。', en: 'Willing to go first under pressure and take on the heaviest part of the work.' }, by: { 'zh-tw': 'UX 工作坊同事', en: 'Teammate from a UX workshop' } },
+] as const;
+
+// 和我合作：工作習慣（本人確認的草稿）
+export const workingWithMe = [
+  { title: { 'zh-tw': '我推進得快，也會配合你的節奏', en: "I move fast, and I'll match your pace" }, body: { 'zh-tw': '我習慣主動追進度、把待決的問題往前推。如果你需要更多時間想，直接告訴我，我會調整步調。', en: "I follow up on open questions and keep decisions moving. If you need more time to think something through, just tell me and I'll adjust." } },
+  { title: { 'zh-tw': '討論前，我會先把情況想過一輪', en: 'I think it through before we meet' }, body: { 'zh-tw': '我會先列出可能的情況、例外和取捨，帶著選項來討論，讓會議花在做決定，而不是重新整理問題。', en: 'I map out the cases, edge cases, and trade-offs first, then bring options, so our time goes to deciding instead of re-explaining the problem.' } },
+  { title: { 'zh-tw': '我從人的處境出發', en: 'I start from where people are' }, body: { 'zh-tw': '不論是使用者還是同事，我會先理解對方在意什麼、卡在哪裡。訪談時，這讓受訪者比較容易放鬆、說出真話。', en: "Whether it's a user or a teammate, I first try to understand what they care about and where they're stuck. In interviews, it helps people relax and speak honestly." } },
+  { title: { 'zh-tw': '有不同意見，我會直接說，也歡迎你直接說', en: "If I disagree, I'll say so, and I'd like you to do the same" }, body: { 'zh-tw': '我對事不對人。比起事後才發現誤會，我更希望早點把分歧講開。', en: "It's about the work, not the person. I'd rather surface a disagreement early than find a misunderstanding later." } },
+] as const;
 
 export const downloads = [
   { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': '中文履歷', en: 'Resume (Chinese)' }, desc: { 'zh-tw': '產品設計經歷、代表成果與核心能力', en: 'Product design experience, key results, and skills, in Chinese' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_zh.pdf', primary: true },

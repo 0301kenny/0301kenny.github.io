@@ -175,11 +175,11 @@ export const cases: Case[] = [
     ],
     hero: {
       kind: 'image',
-      src: 'img/real/official-membership.jpg',
-      alt: b('WOTA 官網會籍頁：Basic、Elite、Platinum、Noir 四級會籍卡', 'WOTA membership page with Basic, Elite, Platinum, and Noir tiers'),
-      caption: b('WOTA 官網會籍頁（公開頁面）· Journey Rewards 在此會籍基礎上運作', 'WOTA membership page (public) · Journey Rewards builds on these tiers'),
+      src: 'img/real/redeem-center-elite.jpg',
+      alt: b('Journey Rewards 兌換中心（Elite 會員）：上方顯示會員資格與累計 32 晚，下方四個獎勵中兩個可兌換、兩個顯示房晚不足', 'Journey Rewards redemption center for an Elite member: tier and 32 nights at the top, two rewards redeemable and two marked not enough nights'),
+      caption: b('兌換中心 · Elite 會員畫面 · 擷取自 UI Spec 開發環境，資料為假資料', 'Redemption center, Elite member · captured from UI Spec in the dev environment, fake data'),
     },
-    card: { kind: 'image', src: ['img/real/official-membership.jpg'], label: b('WOTA 官網會籍頁', 'WOTA membership page') },
+    card: { kind: 'image', src: ['img/real/redeem-center-elite.jpg'], label: b('兌換中心 · Elite 會員 · 假資料', 'Redemption center · Elite · fake data') },
     sections: [
       {
         id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
@@ -276,11 +276,11 @@ export const cases: Case[] = [
     ],
     hero: {
       kind: 'image',
-      src: 'img/uispec-overview.svg',
-      alt: b('UI Spec 工具畫面示意：左側分組導覽、上方寬度與語系切換、右側多張狀態卡片', 'UI Spec illustration: grouped navigation, width and language switches, and state cards'),
-      caption: b('示意圖 · 內部工具未公開，資料與名稱皆為虛構', 'Illustration · internal tool, fictional data'),
+      src: 'img/real/uispec-gallery.jpg',
+      alt: b('UI Spec 工具畫面：左側分組導覽，上方寬度與語系切換，右側並排 Journey Rewards 兌換中心四個會籍與兌換詳情各狀態', 'UI Spec screen: grouped navigation, width and language switches, and Journey Rewards redemption pages for four tiers and detail states side by side'),
+      caption: b('UI Spec 開發環境實際畫面 · 畫面中的會員資料皆為假資料', 'UI Spec in the dev environment · all member data shown is fake'),
     },
-    card: { kind: 'image', src: ['img/uispec-overview.svg'], label: b('示意圖 · 資料與名稱為虛構', 'Illustration · fictional data') },
+    card: { kind: 'image', src: ['img/real/uispec-gallery.jpg'], label: b('UI Spec 開發環境實際畫面 · 假資料', 'UI Spec dev environment · fake data') },
     sections: [
       {
         id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
@@ -309,7 +309,7 @@ export const cases: Case[] = [
           { t: 'p', text: b('左側分成總覽、最近修改、頁面副本、設計 Token（顏色、字級等共用設定）四區。頁面副本依產品分成 5 組，每張卡片標示狀態名稱與是否待確認。', 'Four areas on the left: overview, recent changes, page previews, and design tokens. Previews split into 5 product groups, each card labeled with its state and whether it still needs a decision.') },
           { t: 'h3', text: b('瀏覽方式', 'Browsing') },
           { t: 'p', text: b('上方可切換 4 種寬度與繁中、簡中、EN 三種語系，搭配輔助線、以游標為中心縮放與搜尋。格子內的互動和真站一致，假 API 可以切換成功或失敗，網址會記住目前的分組與卡片，可以直接貼給同事。', 'Switch between 4 widths and 3 languages, with guides, cursor-centered zoom, and search. Interactions inside each cell match the live site, fake APIs can toggle success or failure, and the URL keeps the current group and card for sharing.') },
-          { t: 'figure', src: ['img/uispec-overview.svg'], alt: b('UI Spec 分組導覽與狀態卡片示意', 'UI Spec grouped navigation and state cards'), caption: b('示意圖 · 375 寬下的 Journey Rewards 狀態畫廊', 'Illustration · Journey Rewards gallery at 375px') },
+          { t: 'figure', src: ['img/real/uispec-gallery.jpg'], alt: b('UI Spec 分組導覽與 1440 寬的狀態畫廊', 'UI Spec grouped navigation and the 1440px state gallery'), caption: b('UI Spec 開發環境實際畫面 · 1440 寬下的 Journey Rewards 狀態畫廊，同步／TBD 標示每張卡片是否待確認', 'UI Spec in the dev environment · Journey Rewards gallery at 1440px, with sync and TBD labels on each card') },
         ],
       },
       {

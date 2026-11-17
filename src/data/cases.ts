@@ -4,17 +4,19 @@ const b = (zh: string, en: string): T => ({ 'zh-tw': zh, en });
 
 export type Cap = 'pm' | 'ui' | 'fe';
 
+export type DiagramKind = 'channels' | 'rules' | 'funnel' | 'groups' | 'triad' | 'mentor' | 'bars';
+
 export type Block =
   | { t: 'p'; text: T; todo?: boolean }
   | { t: 'h3'; text: T }
   | { t: 'callout'; title: T; text: T }
   | { t: 'decision'; q: T; a: T; text: T; todo?: boolean }
   | { t: 'figure'; src: string[]; alt: T; caption: T; phone?: boolean }
-  | { t: 'table'; rows: [T, T, T][]; note?: T }
+  | { t: 'table'; rows: [T, T, T][]; note?: T; head?: [T, T, T] }
   | { t: 'stats'; items: [string, T][] }
   | { t: 'guard'; items: [T, string, T][] }
   | { t: 'flow'; items: T[] }
-  | { t: 'diagram'; kind: 'channels' | 'rules' | 'funnel'; caption: T }
+  | { t: 'diagram'; kind: DiagramKind; caption: T }
   | { t: 'versions'; items: [string, T][] }
   | { t: 'compare'; ai: T; me: T; source: T; title?: T; aiLabel?: T; meLabel?: T };
 
@@ -37,9 +39,11 @@ export interface Case {
   lead: T;
   chips: string[];
   meta: [T, T][];
-  kpis: [string, T][];
-  hero: { kind: 'image'; src: string; alt: T; caption: T } | { kind: 'tiers'; caption: T };
-  card: { kind: 'phones' | 'image' | 'tiers' | 'diagram'; src?: string[]; diagram?: 'funnel'; label: T };
+  kpis: [string, T, T?][];
+  hero: { kind: 'image'; src: string; alt: T; caption: T } | { kind: 'tiers'; caption: T } | { kind: 'diagram'; diagram: DiagramKind; caption: T };
+  card: { kind: 'phones' | 'image' | 'tiers' | 'diagram'; src?: string[]; diagram?: DiagramKind; label: T };
+  /** 只放網站，不放進 PDF 作品集摘要 */
+  webOnly?: boolean;
   sections: Section[];
 }
 
@@ -69,9 +73,9 @@ export const cases: Case[] = [
       [b('平台', 'Platforms'), b('官網 · LIFF · 白牌，共用後端與後台', 'Web · LIFF · white label, one shared backend and admin')],
     ],
     kpis: [
-      ['13', b('個前台模組完成 UI 設計', 'storefront modules designed')],
-      ['735', b('個共用元件', 'shared components')],
-      ['3,548', b('個字串四語同步', 'strings synced in 4 languages')],
+      ['13', b('個前台模組完成 UI 設計', 'storefront modules designed'), b('官網 3.0 的 13 個前台模組，UI 設計全部完成，每頁都附給工程的行為說明。', 'All 13 storefront modules of website v3.0 have finished UI design, each page with behavior notes for engineering.')],
+      ['11', b('個共用元件庫', 'shared component libraries'), b('官網 3.0 元件頁共 735 個元件與變體，拆成 VI、字級、色彩、圖示、Email、元件等 11 個元件庫，官網、LIFF 與通知信都用同一套。', 'The v3.0 component page holds 735 components and variants, organized into 11 libraries such as VI, typography, color, icons, email, and components, shared by the website, LIFF, and notification emails.')],
+      ['3,548', b('個字串四語同步', 'strings synced in 4 languages'), b('官網的 3,548 個文案字串同步成 Figma 四語系變數；2,615 個 Figma 文字全部綁定，已綁定文字的四語不一致為 0。', 'The site\'s 3,548 copy strings were synced into four-language Figma variables; all 2,615 Figma text layers are bound, with zero mismatches.')],
     ],
     hero: {
       kind: 'image',
@@ -111,7 +115,7 @@ export const cases: Case[] = [
         id: 'design', caps: ['ui'], tags: ['UI / UX'], toc: b('介面設計', 'Design'),
         title: b('一套元件，撐起官網、LIFF 與通知信', 'One component system across web, LIFF, and email'),
         blocks: [
-          { t: 'p', text: b('官網 3.0 的 Figma 檔共 28 頁。光是其中 12 個模組頁，就有約 310 個桌機與手機畫面，每頁都附給工程的行為說明。735 個元件拆成 11 個共用元件庫，官網、LIFF 與通知信都用同一套。', 'The website v3.0 Figma file has 28 pages. Just 12 of its module pages hold about 310 desktop and mobile screens, each with behavior notes for engineering. 735 components live in 11 shared libraries used by the website, LIFF, and notification emails.') },
+          { t: 'p', text: b('官網 3.0 的 Figma 檔共 28 頁。光是其中 12 個模組頁，就有約 310 個桌機與手機畫面，每頁都附給工程的行為說明。735 個元件與變體整理成 11 個共用元件庫，官網、LIFF 與通知信都用同一套。', 'The website v3.0 Figma file has 28 pages. Just 12 of its module pages hold about 310 desktop and mobile screens, each with behavior notes for engineering. 735 components and variants are organized into 11 shared libraries used by the website, LIFF, and notification emails.') },
           { t: 'figure', src: ['img/real/official-room-list.jpg'], alt: b('WOTA 官網房型列表', 'WOTA website room list'), caption: realShotShort },
           { t: 'p', text: b('LIFF 是在 LINE 裡打開的網頁，畫面更窄、操作更依賴大拇指。設計延續官網的高端調性，Figma 共 24 頁、約 238 個手機畫面、259 個元件，並寫成設計系統手冊 v1.3。', 'LIFF runs inside LINE: narrower and thumb-first. The design carries the website\'s luxury tone across 24 Figma pages, about 238 mobile screens, and 259 components, documented in design system v1.3.') },
           { t: 'figure', phone: true, src: ['img/real/liff-home.jpg', 'img/real/liff-hotel-detail.jpg', 'img/real/liff-room-list.jpg'], alt: b('LINE LIFF 首頁、酒店詳情與房型列表', 'LINE LIFF home, hotel detail, and room list'), caption: realShotShort },
@@ -131,7 +135,7 @@ export const cases: Case[] = [
           ] },
           { t: 'h3', text: b('四語系文案整理', 'Four-language copy cleanup') },
           { t: 'stats', items: [['3,548', b('個官網字串同步成 Figma 四語變數', 'site strings synced to Figma variables')], ['2,615', b('個 Figma 文字全部綁定變數', 'Figma text layers bound, 100%')], ['0', b('個已綁定文字四語不一致', 'mismatches in bound text')], ['774', b('個 LIFF 文案項目與官網比對', 'LIFF copy keys compared with the website')]] },
-          { t: 'callout', title: b('測試資料的教訓', 'A lesson about test data'), text: b('正式環境出現真實客人的資料後，才發現護照英文姓名的格式問題。之後測試改成補上中文姓名、英文護照名等真實資料型案例，而不是隨意填寫的測試資料。', 'A passport-name format bug only appeared with real guest data in production. Testing now uses realistic cases such as Chinese names and English passport names instead of random filler.') },
+          { t: 'callout', title: b('用真實資料型的案例做測試', 'Testing with realistic data'), text: b('上線後我們發現，護照英文姓名的格式只有在真實客人資料下才會出錯。之後測試一律改用中文姓名、英文護照名等真實資料型案例，不再隨意填寫。', 'After launch we found that passport-name formats only broke with real guest data. Since then, testing uses realistic cases such as Chinese names and English passport names instead of random filler.') },
           { t: 'compare', ai: b('Figma 裡還有 36 個舊變數被畫面引用，AI 判斷「有引用就不能刪」，建議全部保留。', 'Figma still had 36 legacy variables in use. The AI concluded "in use means keep" and proposed keeping them all.'), me: b('我指出「改套用到正式變數不就可以刪了」。流程改成先改綁、再檢查、最後刪除：這 36 個舊變數在畫面上共 122 處引用，全部改綁。整體清理後，變數從 271 個降到 219 個，壞掉的引用 0 個。', 'I pointed out they could be rebound to the official variables and then removed. The flow became rebind, check, then delete: the 36 variables were used in 122 places, all rebound. After the full cleanup, variables went from 271 to 219 with zero broken references.'), source: b('2026 年 7～8 月 · Figma 四語系遷移時', 'Jul–Aug 2026 · during the Figma four-language migration') },
         ],
       },
@@ -140,12 +144,8 @@ export const cases: Case[] = [
         title: b('訂房與會籍改為線上自助，LINE 成為新通路', 'Self-service booking and membership, plus a new LINE channel'),
         blocks: [
           { t: 'p', text: b('官網 3.0 上線後，訂房、會籍購買、續約與信用卡付款都能在線上自助完成；這是團隊一起交付的成果，我負責產品規劃、UI/UX 與驗收。LINE LIFF 在 2026 年 5 月上線，7 月加入信用卡購買會籍、英文版與 LINE 訂房通知。', 'After website v3.0, booking, membership purchase, renewal, and card payment became self-service. This was a team release; I owned planning, UI/UX, and QA. LINE LIFF launched in May 2026, adding card-based membership purchase, English, and LINE booking notifications in July.') },
-          { t: 'h3', text: b('關於成效數字', 'About impact numbers') },
-          { t: 'p', text: b('這兩次改版沒有可以歸因到個人的營收或轉換數據，所以這裡只寫交付範圍。', 'There are no revenue or conversion figures attributable to me for these releases, so this page reports scope only.') },
-          { t: 'h3', text: b('還沒完成的', 'Still open') },
-          { t: 'p', text: b('LIFF 與官網比對時，有 209 個文案項目找不到對應，仍需逐一判斷；LIFF 元件庫的完整盤點也還在進行。', '209 LIFF copy keys have no website match and still need review, and the LIFF component inventory is not finished yet.') },
-          { t: 'h3', text: b('如果重來一次', 'If I did it again') },
-          { t: 'p', text: b('官網 3.0 改版前沒有追蹤資料，LIFF 也不在同一個追蹤專案裡，所以現在很難證明這兩次改版帶來多少成效。下次改版前，我會先定義要看的指標和事件，讓上線前後可以直接比較。', 'There was no tracking baseline before website v3.0, and LIFF sits in a separate analytics project, so it is hard to prove what these releases achieved. Next time I will define metrics and events before launch so before and after can be compared directly.') },
+          { t: 'h3', text: b('下次會怎麼做', 'What I\'d do next time') },
+          { t: 'p', text: b('下次改版前，我會先定義要看的指標和事件，讓上線前後可以直接比較成效。', 'Before the next release, I will define the metrics and events up front so results can be compared before and after launch.') },
         ],
       },
     ],
@@ -169,9 +169,9 @@ export const cases: Case[] = [
       [b('狀態', 'Status'), b('Phase 1 於 2026 Q3 在官網與 LIFF 上線', 'Phase 1 live on web and LIFF since Q3 2026')],
     ],
     kpis: [
-      ['18', b('種兌換狀態頁', 'redemption states')],
-      ['28', b('題升等規則定案', 'upgrade rules settled')],
-      ['4', b('處權益改寫被攔下', 'benefit changes caught')],
+      ['18', b('種兌換狀態頁', 'redemption states'), b('兌換中心的 18 種狀態依優先級分成三批：P0 6 種、P1 7 種、P2 5 種。', 'The 18 redemption-center states were split into three priority batches: 6 P0, 7 P1, and 5 P2.')],
+      ['28', b('題升等規則定案', 'upgrade rules settled'), b('升等積分的 28 個規則問題逐題列出選項讓團隊拍板，例如定案「效期結束時積分歸零，會籍一律降一級」。', 'Each of 28 upgrade-point rule questions was laid out with options for the team to decide, such as "points reset at term end and tier drops one level."')],
+      ['4', b('處權益改寫被攔下', 'benefit changes caught'), b('用 Codex 比對 16 頁新版兌換流程概念稿與現行畫面後，我挑出 4 處改到會員權益的差異交給團隊，例如機場接送少了「禮賓」。', 'After Codex compared a 16-screen redemption concept with the current screens, I flagged 4 changes that altered member benefits, such as airport transfer losing "concierge."')],
     ],
     hero: {
       kind: 'image',
@@ -243,10 +243,8 @@ export const cases: Case[] = [
             ['2026 Q3', b('分段上線：官網 Journey Rewards 與 LIFF「我的房晚紀錄」', 'Phased launch: website Journey Rewards and LIFF "My room nights"')],
             ['2026-10', b('4 支串接原型與 Figma、設計系統 v1.3 完成同步', 'Four linked prototypes synced with Figma and design system v1.3')],
           ] },
-          { t: 'h3', text: b('還沒完成的', 'Still open') },
-          { t: 'p', text: b('兌換中心還有 9 項規則待決定；後續階段的部分工程任務仍在排程中。', 'Nine redemption rules are still undecided, and some later-phase engineering tasks are still scheduled.') },
-          { t: 'h3', text: b('如果重來一次', 'If I did it again') },
-          { t: 'p', text: b('規則在 PRD 和 IA 階段主要靠文件與口頭溝通，失敗、暫停這些狀態要到做原型時才被看見。下次在 PRD 階段就做可操作的原型，讓工程、客服和產品負責人一開始就對著同一個畫面討論。', 'During the PRD and IA stages the rules lived in documents and conversations, and states like failure and pause only surfaced in prototyping. Next time I will build a clickable prototype at the PRD stage so engineering, support, and the product owner discuss the same screen from day one.') },
+          { t: 'h3', text: b('下次會怎麼做', 'What I\'d do next time') },
+          { t: 'p', text: b('下次我會在 PRD 階段就做可操作的原型，讓工程、客服和產品負責人一開始就對著同一個畫面，討論失敗、暫停這些狀態。', 'Next time I will build a clickable prototype at the PRD stage, so engineering, support, and the product owner discuss states like failure and pause on the same screen from day one.') },
         ],
       },
     ],
@@ -270,9 +268,9 @@ export const cases: Case[] = [
       [b('狀態', 'Status'), b('開發環境，尚未上正式站', 'Dev environment, not yet in production')],
     ],
     kpis: [
-      ['129', b('個狀態畫面', 'state screens')],
-      ['5', b('層防線', 'safeguard layers')],
-      ['2', b('個影響正式站會員的 bug', 'bugs affecting live members, found in dev')],
+      ['129', b('個狀態畫面', 'state screens'), b('11 月 6 日第一階段完成 18 個頁面、63 個狀態畫面，11 月 12 日擴充到 129 個。每個畫面都用正式頁面的程式，只把資料換成假的。', 'Phase 1 on Nov 6 covered 18 pages and 63 state screens, expanded to 129 by Nov 12. Every screen uses the production page code with fake data.')],
+      ['5', b('層防線', 'safeguard layers'), b('從網址、網域、部署、打包到程式檢查各設一道關卡，任何一層發現工具要進正式環境就會擋下。', 'Checks at the URL, domain, deployment, build, and code level each stop the tool from reaching production.')],
+      ['2', b('個影響正式站會員的 bug', 'bugs affecting live members, found in dev'), b('驗證過程中抓到 2 個已經在正式站影響會員的 Rewards 卡片 bug。', 'Verification surfaced 2 Rewards card bugs already affecting members in production.')],
     ],
     hero: {
       kind: 'image',
@@ -339,11 +337,9 @@ export const cases: Case[] = [
         blocks: [
           { t: 'p', text: b('11 月 6 日完成第一階段：18 個頁面、63 個狀態畫面，8 項驗證全過。驗證過程中抓到 2 個已經在正式站影響會員的 Rewards 卡片 bug，以及前後端欄位命名不一致。到 11 月 12 日擴充為 129 個狀態畫面。', 'Phase 1 finished on November 6: 18 pages and 63 state screens, all 8 checks passed. Along the way it caught 2 Rewards card bugs already affecting live members, plus mismatched field names between frontend and backend. By November 12 it covered 129 state screens.') },
           { t: 'h3', text: b('驗證結果', 'Verification') },
-          { t: 'stats', items: [['8', b('項驗證全過', 'checks passed')], ['8', b('個已知問題（11/06）', 'known issues (Nov 6)')], ['2', b('個影響正式站會員的 bug', 'bugs affecting live members')], ['49', b('項已知問題與待確認事項', 'open issues and questions')]] },
-          { t: 'h3', text: b('還沒完成的', 'Still open') },
-          { t: 'p', text: b('工具目前在開發環境，尚未進入正式版程式；抓到的 2 個 Rewards bug 還沒修。49 項待確認事項多半要等後端資料或產品規格。', 'The tool is in the dev environment and not yet in the production codebase; the 2 Rewards bugs are not fixed yet. Most of the 49 open questions wait on backend data or product specs.') },
-          { t: 'h3', text: b('如果重來一次', 'If I did it again') },
-          { t: 'p', text: b('我一次把範圍擴到 129 個狀態畫面，待確認事項也跟著累積。下次我會先做驗收時最常卡關的那些狀態，讓工具更早被團隊用起來，待確認的事項也更早交回產品和工程決定。', 'I expanded straight to 129 states, and open questions piled up with it. Next time I will start with the states that block reviews most often, get the tool into the team\'s hands sooner, and hand open questions back to product and engineering earlier.') },
+          { t: 'stats', items: [['8', b('項驗證全過', 'checks passed')], ['2', b('個影響正式站會員的 bug', 'bugs affecting live members')]] },
+          { t: 'h3', text: b('下次會怎麼做', 'What I\'d do next time') },
+          { t: 'p', text: b('下次我會先做驗收時最常卡關的那些狀態，讓工具更早被團隊用起來，再逐步擴充。', 'Next time I will start with the states that block reviews most often, get the tool into the team\'s hands sooner, and expand from there.') },
         ],
       },
     ],
@@ -367,9 +363,9 @@ export const cases: Case[] = [
       [b('狀態', 'Status'), b('建議已交付，改版待開發', 'Recommendations delivered, fixes pending')],
     ],
     kpis: [
-      ['9% / 50%', b('訪客與會員走到訂單表單', 'guests vs members reach the booking form')],
-      ['44%', b('登入後回到表單', 'return to form after login')],
-      ['41', b('項附證據的發現與建議', 'evidence-backed findings')],
+      ['9% / 50%', b('訪客與會員走到訂單表單', 'guests vs members reach the booking form'), b('點「選擇價格」後，訪客只有 9% 走到訂單表單，會員是 50%；走到表單後兩者完成率差不多（50% 對 46%），落差出在登入這一步。', 'After "Select rate," 9% of guests and 50% of members reached the form; once there, both converted similarly (50% vs 46%), so the gap is the login step.')],
+      ['44%', b('登入後回到表單', 'return to form after login'), b('登入成功後只有 44% 回到原本的表單，而且註冊後不會自動登入。', 'Only 44% returned to their form after logging in, and signing up does not log people in automatically.')],
+      ['41', b('項附證據的發現與建議', 'evidence-backed findings'), b('每項都附證據強度、建議解法與優先等級；另外記下 16 項已排除的說法，避免團隊重複討論。', 'Each comes with evidence strength, a proposed fix, and a priority; 16 ruled-out claims are logged too, so the team doesn\'t revisit them.')],
     ],
     hero: {
       kind: 'image',
@@ -432,17 +428,124 @@ export const cases: Case[] = [
         title: b('從「看數字」變成「知道要修什麼」', 'From watching numbers to knowing what to fix'),
         blocks: [
           { t: 'p', text: b('交付的是一份有證據、可以排期的產品待辦，以及改版後可以自動做前後比較的每週追蹤機制。', 'The deliverable is an evidence-backed, schedulable product backlog and weekly tracking that compares before and after each change.') },
-          { t: 'h3', text: b('還不能宣稱的事', 'What I can\'t claim yet') },
-          { t: 'p', text: b('改善建議還沒有任何一項上線，所以目前不能宣稱轉換率已提升。依問題清單的估算，只修「登入後接續訂單」一項，最多每月約多 20 筆訂房（目前每月約 138 筆），需要上線後驗證。', 'None of the recommendations has shipped yet, so no conversion gains can be claimed. The backlog estimate for fixing only "resume booking after login" is at most about 20 more bookings a month, against about 138 today; it must be verified after launch.') },
+          { t: 'h3', text: b('預期效益', 'Expected impact') },
+          { t: 'p', text: b('依問題清單估算，只修「登入後接續訂單」一項，每月最多可多約 20 筆訂房（目前每月約 138 筆）；改版上線後，會用既有的每週追蹤驗證。', 'The backlog estimate for fixing only "resume booking after login" is up to about 20 more bookings a month, against about 138 today; once it ships, the existing weekly tracking will verify it.') },
           { t: 'h3', text: b('下一步', 'Next') },
           { t: 'p', text: b('推動「登入後接續訂單」與「落地頁顯示日期與價格」兩項改版，上線後用既有的每週追蹤量測成效。', 'Ship "resume booking after login" and "show dates and prices on landing pages," then measure with the existing weekly tracking.') },
-          { t: 'h3', text: b('如果重來一次', 'If I did it again') },
-          { t: 'p', text: b('分析做得再深，沒上線就無法證明對轉換的影響。下次我會在分析中途就先挑「登入後接續訂單」這一項推上線，用每週追蹤量到成效，再用結果去爭取後面的改版。', 'However deep the analysis, it proves nothing until something ships. Next time I will push one change, resume booking after login, while the analysis is still running, measure it with the weekly tracking, and use that result to win the next fixes.') },
+          { t: 'h3', text: b('下次會怎麼做', 'What I\'d do next time') },
+          { t: 'p', text: b('下次我會在分析進行中，就先挑一項改版推上線，用每週追蹤量到成效，再用結果爭取後續改版。', 'Next time I will ship one change while the analysis is still running, measure it with the weekly tracking, and use that result to win the next fixes.') },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'research',
+    no: '05',
+    period: '2022.10 — 2023.02',
+    eyebrow: 'Case 05 · UX Research',
+    title: b('自我成長社群研究：\n為什麼有人留下、有人離開', 'Self-growth community research:\nwhy some stay and others leave'),
+    cardTitle: b('自我成長社群研究：為什麼有人留下、有人離開', 'Community research: why some stay and others leave'),
+    lead: b(
+      '一個自我成長社群的成員越來越少，課程也賣不動，業主從沒做過使用者研究。我們 12 人分三組，訪談 18 位活躍、流失與潛在用戶，找出留下與離開的原因，並轉成新手融入與社群經營的建議。',
+      "A self-growth community was shrinking and its courses weren't selling, and the founders had never done user research. Twelve of us split into three teams, interviewed 18 active, lapsed, and prospective members, found why people stay or leave, and turned it into recommendations for onboarding and community design.",
+    ),
+    chips: ['UX Research', 'Interviews', 'Survey', 'Affinity mapping'],
+    meta: [
+      [b('我的角色', 'My role'), b('第一組研究員（活躍用戶）· 主訪 · 問卷與訪綱設計 · 參與整合簡報', 'Researcher, active-member team · lead interviewer · survey and guide design · contributed to the final readout')],
+      [b('業主', 'Client'), b('原子實踐 × 析心事務所', 'A Taiwanese self-growth community')],
+      [b('期間', 'Period'), b('2022.10 — 2023.02 · UX 工作坊業主委託專案', '2022.10 — 2023.02 · client project in a UX workshop')],
+      [b('狀態', 'Status'), b('2022 年 12 月向業主簡報', 'Presented to the client in Dec 2022')],
+    ],
+    kpis: [
+      ['3', b('群用戶分開研究', 'user groups studied separately'), b('活躍、流失或觀望、從沒接觸過的潛在用戶，各由一組 4 人負責。', 'Active, lapsed or undecided, and never-joined prospective members, each covered by its own team of four.')],
+      ['18', b('位受訪者', 'interviews'), b('三組各 6 位，每場約 1.5 小時線上訪談，2022 年 11 月 7 到 13 日完成。', 'Six per team, each a roughly 90-minute online interview, completed November 7–13, 2022.')],
+      ['43', b('份招募問卷回覆', 'screener responses'), b('用來篩選三群受訪者，也用來對照業主原本的客群假設。', "Used to recruit the three groups and to check the client's original assumptions about its audience.")],
+    ],
+    hero: { kind: 'diagram', diagram: 'groups', caption: b('示意圖 · 依研究紀錄重繪', 'Diagram · redrawn from the research notes') },
+    card: { kind: 'diagram', diagram: 'groups', label: b('示意圖 · 依研究紀錄重繪', 'Diagram · redrawn from the research notes') },
+    webOnly: true,
+    sections: [
+      {
+        id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
+        title: b('業主只知道人在變少，不知道為什麼', 'The client knew people were leaving, not why'),
+        blocks: [
+          { t: 'p', text: b('社群初期迴響很好，後來參與人數下滑；新講師上任後課程也賣得不理想。團隊之前沒做過任何使用者研究，判斷都來自經營者自己的觀察。業主原本鎖定「習慣用理性邏輯處理人生問題」的人，認為服務感性族群的成本太高。', "The community started strong, then participation dropped, and courses sold poorly after a new instructor joined. The team had never done user research; decisions came from the founders' own observations. They targeted \"people who handle life problems with logic,\" believing emotionally driven members would cost too much to serve.") },
+          { t: 'callout', title: b('目標', 'Goal'), text: b('找出原本參與的人為什麼漸漸離開、另一部分的人為什麼留下，並檢查業主的客群假設是否成立。', "Find out why some members drifted away while others stayed, and test whether the client's assumptions about its audience held up.") },
+          { t: 'h3', text: b('我負責的部分', 'What I did') },
+          { t: 'p', text: b('我在負責「活躍用戶」的第一組，參與拆解業主的商業假設、設計招募問卷與訪綱，擔任主訪並用 ORID 整理訪談紀錄，最後參與三組整合與業主簡報。', "I was on the active-member team. I helped break down the client's business assumptions, designed the screener and interview guide, led interviews and coded notes with ORID, and helped merge the three teams' findings into the client readout.") },
+        ],
+      },
+      {
+        id: 'method', caps: ['pm', 'ui'], tags: ['PM', 'UI / UX'], toc: b('研究設計', 'Method'),
+        title: b('三群用戶分開研究，再合起來比對', 'Three groups studied apart, then compared'),
+        blocks: [
+          { t: 'flow', items: [
+            b('需求訪談與商業假設拆解（10 月中）', 'Client interview and assumption mapping (mid-Oct)'),
+            b('社群觀察：LINE、Facebook、Discord（10 月）', 'Community observation on LINE, Facebook, Discord (Oct)'),
+            b('招募問卷篩選三群受訪者', 'Screener survey to recruit three groups'),
+            b('18 場訪談，ORID 紀錄（11 月）', '18 interviews, ORID notes (Nov)'),
+            b('親合圖、同理心地圖、三組整合，向業主簡報（12 月）', 'Affinity mapping, empathy maps, cross-team synthesis, client readout (Dec)'),
+          ] },
+          { t: 'p', text: b('三群各由一組負責，因為同一個問題在三群人身上的答案不同：留下的人說得出「為什麼留」，流失的人說得出「為什麼走」，沒接觸過的人才看得到「為什麼一開始沒進來」。', "Each group had its own team because the same question gets different answers: people who stayed can say why they stayed, people who left can say why they left, and people who never joined show why they didn't come in at all.") },
+          { t: 'compare', title: b('過程證據：把研究目標從「驗證」改成「探索」', 'Evidence: turning "prove it" goals into "explore it" goals'), aiLabel: b('第一版目標', 'First draft'), meLabel: b('第三次修改後', 'Third revision'),
+            ai: b('確認「越多的互動」是否真的可以提升「購課率」。', 'Confirm whether more interaction actually raises course purchases.'),
+            me: b('研究「社群互動」與用戶活躍程度之間的關聯。我們發現第一版是在找證據支持業主的假設；改成探索關聯，才不會在訪談前就預設答案。', "Study how community interaction relates to how active members are. We realized the first draft was hunting for evidence to support the client's assumption; reframing it as exploring a relationship stopped us from deciding the answer before the interviews."),
+            source: b('2022 年 10 月 27 日 · 第三次修改研究目標時', '27 Oct 2022 · third revision of the research goals') },
+        ],
+      },
+      {
+        id: 'findings', caps: ['ui'], tags: ['UI / UX'], toc: b('發現', 'Findings'),
+        title: b('留下靠小而深的互動，離開多半卡在新手期', 'People stay for small, deep interactions and leave during the newcomer phase'),
+        blocks: [
+          { t: 'callout', title: b('質化發現', 'Qualitative findings'), text: b('以下來自 18 場訪談與社群觀察，是方向性的發現，不是比例或因果。', 'These come from 18 interviews and community observation. They show direction, not proportions or cause and effect.') },
+          { t: 'h3', text: b('留下的人：三人小組是最被肯定的活動', 'Why people stay: the three-person practice group') },
+          { t: 'p', text: b('三人一組輪流擔任引導者、被引導者與旁觀者練習對話。每種個性的人都能在裡面找到自己的位置；人少，每個人都會被回應，陪伴感最強。', 'Groups of three rotate as guide, speaker, and observer to practice conversations. Every personality finds a place, and with so few people everyone gets a response, so members feel accompanied.') },
+          { t: 'diagram', kind: 'triad', caption: b('示意圖 · 依研究簡報重繪', 'Diagram · redrawn from the research deck') },
+          { t: 'p', text: b('但社群從 LINE 搬到 Discord 後，三人小組從固定成員改成隨機配對，累積起來的熟悉感和連結跟著變弱。', 'After the community moved from LINE to Discord, practice groups switched from fixed members to random matching, and the familiarity people had built up weakened.') },
+          { t: 'h3', text: b('離開的人：卡在新手期', 'Why people leave: stuck as newcomers') },
+          { t: 'table', head: [b('原因', 'Reason'), b('受訪者的狀況', 'What we heard'), b('對應建議', 'Recommendation')], rows: [
+            [b('找不到自己的角色', "Can't find a role"), b('不知道讀書會要做什麼，旁聽也有壓力', 'Unsure what to do in reading groups; even listening feels like pressure'), b('活動前先說明角色與要做的事', 'Explain roles and tasks before each session')],
+            [b('頻道太多太難懂', 'Too many unclear channels'), b('二、三十個頻道，名稱遊戲化，看不出用途', 'Twenty to thirty channels with playful names that hide their purpose'), b('先選興趣，再開啟相關頻道', 'Pick interests first, then unlock related channels')],
+            [b('回饋不夠深', 'Shallow feedback'), b('目的性強的人覺得得不到有深度的知識回饋', 'Goal-driven members found too little depth'), b('活動後整理知識重點', 'Summarize key takeaways after sessions')],
+            [b('沒有被回應', 'No one responds'), b('發言沒人接，感受不到陪伴', 'Posts go unanswered, so no one feels accompanied'), b('安排熱心成員主動關心新人', 'Assign welcoming members to check on newcomers')],
+          ], note: b('依流失組研究整理', "From the lapsed-member team's findings") },
+          { t: 'h3', text: b('沒進來的人：先信任，才會加入', 'Why people never join: trust comes first') },
+          { t: 'p', text: b('潛在用戶是透過信任的朋友、KOL 或平台認識新社群；他們用自己的問題去搜尋（例如「想改善親子關係」），不會用「原子習慣」這類專有名詞。所以溝通要從他們的問題切入，而不是從方法名稱切入。', 'Prospective members find communities through trusted friends, creators, or platforms, and they search using their own problems (like "improve my relationship with my kids"), not terms like "atomic habits." Messaging has to start from their problem, not the method\'s name.') },
+        ],
+      },
+      {
+        id: 'recommendations', caps: ['pm', 'ui'], tags: ['PM', 'UI / UX'], toc: b('建議', 'Recommendations'),
+        title: b('把三人小組的力量放大到整個社群', 'Scale what works in the three-person groups'),
+        blocks: [
+          { t: 'decision', q: b('講師顧不到每個人，怎麼讓新人不掉隊？', "The instructor can't reach everyone. How do newcomers keep up?"), a: b('培養學長姊帶學弟妹', 'Train experienced members to guide newcomers'), text: b('先由講師帶三人小組，把練習得好的學員培養成引導者，再由引導者帶新進成員，講師逐步退到旁邊觀察。', 'The instructor leads early groups, trains strong members as guides, and guides then lead newcomers while the instructor steps back to observe.') },
+          { t: 'diagram', kind: 'mentor', caption: b('示意圖 · 依研究建議重繪', 'Diagram · redrawn from the recommendations') },
+          { t: 'decision', q: b('新人看不懂 Discord 怎麼辦？', "Newcomers can't navigate Discord. What then?"), a: b('頻道分層開啟', 'Unlock channels in layers'), text: b('第一層只給大分類，選了感興趣的主題（例如讀書會）才開啟相關子頻道。', 'Show only top categories first; related sub-channels open once someone picks a topic, such as reading groups.') },
+          { t: 'decision', q: b('兩種新手要的不一樣？', 'Do two kinds of newcomers want different things?'), a: b('分開設計支持方式', 'Support them differently'), text: b('目的性強的人給清楚的指引和重點整理；想慢慢探索的人給陪伴和固定小組。', 'Goal-driven newcomers get clear guides and summaries; explorers get companionship and a fixed small group.') },
+        ],
+      },
+      {
+        id: 'outcome', caps: ['pm', 'ui'], tags: ['Outcome'], toc: b('成果與反思', 'Outcome'),
+        title: b('第一次做研究學到的四件事', 'Four lessons from my first research project'),
+        blocks: [
+          { t: 'p', text: b('研究在 2022 年 12 月向業主簡報，三組的發現整合成新手融入、社群內容、社群經營三類建議。這是我第一次完整走過使用者研究，現在回頭看，有四件事我會做得不一樣。', "We presented to the client in December 2022, with the three teams' findings merged into recommendations on onboarding, content, and community operations. It was my first full research project, and looking back there are four things I'd do differently.") },
+          { t: 'h3', text: b('1. 用實際行為分群，不用「聽過什麼」分群', '1. Segment by behavior, not by what people have heard of') },
+          { t: 'p', text: b('招募問卷用「有沒有聽過原子習慣」分流，結果把一些參加過社群、但沒聽過這個詞的人篩掉了。下次我會用最後一次參加活動的時間、互動頻率、有沒有付費來分群。', "Our screener routed people by whether they'd heard of \"atomic habits,\" which filtered out some who had joined the community but didn't know the term. Next time I'd segment by last activity, interaction frequency, and payment.") },
+          { t: 'figure', src: ['img/case5/survey-routing-draft.jpg'], alt: b('招募問卷分流草稿', 'Draft screener routing'), caption: b('當時的問卷分流草稿 · 以「是否聽過原子習慣」作為分流條件', 'Our original screener routing draft, branching on "heard of atomic habits"') },
+          { t: 'h3', text: b('2. 每個結論都標出樣本與證據強度', '2. Label every conclusion with sample and strength') },
+          { t: 'p', text: b('2026 年我用 AI 協助重新檢視這份研究時，回頭重看當年的問卷資料：認為「做決定時邏輯比心情重要」的比例，聽過原子習慣但沒實踐的人是 70%（14/20），真正在實踐的人只有 25%（3/12）。這比我們當年引用的圖更能檢驗業主的客群假設，但它量的是「有沒有實踐原子習慣」，不是「有沒有留在社群」，樣本也小。下次每個結論我都會寫出樣本數和證據強度。', "Revisiting the study with AI in 2026, I reread our survey data: 70% (14/20) of people who'd heard of atomic habits but didn't practice them said logic matters more than feelings in big decisions, versus 25% (3/12) of active practitioners. That tests the client's audience assumption better than the chart we used, but it measures practicing the method, not staying in the community, and the samples are small. Next time every conclusion gets a sample size and an evidence rating.") },
+          { t: 'diagram', kind: 'bars', caption: b('示意圖 · 2026 年回頭重看問卷資料重繪，非當年研究結論', 'Diagram · redrawn in 2026 from the survey data, not a 2022 finding') },
+          { t: 'h3', text: b('3. 建立信任，但不引導答案', '3. Build rapport without leading') },
+          { t: 'p', text: b('快速和受訪者建立信任是我的強項，但我也學到寒暄和引導的界線：開場稱讚受訪者、分享自己的看法，都可能讓對方順著我的方向回答。下次我會從「最近一次發生的具體事件」問起。', "Building rapport quickly is one of my strengths, but I learned where small talk ends and leading begins: praising a participant or sharing my own view at the start can steer their answers. Next time I'd open with the most recent concrete event.") },
+          { t: 'h3', text: b('4. 研究同意和公開展示是兩件事', '4. Research consent is not publishing consent') },
+          { t: 'p', text: b('受訪者同意的是參與研究，不代表同意公開展示。下次我會把錄音、引用、公開展示分開取得同意；對外分享研究過程時，只放去識別化的整理結果。', "Agreeing to take part in research isn't agreeing to be published. Next time I'd get separate consent for recording, quoting, and publishing, and share the process externally only as de-identified summaries.") },
         ],
       },
     ],
   },
 ];
+
+/** PDF 作品集摘要用：排除只放網站的案例 */
+export const printCases = cases.filter((c) => !c.webOnly);
 
 export function neighbors(slug: string) {
   const i = cases.findIndex((c) => c.slug === slug);

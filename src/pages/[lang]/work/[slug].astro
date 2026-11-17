@@ -2,6 +2,7 @@
 import Base from '../../../layouts/Base.astro';
 import Blocks from '../../../components/Blocks.astro';
 import Tiers from '../../../components/Tiers.astro';
+import Diagram from '../../../components/Diagram.astro';
 import '../../../styles/case.css';
 import { langs, ui, url, asset, type Lang } from '../../../i18n';
 import { cases, neighbors, capLabel, type Cap } from '../../../data/cases';
@@ -26,10 +27,12 @@ const lines = c.title[lang].split('\n');
         <h1>{lines.map((l, i) => <>{i > 0 && <br />}{l}</>)}</h1>
         <p class="lead">{c.lead[lang]}</p>
         <dl class="meta">{c.meta.map(([k, v]) => <div><dt>{k[lang]}</dt><dd>{v[lang]}</dd></div>)}</dl>
-        <div class="kpis">{c.kpis.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>
+        <div class="kpis">{c.kpis.map(([v, l, tip], i) => tip ? (
+          <div class="kpi has-tip" tabindex="0" aria-describedby={`kpi-tip-${i}`}><b>{v}</b><span class="kpi-label">{l[lang]}</span><span class="kpi-tip" role="tooltip" id={`kpi-tip-${i}`}>{tip[lang]}</span></div>
+        ) : <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>
       </div>
       <figure>
-        {c.hero.kind === 'image' ? <img src={asset(c.hero.src)} alt={c.hero.alt[lang]} /> : <Tiers />}
+        {c.hero.kind === 'image' ? <img src={asset(c.hero.src)} alt={c.hero.alt[lang]} /> : c.hero.kind === 'diagram' ? <div class="hero-diagram"><Diagram kind={c.hero.diagram} lang={lang} /></div> : <Tiers />}
         <figcaption>{c.hero.caption[lang]}</figcaption>
       </figure>
     </div>

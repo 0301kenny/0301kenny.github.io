@@ -1,8 +1,9 @@
 ---
 // 依專案文件數據重繪的示意圖（中英雙語、行內 SVG）
 import type { Lang } from '../i18n';
+import type { DiagramKind } from '../data/cases';
 
-interface Props { kind: 'channels' | 'rules' | 'funnel'; lang: Lang }
+interface Props { kind: DiagramKind; lang: Lang }
 const { kind, lang } = Astro.props;
 const zh = lang === 'zh-tw';
 const t = (a: string, b: string) => (zh ? a : b);
@@ -16,10 +17,28 @@ const bars = [
   { title: t('點「選擇價格」後，走到訂單表單', 'Reached the booking form after "Select rate"'), rows: [[t('訪客', 'Guests'), 9], [t('會員', 'Members'), 50]] },
   { title: t('走到表單之後的轉換', 'Conversion once on the form'), rows: [[t('訪客', 'Guests'), 50], [t('會員', 'Members'), 46]] },
 ] as const;
+
+// Case 05
+const groups = [
+  [t('活躍用戶', 'Active'), t('為什麼留下', 'Why they stay')],
+  [t('流失或觀望', 'Lapsed'), t('為什麼離開', 'Why they left')],
+  [t('潛在用戶', 'Prospective'), t('為什麼沒進來', 'Why never joined')],
+];
+const steps = [
+  { n: t('第 1 步', 'STEP 1'), lines: zh ? ['講師帶三人小組'] : ['Instructor leads', 'groups of three'], sub: '' },
+  { n: t('第 2 步', 'STEP 2'), lines: zh ? ['練習得好的學員', '培養成引導者'] : ['Strong members', 'trained as guides'], sub: '' },
+  { n: t('第 3 步', 'STEP 3'), lines: zh ? ['引導者帶新成員'] : ['Guides lead', 'newcomers'], sub: t('講師在旁觀察', 'Instructor observes') },
+];
+const BW = 230; // 100% 長條寬度
+const pct = [
+  { label: t('聽過但沒實踐', 'Heard, not practicing'), v: 70, n: '14/20', fill: 'var(--d-gold)' },
+  { label: t('全體填答', 'All respondents'), v: 56, n: '24/43', fill: 'var(--d-ink-3)' },
+  { label: t('有在實踐', 'Practicing'), v: 25, n: '3/12', fill: 'var(--d-ink)' },
+];
 ---
 <div class="diagram">
   {kind === 'channels' && (
-    <svg viewBox="0 0 480 300" role="img" aria-label={t('官網、LINE LIFF、銀行白牌三個前台共用一套後端與後台，並共用 735 個元件、11 個元件庫與四語系 3,548 個字串', 'Website, LINE LIFF, and bank white-label sites share one backend and admin, plus 735 components, 11 libraries, and 3,548 strings in four languages')}>
+    <svg viewBox="0 0 480 300" role="img" aria-label={t('官網、LINE LIFF、銀行白牌三個前台共用一套後端與後台，並共用 11 個元件庫（735 個元件與變體）與四語系 3,548 個字串', 'Website, LINE LIFF, and bank white-label sites share one backend and admin, plus 11 component libraries (735 components and variants) and 3,548 strings in four languages')}>
       {[t('官網', 'Website'), 'LINE LIFF', t('銀行白牌', 'White label')].map((label, i) => (
         <g>
           <rect x={10 + i * 160} y="10" width="140" height="56" rx="10" fill="var(--d-bg)" stroke="var(--d-line)" />
@@ -32,7 +51,7 @@ const bars = [
       <text x="240" y="144" text-anchor="middle" font-size="16" font-weight="600" fill="#fff">{t('共用一套後端與後台', 'One shared backend and admin')}</text>
       <rect x="10" y="186" width="460" height="104" rx="10" fill="var(--d-gold-soft)" />
       <text x="240" y="212" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-gold)">{t('三個前台共用的設計基礎', 'Design foundation shared by all three')}</text>
-      {[['735', t('個共用元件', 'components')], ['11', t('個元件庫', 'libraries')], ['3,548', t('個字串 × 4 語系', 'strings, 4 languages')]].map(([v, l], i) => (
+      {[['11', t('個共用元件庫', 'shared libraries')], ['735', t('個元件與變體', 'Figma symbols')], ['3,548', t('個字串 × 4 語系', 'strings, 4 languages')]].map(([v, l], i) => (
         <g>
           <text x={88 + i * 152} y="252" text-anchor="middle" font-size="24" fill="var(--d-ink)">{v}</text>
           <text x={88 + i * 152} y="276" text-anchor="middle" font-size="15" fill="var(--d-ink-2)">{l}</text>
@@ -76,6 +95,98 @@ const bars = [
       ))}
       <rect x="10" y="244" width="400" height="48" rx="10" fill="var(--d-gold-soft)" />
       <text x="210" y="274" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-ink)">{t('落差出在登入這一步；登入後只有 44% 回到表單', 'The gap is login. Only 44% return after it')}</text>
+    </svg>
+  )}
+  {kind === 'groups' && (
+    <svg viewBox="0 0 480 300" role="img" aria-label={t('三組研究員各研究一群用戶：活躍用戶（為什麼留下）、流失或觀望用戶（為什麼離開）、潛在用戶（為什麼沒進來），各 6 位受訪者，最後三組整合並向業主簡報', 'Three teams each studied one group: active members (why they stay), lapsed members (why they left), prospective members (why they never joined), six interviews each, then merged findings into a client readout')}>
+      <defs><marker id="arr-g" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker></defs>
+      {groups.map(([title, q], i) => (
+        <g>
+          <rect x={10 + i * 156} y="10" width="148" height="104" rx="10" fill="var(--d-bg)" stroke="var(--d-line)" />
+          <text x={84 + i * 156} y="42" text-anchor="middle" font-size="16" font-weight="600" fill="var(--d-ink)">{title}</text>
+          <text x={84 + i * 156} y="68" text-anchor="middle" font-size="14" fill="var(--d-gold)">{q}</text>
+          <text x={84 + i * 156} y="94" text-anchor="middle" font-size="13" fill="var(--d-ink-3)">{t('6 位受訪者', '6 interviews')}</text>
+          <line x1={84 + i * 156} y1="114" x2={84 + i * 156} y2="146" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-g)" />
+        </g>
+      ))}
+      <rect x="10" y="150" width="460" height="52" rx="10" fill="var(--d-ink)" />
+      <text x="240" y="182" text-anchor="middle" font-size="16" font-weight="600" fill="#fff">{t('三組整合：親合圖、同理心地圖', 'Cross-team synthesis: affinity and empathy maps')}</text>
+      <line x1="240" y1="202" x2="240" y2="230" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-g)" />
+      <rect x="10" y="234" width="460" height="56" rx="10" fill="var(--d-gold-soft)" />
+      <text x="240" y="268" text-anchor="middle" font-size="16" font-weight="600" fill="var(--d-ink)">{t('2022 年 12 月向業主簡報', 'Client readout, December 2022')}</text>
+    </svg>
+  )}
+
+  {kind === 'triad' && (
+    <svg viewBox="0 0 480 300" role="img" aria-label={t('三人小組：引導者和被引導者互相提問與回答，旁觀者觀察兩人；社群搬到 Discord 後，固定成員改成隨機配對', 'Three-person group: the guide and speaker ask and answer, the observer watches both; after moving to Discord, fixed members became random pairs')}>
+      <defs>
+        <marker id="arr-t" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker>
+      </defs>
+      <line x1="114" y1="96" x2="206" y2="96" stroke="var(--d-ink-3)" stroke-width="1.5" marker-start="url(#arr-t)" marker-end="url(#arr-t)" />
+      <text x="160" y="84" text-anchor="middle" font-size="14" fill="var(--d-ink-2)">{t('提問／回答', 'ask / answer')}</text>
+      <line x1="138" y1="198" x2="96" y2="138" stroke="var(--d-ink-3)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-t)" />
+      <line x1="182" y1="198" x2="224" y2="138" stroke="var(--d-ink-3)" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#arr-t)" />
+      <text x="160" y="160" text-anchor="middle" font-size="14" fill="var(--d-ink-2)">{t('觀察', 'observes')}</text>
+      <circle cx="70" cy="96" r="42" fill="var(--d-ink)" />
+      <text x="70" y="102" text-anchor="middle" font-size="16" font-weight="600" fill="#fff">{t('引導者', 'Guide')}</text>
+      <circle cx="250" cy="96" r="42" fill="var(--d-gold)" />
+      <text x="250" y="102" text-anchor="middle" font-size="16" font-weight="600" fill="#fff">{t('被引導者', 'Speaker')}</text>
+      <circle cx="160" cy="238" r="42" fill="var(--d-bg)" stroke="var(--d-ink-3)" />
+      <text x="160" y="244" text-anchor="middle" font-size="16" font-weight="600" fill="var(--d-ink)">{t('旁觀者', 'Observer')}</text>
+      <text x="160" y="296" text-anchor="middle" font-size="13" fill="var(--d-ink-3)">{t('三人輪流擔任三種角色', 'Members rotate through all three roles')}</text>
+      <rect x="326" y="10" width="144" height="280" rx="10" fill="var(--d-surface)" />
+      <text x="398" y="40" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-ink)">{t('配對方式', 'How groups form')}</text>
+      <rect x="340" y="58" width="116" height="70" rx="8" fill="var(--d-bg)" stroke="var(--d-line)" />
+      <text x="398" y="88" text-anchor="middle" font-size="16" font-weight="600" fill="var(--d-ink)">LINE</text>
+      <text x="398" y="112" text-anchor="middle" font-size="14" fill="var(--d-ink-2)">{t('固定成員', 'Fixed members')}</text>
+      <line x1="398" y1="128" x2="398" y2="162" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-t)" />
+      <rect x="340" y="166" width="116" height="70" rx="8" fill="var(--d-bg)" stroke="var(--d-line)" />
+      <text x="398" y="196" text-anchor="middle" font-size="16" font-weight="600" fill="var(--d-ink)">Discord</text>
+      <text x="398" y="220" text-anchor="middle" font-size="14" fill="var(--d-ink-2)">{t('隨機配對', 'Random pairs')}</text>
+      <text x="398" y="268" text-anchor="middle" font-size="14" font-weight="600" fill="var(--d-gold)">{t('熟悉感變弱', 'Less familiarity')}</text>
+    </svg>
+  )}
+
+  {kind === 'mentor' && (
+    <svg viewBox="0 0 480 300" role="img" aria-label={t('學長姊機制三步：講師帶三人小組；練習得好的學員培養成引導者；引導者帶新成員，講師在旁觀察', 'Mentor model in three steps: the instructor leads groups of three; strong members are trained as guides; guides lead newcomers while the instructor observes')}>
+      {steps.map((st, i) => {
+        const cx = 84 + i * 156;
+        const top = i === 2 ? 'var(--d-gold)' : 'var(--d-ink)';
+        return (
+          <g>
+            <rect x={10 + i * 156} y="10" width="148" height="250" rx="10" fill="var(--d-surface)" />
+            <text x={cx} y="38" text-anchor="middle" font-size="13" font-weight="600" fill="var(--d-gold)">{st.n}</text>
+            {[-40, 0, 40].map((dx) => <line x1={cx} y1="78" x2={cx + dx} y2="138" stroke="var(--d-ink-3)" stroke-width="1.5" />)}
+            <circle cx={cx} cy="78" r="16" fill={top} />
+            {[-40, 0, 40].map((dx) => <circle cx={cx + dx} cy="144" r="13" fill={i === 1 && dx === 0 ? 'var(--d-gold)' : 'var(--d-bg)'} stroke={i === 1 && dx === 0 ? 'none' : 'var(--d-ink-3)'} />)}
+            {i === 2 && <circle cx={cx + 48} cy="62" r="11" fill="none" stroke="var(--d-ink)" stroke-dasharray="3 3" />}
+            {st.lines.map((ln, li) => <text x={cx} y={194 + li * 22} text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-ink)">{ln}</text>)}
+            {st.sub && <text x={cx} y="244" text-anchor="middle" font-size="13" fill="var(--d-ink-2)">{st.sub}</text>}
+          </g>
+        );
+      })}
+      {[[t('講師', 'Instructor'), 'var(--d-ink)', 'none'], [t('引導者', 'Guide'), 'var(--d-gold)', 'none'], [t('學員', 'Member'), 'var(--d-bg)', 'var(--d-ink-3)']].map(([label, fill, stroke], i) => (
+        <g>
+          <circle cx={128 + i * 100} cy="282" r="7" fill={fill} stroke={stroke} />
+          <text x={140 + i * 100} y="287" font-size="13" fill="var(--d-ink-2)">{label}</text>
+        </g>
+      ))}
+    </svg>
+  )}
+
+  {kind === 'bars' && (
+    <svg viewBox="0 0 480 236" role="img" aria-label={t('2026 年回頭重看問卷：認為做重要決定時邏輯比心情重要的比例，聽過但沒實踐 70%（14/20）、全體填答 56%（24/43）、有在實踐 25%（3/12）', 'Survey revisited in 2026: share who say logic matters more than feelings in big decisions. Heard but not practicing 70% (14/20), all respondents 56% (24/43), practicing 25% (3/12)')}>
+      <text x="10" y="24" font-size="16" font-weight="600" fill="var(--d-ink)">{t('做重要決定時，邏輯比心情重要', 'Logic matters more than feelings in big decisions')}</text>
+      <text x="10" y="46" font-size="13" fill="var(--d-ink-2)">{t('回答「同意」或「非常同意」的比例', 'Share answering agree or strongly agree')}</text>
+      {pct.map((r, i) => (
+        <g>
+          <text x="10" y={89 + i * 44} font-size="14" fill="var(--d-ink-2)">{r.label}</text>
+          <rect x="160" y={72 + i * 44} width={BW} height="24" rx="5" fill="var(--d-surface)" />
+          <rect x="160" y={72 + i * 44} width={(BW * r.v) / 100} height="24" rx="5" fill={r.fill} />
+          <text x={168 + (BW * r.v) / 100} y={90 + i * 44} font-size="15" font-weight="600" fill="var(--d-ink)">{r.v}%<tspan font-size="13" font-weight="400" fill="var(--d-ink-3)"> ({r.n})</tspan></text>
+        </g>
+      ))}
+      <text x="10" y="226" font-size="13" fill="var(--d-ink-3)">{t('2026 回頭重看 · 單題自評 · 樣本小', 'Revisited in 2026 · one self-rated question · small samples')}</text>
     </svg>
   )}
 </div>

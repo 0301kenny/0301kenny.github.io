@@ -35,8 +35,8 @@ const { blocks, lang } = Astro.props;
     case 'table':
       return (
         <>
-          <table>
-            <thead><tr><th>{ui.case.stage[lang]}</th><th>{ui.case.aiDoes[lang]}</th><th>{ui.case.iDo[lang]}</th></tr></thead>
+          <table class={bk.head ? 'wrap-first' : undefined}>
+            <thead><tr>{(bk.head ?? [ui.case.stage, ui.case.aiDoes, ui.case.iDo]).map((h) => <th>{h[lang]}</th>)}</tr></thead>
             <tbody>{bk.rows.map(([a, b, c]) => <tr><td>{a[lang]}</td><td>{b[lang]}</td><td>{c[lang]}</td></tr>)}</tbody>
           </table>
           {bk.note && <p class="note">{bk.note[lang]}</p>}

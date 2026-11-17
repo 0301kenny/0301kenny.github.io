@@ -29,7 +29,7 @@ export const profile = {
     linkedin: 'https://www.linkedin.com/in/kenny-cheng-5240381ab',
     behance: 'https://www.behance.net/kennycheng0301',
     github: 'https://github.com/0301kenny',
-    location: { 'zh-tw': '新北市 · 可至台北市、新竹、桃園工作 · 接受遠端或混合辦公', en: 'New Taipei City · Open to Taipei, Hsinchu, or Taoyuan · Remote or hybrid' } as T,
+    location: { 'zh-tw': '新北市 · 台北市 · 接受遠端或混合辦公', en: 'New Taipei City · Taipei · Remote or hybrid' } as T,
   },
 };
 

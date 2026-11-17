@@ -59,5 +59,4 @@ export const ui = {
     en: '',
   },
   footerBuilt: { 'zh-tw': '本網站以 Claude Code 協作開發', en: 'Built with Claude Code' },
-  source: { 'zh-tw': '查看原始碼', en: 'View source' },
 } satisfies Record<string, unknown>;

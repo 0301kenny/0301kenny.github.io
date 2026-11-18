@@ -7,6 +7,7 @@ import '../../styles/site.css';
 import { langs, ui, url, asset, type Lang } from '../../i18n';
 import { profile, sections as s, approach, legacy, timeline, downloads } from '../../data/profile';
 import { cases } from '../../data/cases';
+import { phrases, words } from '../../utils/phrases';
 
 export function getStaticPaths() {
   return langs.map((lang) => ({ params: { lang } }));
@@ -35,7 +36,7 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
           <a class="btn btn-ghost" href={url(lang, 'resume')}>{profile.ctaResume[lang]}</a>
         </div>
         <div class="stats">
-          {profile.stats.map((st) => <div class="stat"><b>{st.value}</b><span>{st.label[lang]}</span></div>)}
+          {profile.stats.map((st) => <div class="stat"><b>{st.value}</b><span>{words(st.label[lang]).map((w) => <span class="ph">{w}</span>)}</span></div>)}
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
@@ -66,10 +67,10 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
             </div>
             <div class="case-body">
               <span class="no">CASE {c.no} · {c.period}</span>
-              <h3>{c.cardTitle[lang]}</h3>
+              <h3>{phrases(c.cardTitle[lang]).map((ph) => <span class="ph">{ph}</span>)}</h3>
               <p>{c.lead[lang]}</p>
               <div class="chips">{c.chips.map((ch, i) => <span class={i === 0 ? 'chip gold' : 'chip'}>{ch}</span>)}</div>
-              <div class="kpis">{c.kpis.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>
+              <div class="kpis">{c.kpis.map(([v, l]) => <div><b>{v}</b><span>{words(l[lang]).map((w) => <span class="ph">{w}</span>)}</span></div>)}</div>
               <span class="more">{ui.case.read[lang]}</span>
             </div>
           </a>

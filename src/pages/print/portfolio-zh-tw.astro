@@ -14,7 +14,7 @@ const pick = (slug: string) => {
   const outcome = sec('outcome').blocks.find((b): b is Extract<Block, { t: 'p' }> => b.t === 'p' && !b.todo);
   const goal = sec('problem').blocks.find((b): b is Extract<Block, { t: 'callout' }> => b.t === 'callout');
   const table = sec('build').blocks.find((b): b is Extract<Block, { t: 'table' }> => b.t === 'table');
-  const compare = sec('build').blocks.find((b): b is Extract<Block, { t: 'compare' }> => b.t === 'compare');
+  const compare = cs.sections.flatMap((x) => x.blocks).find((b): b is Extract<Block, { t: 'compare' }> => b.t === 'compare');
   return { cs, decisions, outcome, goal, table, compare };
 };
 
@@ -70,9 +70,9 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? '/' 
   .case-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 10mm; margin-top: 3mm; flex: 1; min-height: 0; }
   h2 { margin: 2mm 0 3mm; font-weight: 300; font-size: 22pt; line-height: 1.3; }
   .lead2 { margin: 0 0 4mm; font-size: 10.6pt; line-height: 1.7; color: var(--ink-2); }
-  .meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2mm 5mm; padding: 3mm 0; border-top: .6pt solid var(--line); border-bottom: .6pt solid var(--line); }
+  .meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3mm 8mm; padding: 3.5mm 0; border-top: .6pt solid var(--line); border-bottom: .6pt solid var(--line); }
   .meta dt { font-size: 8.2pt; color: var(--ink-3); }
-  .meta dd { margin: .5mm 0 0; font-size: 9.6pt; font-weight: 500; line-height: 1.4; }
+  .meta dd { margin: 1.2mm 0 0; font-size: 9.6pt; font-weight: 500; line-height: 1.45; }
   .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 4mm; }
   .kpis b { display: block; font-size: 22pt; font-weight: 300; line-height: 1.2; }
   .kpis span { font-size: 8.8pt; color: var(--ink-3); line-height: 1.35; display: block; }

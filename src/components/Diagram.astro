@@ -34,8 +34,8 @@ const BW = 230; // 100% 長條寬度
 // Case 06
 const models = ['Whisper turbo', 'Breeze-ASR-25', 'TEA-ASR-1.1'];
 const lanes = [
-  { title: t('會中：要快', 'During: fast'), lines: [t('草稿約 3 秒出現', 'Draft in about 3 s'), t('AI 每 3 段糾正一次', 'AI fixes every 3 segments'), t('糾正後原地覆蓋草稿', 'Fixed text replaces draft')], dark: true },
-  { title: t('會後：要準', 'After: accurate'), lines: [t('三個模型整場重轉', 'Full re-transcription'), t('對照公司字典逐批精修', 'Refine with the glossary'), t('擷取決策，附上原句', 'Extract decisions + quotes')], dark: false },
+  { title: t('會議中：要快', 'During: fast'), lines: [t('草稿約 3 秒出現', 'Draft in about 3 s'), t('AI 每 3 段糾正一次', 'AI fixes every 3 segments'), t('糾正後原地覆蓋草稿', 'Fixed text replaces draft')], dark: true },
+  { title: t('會議後：要準', 'After: accurate'), lines: [t('三個模型整場重轉', 'Full re-transcription'), t('對照公司字典逐批精修', 'Refine with the glossary'), t('擷取決策，附上原句', 'Extract decisions + quotes')], dark: false },
 ];
 const planSteps = [
   t('介面盤點', 'Interface audit'),
@@ -45,6 +45,15 @@ const planSteps = [
   t('錄音保護提前', 'Recording safety moved up'),
 ];
 const LW = 300; // 17 秒的長條寬度
+
+// Case 01 資訊架構、Case 04 載入迴圈
+const iaCols = [
+  { title: t('導覽入口', 'Navigation'), items: zh ? ['酒店', '會員', '私人訂製', '通關', '極致奢旅', '文章'] : ['Hotels', 'Membership', 'Bespoke', 'Airport', 'Luxury trips', 'Articles'] },
+  { title: t('訂房主線', 'Booking path'), items: zh ? ['目的地搜尋', '結果篩選', '地圖', '房型與方案', '結帳'] : ['Search', 'Filters', 'Map', 'Rooms & rates', 'Checkout'] },
+  { title: t('會員中心', 'Member center'), items: zh ? ['會籍總覽', '酒店訂單', '一般訂單', '個人資料', '我的收藏'] : ['Membership', 'Hotel orders', 'Other orders', 'Profile', 'Saved'] },
+  { title: t('標準頁', 'Landing pages'), items: zh ? ['集團', '品牌', '國家', '城市'] : ['Groups', 'Brands', 'Countries', 'Cities'] },
+];
+const loopSteps = [t('打開酒店頁', 'Open hotel'), t('載入逾時', 'Load times out'), t('顯示查無酒店', "Says 'no hotel'"), t('按上一頁', 'Tap back')];
 const latency = [
   { title: t('95% 段落的草稿延遲', 'Draft delay, 95th percentile'), rows: [[t('修正前', 'Before'), 6.7], [t('修正後', 'After'), 3.2]] },
   { title: t('最慢的一段', 'Slowest segment'), rows: [[t('修正前', 'Before'), 17], [t('修正後', 'After'), 5.9]] },
@@ -209,7 +218,7 @@ const pct = [
     </svg>
   )}
   {kind === 'memflow' && (
-    <svg viewBox="0 0 480 300" role="img" aria-label={t('會議聲音由三個本機模型同時辨識，分成兩層：會中求快，草稿約 3 秒出現，AI 每 3 段糾正一次並原地覆蓋；會後求準，三個模型整場重轉、對照公司字典精修，並擷取附原句的決策', 'Meeting audio is transcribed by three local models in two layers: during the meeting, a draft appears in about 3 seconds and AI fixes every 3 segments in place; afterward, the full meeting is re-transcribed, refined with the glossary, and decisions are extracted with quotes')}>
+    <svg viewBox="0 0 480 300" role="img" aria-label={t('會議聲音由三個本機模型同時辨識，分成兩層：會議中求快，草稿約 3 秒出現，AI 每 3 段糾正一次並原地覆蓋；會議後求準，三個模型整場重轉、對照公司字典精修，並擷取附原句的決策', 'Meeting audio is transcribed by three local models in two layers: during the meeting, a draft appears in about 3 seconds and AI fixes every 3 segments in place; afterward, the full meeting is re-transcribed, refined with the glossary, and decisions are extracted with quotes')}>
       <defs><marker id="arr-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker></defs>
       <rect x="10" y="10" width="460" height="40" rx="10" fill="var(--d-surface)" />
       <text x="240" y="36" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-ink)">{t('會議聲音（麥克風＋電腦聲音）', 'Meeting audio (mic + computer sound)')}</text>
@@ -287,6 +296,39 @@ const pct = [
         </g>
       ))}
       <text x="10" y="258" font-size="13" fill="var(--d-ink-3)">{t('同一場 9 分鐘會議重播量測 · 目標 3 秒內', 'Replay of the same 9-minute meeting · target: within 3 s')}</text>
+    </svg>
+  )}
+  {kind === 'ia' && (
+    <svg viewBox="0 0 480 288" role="img" aria-label={t('官網 3.0 資訊架構：導覽入口、訂房主線、會員中心、標準頁四大區塊', 'Website v3.0 information architecture: navigation, booking path, member center, and landing pages')}>
+      <rect x="10" y="10" width="460" height="38" rx="10" fill="var(--d-ink)" />
+      <text x="240" y="35" text-anchor="middle" font-size="16" font-weight="600" fill="#fff">{t('官網 3.0', 'Website v3.0')}</text>
+      <line x1="65" y1="58" x2="415" y2="58" stroke="var(--d-ink-3)" stroke-width="1.5" />
+      <line x1="240" y1="48" x2="240" y2="58" stroke="var(--d-ink-3)" stroke-width="1.5" />
+      {iaCols.map((col, i) => (
+        <g>
+          <line x1={65 + i * 116.7} y1="58" x2={65 + i * 116.7} y2="70" stroke="var(--d-ink-3)" stroke-width="1.5" />
+          <rect x={10 + i * 116.7} y="70" width="110" height="34" rx="8" fill="var(--d-gold-soft)" />
+          <text x={65 + i * 116.7} y="92" text-anchor="middle" font-size="13" font-weight="600" fill="var(--d-gold)">{col.title}</text>
+          <rect x={10 + i * 116.7} y="110" width="110" height="172" rx="8" fill="var(--d-surface)" />
+          {col.items.map((it, k) => <text x={65 + i * 116.7} y={136 + k * 26} text-anchor="middle" font-size="14" fill="var(--d-ink)">{it}</text>)}
+        </g>
+      ))}
+    </svg>
+  )}
+
+  {kind === 'loop' && (
+    <svg viewBox="0 0 480 192" role="img" aria-label={t('載入迴圈：打開酒店頁、載入逾時、顯示查無酒店、按上一頁後又回到同一頁', 'The loop: open a hotel page, the load times out, it says no hotel found, tapping back returns to the same page')}>
+      <defs><marker id="arr-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker></defs>
+      {loopSteps.map((label, i) => (
+        <g>
+          <rect x={10 + i * 118} y="30" width="108" height="52" rx="10" fill={i === 2 ? 'var(--d-ink)' : 'var(--d-bg)'} stroke={i === 2 ? 'none' : 'var(--d-line)'} />
+          <text x={64 + i * 118} y="61" text-anchor="middle" font-size="14" font-weight={i === 2 ? '600' : '400'} fill={i === 2 ? '#fff' : 'var(--d-ink)'}>{label}</text>
+          {i < 3 && <line x1={118 + i * 118} y1="56" x2={126 + i * 118} y2="56" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-l)" />}
+        </g>
+      ))}
+      <path d="M418 82 C418 140, 64 140, 64 88" fill="none" stroke="var(--d-gold)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-l)" />
+      <text x="240" y="152" text-anchor="middle" font-size="14" font-weight="600" fill="var(--d-gold)">{t('又回到同一頁，繞成迴圈', 'Back to the same page, in a loop')}</text>
+      <text x="240" y="180" text-anchor="middle" font-size="13" fill="var(--d-ink-3)">{t('客人以為酒店不存在，其實只是載入失敗', 'Guests think the hotel is gone; it only failed to load')}</text>
     </svg>
   )}
 </div>

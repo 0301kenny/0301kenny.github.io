@@ -9,18 +9,18 @@ export const profile = {
     en: ['From product problems', 'to working interfaces,', 'with <em>AI</em> at every step.'],
   },
   heroLead: {
-    'zh-tw': '8 年以上產品設計經驗。整合 PM、UI/UX 與前端實作，在旅宿訂房產品中負責跨平台的需求規劃、介面設計與交付驗證。',
+    'zh-tw': '我有 8 年以上的產品設計經驗，整合 PM、UI/UX 與前端實作，在旅宿訂房產品中負責跨平台的需求規劃、介面設計與交付驗證。',
     en: 'A product designer with 8+ years of experience. I combine product management, UI/UX, and frontend implementation to plan, design, and ship cross-platform hotel booking products.',
   } as T,
   ctaWork: { 'zh-tw': '看代表作品 ↓', en: 'See selected work ↓' } as T,
   ctaResume: { 'zh-tw': '下載一頁履歷', en: 'Download resume' } as T,
   stats: [
     { value: '8+', label: { 'zh-tw': '年產品設計經驗', en: 'years in product design' } },
-    { value: '3', label: { 'zh-tw': '個前台共用一套後端', en: 'customer channels, one backend' } },
+    { value: '3', label: { 'zh-tw': '個訂房入口共用同一套系統', en: 'booking channels on one system' } },
     { value: '600+', label: { 'zh-tw': '項團隊開發任務參與', en: 'team dev tasks I took part in' } },
-    { value: '129', label: { 'zh-tw': '個 UI 狀態規格', en: 'UI states specified' } },
+    { value: '129', label: { 'zh-tw': '個介面狀態畫面', en: 'interface state screens' } },
   ],
-  heroTag: { 'zh-tw': 'WOTA 官網 × LINE LIFF', en: 'WOTA website × LINE mini-app' } as T,
+  heroTag: { 'zh-tw': '官網、LINE、銀行合作網站', en: 'Website, LINE, bank partner sites' } as T,
   contact: {
     email: 'a0911157626@gmail.com',
     phone: '0934-040-212',
@@ -44,10 +44,10 @@ export const sections = {
   },
   approach: {
     eyebrow: 'How I Work',
-    title: { 'zh-tw': 'AI 加速每一步，判斷與品質由我負責', en: 'AI speeds up every step. Judgment and quality stay with me.' } as T,
+    title: { 'zh-tw': '我怎麼和 AI 分工', en: 'How I split the work with AI' } as T,
     lead: {
-      'zh-tw': '我能把同一個產品從定義、設計、實作到驗證完整推進。AI 負責擷取、整理與實作，方向、取捨與驗收由我決定。',
-      en: 'I can take one product from definition through design, build, and validation. AI handles extraction, drafting, and implementation; direction, trade-offs, and sign-off stay with me.',
+      'zh-tw': '我習慣從定義、設計、實作，一路跟到驗證。AI 負責蒐集資料、整理內容和寫程式，方向、取捨和最後驗收由我決定。',
+      en: 'I can take one product from definition through design, build, and validation. AI gathers data, organizes content, and writes code; direction, trade-offs, and final sign-off stay with me.',
     } as T,
     barLeft: { 'zh-tw': 'ChatGPT · Claude Code · Codex · Figma AI，貫穿全流程', en: 'ChatGPT · Claude Code · Codex · Figma AI across the workflow' } as T,
     barRight: { 'zh-tw': 'Human-led：需求取捨、設計品質與交付責任', en: 'Human-led: scope, design quality, and delivery' } as T,

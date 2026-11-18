@@ -19,8 +19,8 @@ const lang = Astro.params.lang as Lang;
 // 首頁預設顯示前 5 個案例，第 6 個起收在「看更多專案」後面
 const VISIBLE_CASES = 5;
 const extraCases = Math.max(0, cases.length - VISIBLE_CASES);
-const moreLabel = { 'zh-tw': `看更多專案（${extraCases}）`, en: `More projects (${extraCases})` }[lang];
-const lessLabel = { 'zh-tw': '收合專案', en: 'Show fewer' }[lang];
+const moreLabel = { 'zh-tw': `看更多專案（${extraCases}）`, en: `More case studies (${extraCases})` }[lang];
+const lessLabel = { 'zh-tw': '收合專案', en: 'Show less' }[lang];
 const tx = <V,>(v: V | Record<Lang, V>): V =>
   v && typeof v === 'object' && lang in (v as object) ? (v as Record<Lang, V>)[lang] : (v as V);
 const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc', Design: 'pen', Build: 'code', Validate: 'check' };

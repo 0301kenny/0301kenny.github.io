@@ -170,7 +170,6 @@
   /* 數字說明 tooltip */
   .kpi { position: relative; outline: none; }
   .kpi.has-tip { cursor: help; }
-  .kpi .kpi-label { text-decoration: underline dotted #B8C6D8; text-underline-offset: 4px; }
   .kpis .kpi-tip { position: absolute; top: calc(100% + 10px); left: 0; z-index: 30; width: 300px; padding: 14px 16px; background: #fff; color: var(--ink); border: 1px solid #E3EDF8; border-radius: 10px; box-shadow: 0 12px 28px -16px rgba(14,34,64,.35); font-size: 15px; line-height: 1.7; text-align: left; opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .15s ease, transform .15s ease, visibility .15s; pointer-events: none; }
   .kpis .kpi:nth-child(2) .kpi-tip { left: 50%; transform: translate(-50%, -4px); }
   .kpis .kpi:nth-child(3) .kpi-tip { left: auto; right: 0; }

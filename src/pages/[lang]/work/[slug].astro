@@ -65,8 +65,8 @@ const lines = c.title[lang].split('\n');
   </div>
 
   <nav class="pager" aria-label={lang === 'zh-tw' ? '其他案例' : 'More cases'}>
-    <a href={url(lang, `work/${prev.slug}`)}><small>{ui.case.prev[lang]}</small><b>{prev.cardTitle[lang]}</b></a>
-    <a href={url(lang, `work/${next.slug}`)}><small>{ui.case.next[lang]}</small><b>{next.cardTitle[lang]}</b></a>
+    <a href={url(lang, `work/${prev.slug}`)}><small>{ui.case.prev[lang]}</small><b>{phrases(prev.cardTitle[lang]).map((ph) => <span class="ph">{ph}</span>)}</b></a>
+    <a href={url(lang, `work/${next.slug}`)}><small>{ui.case.next[lang]}</small><b>{phrases(next.cardTitle[lang]).map((ph) => <span class="ph">{ph}</span>)}</b></a>
   </nav>
 </Base>
 

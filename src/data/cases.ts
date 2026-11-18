@@ -16,6 +16,7 @@ export type Block =
   | { t: 'stats'; items: [string, T][] }
   | { t: 'guard'; items: [T, string, T][] }
   | { t: 'flow'; items: T[] }
+  | { t: 'list'; items: T[]; ordered?: boolean }
   | { t: 'diagram'; kind: DiagramKind; caption: T }
   | { t: 'versions'; items: [string, T][] }
   | { t: 'compare'; ai: T; me: T; source: T; title?: T; aiLabel?: T; meLabel?: T };
@@ -62,7 +63,7 @@ export const cases: Case[] = [
     title: b('WOTA 跨平台旅宿訂房：\n官網 3.0 改版，以及延伸到 LINE 與銀行白牌', 'WOTA cross-platform booking:\nthe v3.0 website redesign, extended to LINE and bank sites'),
     cardTitle: b('WOTA 跨平台旅宿訂房體驗', 'WOTA cross-platform hotel booking'),
     lead: b(
-      '舊官網少了高端旅宿該有的質感，找酒店也不夠好用。我主導官網 3.0 改版：網站字體改成用襯線體搭配中黑體，讓整體變得典雅；優化酒店搜尋，例如顯示優惠標籤。之後我再把同樣的設計延伸到 LINE 裡的訂房網頁（LIFF）和銀行的合作訂房網站，三個網站共用同一組設計元件，也共用同一份四種語言的文案。',
+      '舊官網少了高端旅宿該有的質感，找酒店也不夠好用。我主導官網 3.0 改版：網站字體改成用襯線體搭配中黑體，讓整體變得典雅；優化酒店搜尋，例如顯示優惠標籤。之後再把同樣的設計延伸到 LINE 裡的訂房網頁（LIFF）和銀行的合作訂房網站，三個網站共用同一組設計元件，也共用同一份四種語言的文案。',
       "The old website lacked the polish a luxury hotel brand needs, and finding hotels was clumsy. I led the v3.0 redesign: pairing a serif with a medium-weight sans to make the site elegant, and improving hotel search, such as showing deal tags. I then brought the same design to a booking mini-app inside LINE (LIFF) and to bank partner booking sites; all three share one set of design components and one set of copy in four languages.",
     ),
     chips: ['Product Design', 'UX Flow', 'i18n', 'Frontend'],
@@ -108,7 +109,7 @@ export const cases: Case[] = [
         blocks: [
           { t: 'p', text: b('官網要同時承載酒店、會員、私人訂製（量身規劃的行程）、機場通關服務、極致奢旅（高端旅遊行程）與文章內容。我先盤點這些服務的範圍，再把網站分成四塊：導覽入口、訂房主線、會員中心，以及給未登入訪客與搜尋引擎看的品牌、國家、城市標準頁。', "The site had to carry hotels, membership, bespoke travel, airport services, luxury trips, and articles. I mapped their scope first, then split the site into four parts: navigation, the booking path, the member center, and brand, country, and city pages for visitors and search engines.") },
           { t: 'diagram', kind: 'ia', caption: b('示意圖 · 依官網 3.0 開發細項重繪', 'Diagram · redrawn from the v3.0 development breakdown') },
-          { t: 'p', text: b('訂房主線從目的地、日期、人數開始，經過結果篩選與地圖、房型與方案（同一房型不同的價格與條件），到結帳與特殊需求，要能一路連續。會員中心則把會籍、酒店訂單、一般訂單與個人資料放在同一個結構裡，訂單分成全部、已確認、已入住、已取消，也設計了沒有資料時的空狀態。', 'The booking path runs from destination, dates, and guests through filtered results and the map, room and rate choices, to checkout and special requests, without breaks. The member center keeps membership, hotel orders, other orders, and profile in one structure, with orders split into all, confirmed, stayed, and cancelled, plus empty states.') },
+          { t: 'list', items: [b('訂房主線：從目的地、日期、人數開始，經過結果篩選與地圖、房型與方案（同一房型不同的價格與條件），到結帳與特殊需求，要能一路連續。', 'Booking path: from destination, dates, and guests through filtered results and the map, room and rate choices (different prices and terms for the same room), to checkout and special requests, without breaks.'), b('會員中心：把會籍、酒店訂單、一般訂單與個人資料放在同一個結構裡；訂單分成全部、已確認、已入住、已取消，也設計了沒有資料時的空狀態。', 'Member center: membership, hotel orders, other orders, and profile in one structure, with orders split into all, confirmed, stayed, and cancelled, plus empty states.')] },
         ],
       },
       {
@@ -116,8 +117,8 @@ export const cases: Case[] = [
         title: b('改版時做的決定', 'Decisions during the redesign'),
         blocks: [
           { t: 'decision', q: b('改版要怎麼控管 79 個頁面？', 'How do you track a 79-page redesign?'), a: b('自建進度表，每頁走同一條流程', 'One tracker, one path for every page'), text: b('我自建一張進度表，讓每一頁都照同樣的順序推進：先出 UI 初版、定稿、開 Jira，再做成桌機與手機網頁、接上後端資料，最後驗收。2023 年 10 月時，79 頁中已有 70 頁完成初版、49 頁定稿。', 'I built a tracker so every page followed the same order: first draft, final design, a Jira ticket, desktop and mobile build, API connection, and finally QA. By October 2023, 70 of 79 pages had first drafts and 49 were final.') },
-          { t: 'decision', q: b('LIFF 的文案要自己寫，還是跟官網一致？', 'Should LIFF have its own copy or match the website?'), a: b('以官網用語為準，只有 LIFF 專屬功能才自訂', 'Website wording is the source of truth; LIFF-only features get custom copy'), text: b('我把 LIFF 和官網的 774 條多語系文案（i18n key）逐條比對，每一條標成一致、有差異或無法配對，再依這個分類逐批修正。', 'I compared 774 i18n keys on both sides, marked each as matched, different, or unmatched, then fixed them systematically.') },
-          { t: 'decision', q: b('客人習慣用官網，怎麼讓他們改用 LINE？', 'Guests prefer the website. How do we move them to LINE?'), a: b('不強迫切換，在既有接觸點加入 LINE 入口', 'No forced switch; add LINE entry points where guests already are'), text: b('我在訂單完成頁和入住提醒信加上「加入 LINE，隨時查看訂單」的引導，也和行銷、銷售團隊一起準備宣傳素材，並約定追蹤成效的方式。', 'Added "Join LINE to track your booking" prompts on the confirmation page and check-in reminder emails, aligned with marketing and sales on assets and tracking.') },
+          { t: 'decision', q: b('LIFF 的文案要自己寫，還是跟官網一致？', 'Should LIFF have its own copy or match the website?'), a: b('以官網用語為準，只有 LIFF 專屬功能才自訂', 'Website wording is the source of truth; LIFF-only features get custom copy'), text: b('LIFF 和官網的 774 條多語系文案（i18n key）逐條比對過，每一條標成一致、有差異或無法配對，再依這個分類逐批修正。', 'I compared 774 i18n keys on both sides, marked each as matched, different, or unmatched, then fixed them systematically.') },
+          { t: 'decision', q: b('客人習慣用官網，怎麼讓他們改用 LINE？', 'Guests prefer the website. How do we move them to LINE?'), a: b('不強迫切換，在既有接觸點加入 LINE 入口', 'No forced switch; add LINE entry points where guests already are'), text: b('在訂單完成頁和入住提醒信加上「加入 LINE，隨時查看訂單」的引導，也和行銷、銷售團隊一起準備宣傳素材，並約定追蹤成效的方式。', 'Added "Join LINE to track your booking" prompts on the confirmation page and check-in reminder emails, aligned with marketing and sales on assets and tracking.') },
         ],
       },
       {
@@ -125,9 +126,9 @@ export const cases: Case[] = [
         title: b('字型、搜尋與共用元件', 'Type, search, and shared components'),
         blocks: [
           { t: 'h3', text: b('字型：襯線體搭配中黑體', 'Type: a serif paired with a medium sans') },
-          { t: 'p', text: b('我把字型改成襯線體搭配中黑體混用，讓官網從一般訂房網站的樣子，變成典雅、有高端旅宿質感的視覺。', 'I changed the type to a serif mixed with a medium-weight sans, moving the site from a generic booking look to an elegant one that fits luxury hotels.') },
+          { t: 'p', text: b('字型改成襯線體搭配中黑體混用，讓官網從一般訂房網站的樣子，變成典雅、有高端旅宿質感的視覺。', 'I changed the type to a serif mixed with a medium-weight sans, moving the site from a generic booking look to an elegant one that fits luxury hotels.') },
           { t: 'h3', text: b('搜尋：讓優惠一眼看得到', 'Search: deals at a glance') },
-          { t: 'p', text: b('我也重新整理了酒店搜尋的流程，例如在搜尋結果加上優惠標籤，讓客人比較酒店時，更快看到正在優惠的選項。', 'I also reworked hotel search behavior, for example by showing deal tags in the results, so guests comparing hotels spot current offers faster.') },
+          { t: 'p', text: b('搜尋流程也一併重新整理，例如在搜尋結果加上優惠標籤，讓客人比較酒店時，更快看到正在優惠的選項。', 'I also reworked hotel search behavior, for example by showing deal tags in the results, so guests comparing hotels spot current offers faster.') },
           { t: 'figure', src: ['img/real/official-room-list.jpg'], alt: b('WOTA 官網房型列表', 'WOTA website room list'), caption: realShotShort },
           { t: 'h3', text: b('元件：官網、LIFF 與通知信共用', 'Components shared by web, LIFF, and email') },
           { t: 'p', text: b('官網 3.0 的 Figma 檔共 28 頁。光是其中 12 個模組頁，就有約 310 個桌機與手機畫面，每頁都附給工程的行為說明。735 個元件與變體整理成 11 個共用元件庫，官網、LIFF 與通知信都用同一套。', 'The website v3.0 Figma file has 28 pages. Just 12 of its module pages hold about 310 desktop and mobile screens, each with behavior notes for engineering. 735 components and variants are organized into 11 shared libraries used by the website, LIFF, and notification emails.') },
@@ -136,7 +137,7 @@ export const cases: Case[] = [
           { t: 'p', text: b('LIFF 是在 LINE 裡打開的網頁，畫面更窄、操作更依賴大拇指。我讓 LIFF 的設計延續官網的高端調性，Figma 共 24 頁、約 238 個手機畫面、259 個元件，並把規則整理成設計系統手冊 v1.3。', 'LIFF runs inside LINE: narrower and thumb-first. The design carries the website\'s luxury tone across 24 Figma pages, about 238 mobile screens, and 259 components, documented in design system v1.3.') },
           { t: 'figure', phone: true, src: ['img/real/liff-home.jpg', 'img/real/liff-hotel-detail.jpg', 'img/real/liff-room-list.jpg'], alt: b('LINE LIFF 首頁、酒店詳情與房型列表', 'LINE LIFF home, hotel detail, and room list'), caption: realShotShort },
           { t: 'h3', text: b('可及性與數據', 'Accessibility and data') },
-          { t: 'p', text: b('我依照 WCAG（網頁無障礙標準）檢查對比度與可讀性。上線後訂房流程卡在哪一步，我在 2026 年用 Clarity 錄影與熱點圖做了完整分析，詳見 Case 04。', 'Checked contrast and legibility against WCAG. Where the live booking flow gets stuck, I later analyzed with Clarity recordings and heatmaps in 2026; see Case 04.') },
+          { t: 'p', text: b('對比度與可讀性都依照 WCAG（網頁無障礙標準）檢查過。至於上線後訂房流程卡在哪一步，2026 年另外用 Clarity 錄影與熱點圖做了完整分析，詳見 Case 04。', 'Checked contrast and legibility against WCAG. Where the live booking flow gets stuck, I later analyzed with Clarity recordings and heatmaps in 2026; see Case 04.') },
         ],
       },
       {
@@ -150,7 +151,7 @@ export const cases: Case[] = [
             ['2026-06～09', b('UAT、跨語系與 UI 架構持續改善', 'UAT, cross-language fixes, and UI structure improvements')],
           ] },
           { t: 'decision', q: b('已經是官網會員的人，怎麼在 LINE 接著用？', 'How do existing members carry on inside LINE?'), a: b('先把登入與既有帳號綁定寫成流程', 'Define sign-in and account linking first'), text: b('既有會員要能用原本的帳號登入並綁定 LINE，訂單與會籍才接得上。我先把這段寫進 PRD，讓工程與測試有共同的流程依據。', 'Existing members needed to sign in with their accounts and link LINE so orders and membership carried over. I put this flow in the PRD first, giving engineering and QA one reference.') },
-          { t: 'decision', q: b('從通知點進來要登入時，客人會不會回不到原本的頁面？', 'After tapping a notice and signing in, do guests land back where they were?'), a: b('把通知、登入、返回原頁當成同一條路徑追', 'Track notice, sign-in, and return as one path'), text: b('客人從 LINE 通知點進來，登入後要再跳回原本的方案，這一路上有幾個地方會斷掉。我把這些斷點列出來，排進修正追蹤，讓客人能回到正確的頁面。', 'I listed the breaks between LINE notices, the sign-in callback, and returning to the original rate, and put them into tracked fixes so guests get back to the right page.') },
+          { t: 'decision', q: b('從通知點進來要登入時，客人會不會回不到原本的頁面？', 'After tapping a notice and signing in, do guests land back where they were?'), a: b('把通知、登入、返回原頁當成同一條路徑追', 'Track notice, sign-in, and return as one path'), text: b('客人從 LINE 通知點進來，登入後要再跳回原本的方案，這一路上有幾個地方會斷掉。這些斷點都列出來，排進修正追蹤，讓客人能回到正確的頁面。', 'I listed the breaks between LINE notices, the sign-in callback, and returning to the original rate, and put them into tracked fixes so guests get back to the right page.') },
           { t: 'p', text: b('為了讓之後的頁面和 AI 實作都依照相同的規則，我分析現有頁面、公司共用的元件庫、字型與色彩，寫成設計系統手冊、用元件組出頁面的說明，以及給 AI 的實作規範。', 'So later pages and AI-built code follow the same rules, I analyzed existing pages, upstream libraries, type, and color, and wrote a design system handbook, a guide to building pages from components, and implementation rules for AI.') },
         ],
       },
@@ -159,7 +160,8 @@ export const cases: Case[] = [
         title: b('四個語系的文案管理', 'Managing copy in four languages'),
         blocks: [
           { t: 'stats', items: [['3,548', b('個官網字串同步成 Figma 四語變數', 'site strings synced to Figma variables')], ['2,615', b('個 Figma 文字全部綁定變數', 'Figma text layers bound, 100%')], ['0', b('個已綁定文字四語不一致', 'mismatches in bound text')], ['774', b('個 LIFF 文案項目與官網比對', 'LIFF copy keys compared with the website')]] },
-          { t: 'p', text: b('除了確認綁定，我也實際切換語言檢查畫面：我挑出 12 個代表畫面逐一切換四種語言，共核對 1,107 次、0 處不符，也抽查了日文的版面。酒店元件則從 294 個變體、489 個文字層裡，挑出能確定意思的 225 層，對應到 91 個官方變數，225 層全部完成綁定。', 'Beyond checking bindings, I switched languages on the actual screens, checking 12 representative screens in all four languages: 1,107 checks, zero mismatches, plus a Japanese layout spot check. For hotel components, out of 294 variants and 489 text layers, I chose the 225 layers whose meaning was certain and mapped them to 91 official variables; all 225 are bound.') },
+          { t: 'p', text: b('四語系的檢查分成兩部分：', 'The four-language work had two parts:') },
+          { t: 'list', items: [b('代表畫面：挑出 12 個代表畫面逐一切換四種語言，共核對 1,107 次、0 處不符，也抽查了日文的版面。', 'Representative screens: 12 screens checked in all four languages, 1,107 checks with zero mismatches, plus a Japanese layout spot check.'), b('酒店元件：從 294 個變體、489 個文字層裡，挑出能確定意思的 225 層，對應到 91 個官方變數，225 層全部完成綁定。', 'Hotel components: out of 294 variants and 489 text layers, the 225 layers whose meaning was certain were mapped to 91 official variables, and all 225 are bound.')] },
           { t: 'decision', q: b('價格、日期這類會變的文字，也要綁進變數嗎？', 'Should prices, dates, and other changing text be bound too?'), a: b('不硬綁，列入待審清單', 'No: leave them in a review queue'), text: b('價格、日期、內容管理系統的內容與客人輸入，硬綁成固定文字反而會出錯。這類 264 個文字層留在待審清單，交接時可以清楚分辨哪些已處理、哪些還要人工判斷。每批改動前也先保存快照與復原清單，避免改錯後追不回來。', 'Binding prices, dates, CMS content, or guest input to fixed text would break them. These 264 layers stay in a review queue, so the handover shows what is done and what still needs a person. Before each batch I also saved snapshots and a rollback list so mistakes could be traced back.') },
           { t: 'compare', ai: b('Figma 裡還有 36 個舊變數被畫面引用，AI 判斷「有引用就不能刪」，建議全部保留。', 'Figma still had 36 legacy variables in use. The AI concluded "in use means keep" and proposed keeping them all.'), me: b('我指出「改套用到正式變數不就可以刪了」。流程改成先改綁、再檢查、最後刪除：這 36 個舊變數在畫面上共 122 處引用，全部改綁。整體清理後，變數從 271 個降到 219 個，壞掉的引用 0 個。', 'I pointed out they could be rebound to the official variables and then removed. The flow became rebind, check, then delete: the 36 variables were used in 122 places, all rebound. After the full cleanup, variables went from 271 to 219 with zero broken references.'), source: b('2026 年 7～8 月 · Figma 四語系遷移時', 'Jul–Aug 2026 · during the Figma four-language migration') },
         ],
@@ -168,14 +170,17 @@ export const cases: Case[] = [
         id: 'build', caps: ['fe'], tags: ['FE'], toc: b('實作與驗收', 'Build'),
         title: b('逐頁比對設計與程式', 'Comparing design and code page by page'),
         blocks: [
-          { t: 'p', text: b('官網 3.0 的切版由工程師完成，我負責逐頁比對設計還原度：2023 年 8 月到 2024 年 3 月留下 54 張修正截圖，UAT 回報了 30 項問題，我逐一追蹤到處理完成。2026 年起，我搭配 AI 參與 LIFF 前端，清掉 250 多處不一致的樣式，也整理出 Figma、程式、文件三方衝突 42 項。', 'Engineers built website v3.0; I checked it against the design page by page, logging 54 correction screenshots from Aug 2023 to Mar 2024 and closing 30 UAT issues. From 2026 I worked on the LIFF frontend with AI, cleaning up 250+ inconsistent styles and listing 42 conflicts between Figma, code, and docs.') },
+          { t: 'p', text: b('官網 3.0 的切版由工程師完成，我負責逐頁比對設計還原度。這段時間的工作包括：', 'Engineers built website v3.0, and I checked it against the design page by page. The work included:') },
+          { t: 'list', items: [b('2023 年 8 月到 2024 年 3 月，留下 54 張修正截圖。', '54 correction screenshots logged from Aug 2023 to Mar 2024.'), b('UAT 回報的 30 項問題，逐一追蹤到處理完成。', 'All 30 UAT issues tracked until resolved.'), b('2026 年起改為搭配 AI 參與 LIFF 前端，清掉 250 多處不一致的樣式，也整理出 Figma、程式、文件三方衝突 42 項。', 'From 2026, working on the LIFF frontend with AI: 250+ inconsistent styles cleaned up and 42 conflicts between Figma, code, and docs listed.')] },
           { t: 'table', rows: [
             [b('規格', 'Specs'), b('整理跨平台需求、比對官網與 LIFF 文件差異', 'Summarize cross-platform needs, diff website and LIFF docs'), b('決定哪些流程要一致、哪些保留平台差異', 'Decide which flows must match and which stay platform-specific')],
             [b('文案', 'Copy'), b('產出 774 條多語系文案的比對表與建議對照', 'Generate the 774-key comparison and suggested matches'), b('判斷差異是否合理、親自審核 138 筆判定', 'Judge each difference; personally reviewed 138 decisions')],
             [b('驗收', 'QA'), b('整理測試案例與 Slack 回報的問題', 'Compile test cases and issues reported in Slack'), b('實際操作驗收、判斷優先順序與是否上線', 'Hands-on QA, prioritize, and decide go or no-go')],
           ] },
           { t: 'h3', text: b('UAT 抓到的問題', 'What UAT caught') },
-          { t: 'p', text: b('2024 年 3 月的 UAT，記錄到搜尋條件都填好後警示沒有消失、地圖沒有移到篩選範圍、幣別沒有跟著更新、切換方案會捲回頁首、酒店訂單版面和 Figma 不一致等問題。我把每一項對回設計稿，變成工程可以直接定位的修正線索。', 'The March 2024 UAT logged issues such as a warning that stayed after all search fields were filled, a map that did not move to the filtered area, currency that did not update, rate switches that jumped to the top, and an order layout that differed from Figma. I traced each back to the design so engineers could locate the fix.') },
+          { t: 'p', text: b('2024 年 3 月的 UAT 記錄到這些問題：', 'The March 2024 UAT logged issues such as:') },
+          { t: 'list', ordered: true, items: [b('搜尋條件都填好後，警示沒有消失', 'A warning stayed after all search fields were filled'), b('地圖沒有移到篩選範圍', 'The map did not move to the filtered area'), b('幣別沒有跟著更新', 'Currency did not update'), b('切換方案會捲回頁首', 'Switching rates jumped back to the top'), b('酒店訂單版面和 Figma 不一致', 'The hotel order layout differed from Figma')] },
+          { t: 'p', text: b('每一項都對回設計稿，變成工程可以直接定位的修正線索。', 'Each one was traced back to the design so engineers could locate the fix.') },
           { t: 'callout', title: b('用真實資料型的案例做測試', 'Testing with realistic data'), text: b('上線後我們發現，護照英文姓名的格式只有在真實客人資料下才會出錯。之後測試一律改用中文姓名、英文護照名等真實資料型案例，不再隨意填寫。', 'After launch we found that passport-name formats only broke with real guest data. Since then, testing uses realistic cases such as Chinese names and English passport names instead of random filler.') },
         ],
       },
@@ -235,7 +240,7 @@ export const cases: Case[] = [
         id: 'decisions', caps: ['pm'], tags: ['PM'], toc: b('關鍵決策', 'Decisions'),
         title: b('規則怎麼定', 'How the rules were settled'),
         blocks: [
-          { t: 'decision', q: b('我的舊版本和產品負責人的新規則衝突，怎麼整合成一份？', 'My earlier version conflicted with the product owner\'s new rules. How do they become one spec?'), a: b('以新規則為唯一來源，把兩版整合成 PRD v2.2', 'Treat the new rules as the single source of truth and merge both into PRD v2.2'), text: b('我先前的版本以「1 晚＝1 點、點數可換會籍」為主軸。我在整合成 PRD v2.2 時，把點數拆成只決定等級的「升等積分」與逐筆 24 個月到期的「累計房晚」，移除點數換會籍，改成達標自動升級。', 'My earlier version used "1 night = 1 point, points buy membership." In PRD v2.2, points split into upgrade points that set the tier and room nights that each expire after 24 months; buying membership with points was replaced by automatic upgrades.') },
+          { t: 'decision', q: b('我的舊版本和產品負責人的新規則衝突，怎麼整合成一份？', 'My earlier version conflicted with the product owner\'s new rules. How do they become one spec?'), a: b('以新規則為唯一來源，把兩版整合成 PRD v2.2', 'Treat the new rules as the single source of truth and merge both into PRD v2.2'), text: b('先前的版本以「1 晚＝1 點、點數可換會籍」為主軸；整合成 PRD v2.2 時，點數拆成只決定等級的「升等積分」與逐筆 24 個月到期的「累計房晚」，移除點數換會籍，改成達標自動升級。', 'My earlier version used "1 night = 1 point, points buy membership." In PRD v2.2, points split into upgrade points that set the tier and room nights that each expire after 24 months; buying membership with points was replaced by automatic upgrades.') },
           { t: 'decision', q: b('房晚要算付費的晚數，還是實際入住的晚數？', 'Count paid nights or nights actually stayed?'), a: b('以有效入住晚數為基準', 'Count effective nights stayed'), text: b('例如「住三付二」這類贈送的房晚也應該計入。這個決定要同步到 PRD、API、帳本、QA 與客服 FAQ，不能只改其中一處。', 'Complimentary nights, such as stay-three-pay-two, also count. The decision had to reach the PRD, API, points ledger, QA, and FAQ together.') },
           { t: 'diagram', kind: 'rules', caption: b('示意圖 · 依專案文件中的數字重繪', 'Diagram · redrawn from project figures') },
           { t: 'decision', q: b('兩種累積機制同時推進，要一次做完還是分段上線？', 'Two earning systems at once: ship together or in phases?'), a: b('分段上線，先定義 Phase 1 範圍', 'Phased, starting with a defined Phase 1'), text: b('我釐清房晚和積分同時上線時會互相影響的地方之後，把「舊積分停止累積」「新功能可分批開關」「舊資料轉移」拆成獨立任務，降低一次上線過多功能的風險。', 'I mapped the dependencies between nights and points and split freezing the old points, feature switches for staged release, and data migration into separate tasks to reduce release risk.') },
@@ -245,8 +250,9 @@ export const cases: Case[] = [
         id: 'states', caps: ['pm', 'ui'], tags: ['PM', 'UI / UX'], toc: b('房晚狀態', 'Night states'),
         title: b('房晚入帳前的各種狀態', 'The states a room night passes through'),
         blocks: [
-          { t: 'p', text: b('房晚有 Pending、Upcoming、Processing、Active、Excluded 等狀態，名字很像，會員和營運都容易混淆。我把每個狀態對回訂單狀態，整理前台與後台需要的資料與文案，例如不計入的房晚，就直接寫「不計入」。', 'Nights move through states such as Pending, Upcoming, Processing, Active, and Excluded, which members and operations easily confuse. I mapped each state to the order status and listed the data and copy needed front and back, for example labeling excluded nights plainly as "not counted."') },
-          { t: 'p', text: b('在「我的房晚紀錄」的列表與明細裡，我讓每一筆都看得出來源、酒店、入住日期與入帳進度，也設計了沒有資料、載入中、出錯與分頁時的畫面。', 'The "My room nights" list and detail show each night\'s source, hotel, stay date, and credit progress, with empty, loading, error, and paging states designed too.') },
+          { t: 'p', text: b('房晚有 Pending、Upcoming、Processing、Active、Excluded 等狀態，名字很像，會員和營運都容易混淆。', 'Nights move through states such as Pending, Upcoming, Processing, Active, and Excluded, which members and operations easily confuse.') },
+          { t: 'p', text: b('我把每個狀態對回訂單狀態，整理前台與後台需要的資料與文案，例如不計入的房晚，就直接寫「不計入」。', 'I mapped each state to the order status and listed the data and copy needed front and back, for example labeling excluded nights plainly as "not counted."') },
+          { t: 'p', text: b('「我的房晚紀錄」的列表與明細，讓每一筆都看得出來源、酒店、入住日期與入帳進度，也設計了沒有資料、載入中、出錯與分頁時的畫面。', 'The "My room nights" list and detail show each night\'s source, hotel, stay date, and credit progress, with empty, loading, error, and paging states designed too.') },
           { t: 'p', text: b('這部分目前做到規格和原型，部分項目還在工程審核中。', 'This part is at the spec and prototype stage, and some items are still in engineering review.') },
         ],
       },
@@ -273,8 +279,8 @@ export const cases: Case[] = [
         id: 'matrix', caps: ['ui', 'fe'], tags: ['UI / UX', 'FE'], toc: b('驗證矩陣', 'Coverage'),
         title: b('會籍、語言與結果的組合檢查', 'Checking tier, language, and outcome combinations'),
         blocks: [
-          { t: 'p', text: b('測試四種會籍、兩種語言，以及成功和失敗兩種結果時，很容易只驗到「一般會員、中文、成功」這一種。我把所有組合交叉攤開，用不同身分和語言逐一操作原型。', 'With four tiers, two languages, and success or failure, it is easy to test only "basic member, Chinese, success." I crossed every combination and walked through the prototypes with each identity and language.') },
-          { t: 'p', text: b('四支原型也統一數字字型、加上亮暗模式切換，並用相關連結串起來，評審可以看完整段會員旅程。我也試過讓四支原型在同一個分頁連續跳轉，測試後還原，改用連結。', 'The four prototypes share a number font, a light/dark switch, and links between them so reviewers can follow the whole member journey. I also tried making them jump continuously in one tab, then reverted to links after testing.') },
+          { t: 'p', text: b('測試四種會籍、兩種語言，以及成功和失敗兩種結果時，很容易只驗到「一般會員、中文、成功」這一種。所以把所有組合交叉攤開，用不同身分和語言逐一操作原型。', 'With four tiers, two languages, and success or failure, it is easy to test only "basic member, Chinese, success." I crossed every combination and walked through the prototypes with each identity and language.') },
+          { t: 'p', text: b('四支原型也統一數字字型、加上亮暗模式切換，並用相關連結串起來，評審可以看完整段會員旅程。也試過讓四支原型在同一個分頁連續跳轉，測試後還原，改用連結。', 'The four prototypes share a number font, a light/dark switch, and links between them so reviewers can follow the whole member journey. I also tried making them jump continuously in one tab, then reverted to links after testing.') },
           { t: 'p', text: b('這些檢查限於原型，不代表正式系統的端到端測試已通過。', 'These checks cover the prototypes only, not end-to-end tests of the live system.') },
         ],
       },
@@ -282,7 +288,7 @@ export const cases: Case[] = [
         id: 'build', caps: ['fe'], tags: ['FE'], toc: b('實作與驗證', 'Build'),
         title: b('前台實作與新稿比對', 'Frontend work and reviewing a new draft'),
         blocks: [
-          { t: 'p', text: b('Phase 1 的工程任務由工程團隊開立，我負責追蹤進度。前台部分，我用 Claude Code 參與 Journey Rewards 頁面與 LIFF「我的房晚紀錄」的實作並串接 API。', 'Engineering created the Phase 1 tickets and I tracked progress. On the frontend, I used Claude Code to help build the Journey Rewards pages and LIFF "My room nights," wired to the API.') },
+          { t: 'p', text: b('Phase 1 的工程任務由工程團隊開立，我負責追蹤進度；前台則用 Claude Code 參與 Journey Rewards 頁面與 LIFF「我的房晚紀錄」的實作並串接 API。', 'Engineering created the Phase 1 tickets and I tracked progress. On the frontend, I used Claude Code to help build the Journey Rewards pages and LIFF "My room nights," wired to the API.') },
           { t: 'table', rows: [
             [b('規則', 'Rules'), b('整理規則、比對各版文件、探索流程分支', 'Organize rules, diff versions, explore branches'), b('判斷衝突、決定以哪份規則為準', 'Resolve conflicts and pick the source of truth')],
             [b('規格', 'Specs'), b('產生 PRD 與兌換規格初稿、例外情境檢查清單', 'Draft the PRD, redemption spec, and edge-case checklist'), b('確認使用者體驗與交付範圍', 'Confirm the experience and delivery scope')],
@@ -359,8 +365,9 @@ export const cases: Case[] = [
         id: 'origin', caps: ['ui', 'fe'], tags: ['UI / UX', 'FE'], toc: b('起點', 'Origin'),
         title: b('這個工具從整理前端樣式開始', 'The tool began with a frontend style cleanup'),
         blocks: [
-          { t: 'p', text: b('2026 年 9 月，我先整理前端的樣式。間距散落在各頁的寫法裡，數值也不一定落在 4px 網格上。我把 138 處間距改成共用寫法，並加上檢查：只要有人寫出不在網格上的數值，打包就直接失敗。另外 80 處無效或重複的排版寫法，也收斂成既有的共用樣式。', 'In September 2026 I started by tidying the frontend styles. Spacing was written ad hoc across pages, not always on a 4px grid. I moved 138 spacing rules onto shared classes and added a check that fails the build whenever someone writes an off-grid value. Another 80 invalid or duplicate layout rules were folded into existing shared styles.') },
-          { t: 'decision', q: b('改了這麼多樣式，怎麼確定畫面沒有跑掉？', 'After so many style changes, how do you know nothing moved?'), a: b('量每個元素的位置與尺寸，而不是比對截圖', 'Measure element positions and sizes, not screenshots'), text: b('圖片載入和骨架動畫（載入時的灰色占位畫面）會讓截圖比對誤判。我改成同一次載入下，切換新舊寫法量測每個元素的位置與尺寸：一組 1,901 個元素、另一組 2,204 個元素，差異都是 0。', 'Image loading and skeleton animations make screenshot diffs unreliable. Instead, in a single load, I switched between old and new code and measured every element\'s position and size: 1,901 elements in one set and 2,204 in another, all with zero difference.') },
+          { t: 'p', text: b('2026 年 9 月，我先整理前端的樣式。間距散落在各頁的寫法裡，數值也不一定落在 4px 網格上。這次整理包括：', 'In September 2026 I started by tidying the frontend styles. Spacing was written ad hoc across pages, not always on a 4px grid. The cleanup included:') },
+          { t: 'list', items: [b('138 處間距改成共用寫法。', 'Moving 138 spacing rules onto shared classes.'), b('加上檢查：只要有人寫出不在網格上的數值，打包就直接失敗。', 'A check that fails the build whenever someone writes an off-grid value.'), b('80 處無效或重複的排版寫法，收斂成既有的共用樣式。', 'Folding 80 invalid or duplicate layout rules into existing shared styles.')] },
+          { t: 'decision', q: b('改了這麼多樣式，怎麼確定畫面沒有跑掉？', 'After so many style changes, how do you know nothing moved?'), a: b('量每個元素的位置與尺寸，而不是比對截圖', 'Measure element positions and sizes, not screenshots'), text: b('圖片載入和骨架動畫（載入時的灰色占位畫面）會讓截圖比對誤判。改成在同一次載入下，切換新舊寫法量測每個元素的位置與尺寸：一組 1,901 個元素、另一組 2,204 個元素，差異都是 0。', 'Image loading and skeleton animations make screenshot diffs unreliable. Instead, in a single load, I switched between old and new code and measured every element\'s position and size: 1,901 elements in one set and 2,204 in another, all with zero difference.') },
           { t: 'p', text: b('整理過程中也修好一個看得到的問題：房價方案描述較長的酒店卡片，品牌 logo 被擠成約 7.9px，恢復成 20×20px。整理時也用副本（正式頁面的複製頁，只把資料換成假的）補上平常看不到的狀態，例如彈窗、登入後才出現的元件。UI Spec 延續了這個做法：把平常看不到的狀態全部攤開來看。', 'Along the way I fixed a visible bug: on hotel cards with long rate descriptions, the brand logo was squeezed to about 7.9px; it is back to 20×20px. I also used page copies (duplicates of production pages with fake data) to cover normally hidden states, such as dialogs and components that appear only after sign-in. UI Spec extends that idea: lay out every hidden state in one place.') },
         ],
       },
@@ -369,7 +376,7 @@ export const cases: Case[] = [
         title: b('工具的做法怎麼選', 'Choosing how the tool works'),
         blocks: [
           { t: 'decision', q: b('用截圖、Figma，還是真的元件？', 'Screenshots, Figma, or real components?'), a: b('選擇渲染正式頁面的真元件', 'Render the real production components'), text: b('截圖和設計稿會跟實際程式脫節。副本頁的畫面程式跟正式頁面完全相同，只把資料換成假的，看到的就是使用者會看到的。', 'Screenshots and mockups drift from code. Each preview uses the production page template with controlled fake data, so it shows what users see.') },
-          { t: 'decision', q: b('手機版要用縮小的桌機畫面，還是真的重排？', 'Shrink the desktop view, or truly reflow?'), a: b('依選定寬度重新判斷版面', 'Recompute the layout for the chosen width'), text: b('我讓工具依照選定的寬度重新計算版面，所以 1440、1280、1024、375 四種寬度都會真的重新排版，手機寬度也會換成手機版的元件。', 'The tool renders real responsive behavior at 1440, 1280, 1024, and 375px instead of shrinking one desktop screen, and mobile widths switch to mobile components.') },
+          { t: 'decision', q: b('手機版要用縮小的桌機畫面，還是真的重排？', 'Shrink the desktop view, or truly reflow?'), a: b('依選定寬度重新判斷版面', 'Recompute the layout for the chosen width'), text: b('工具會依照選定的寬度重新計算版面，所以 1440、1280、1024、375 四種寬度都會真的重新排版，手機寬度也會換成手機版的元件。', 'The tool renders real responsive behavior at 1440, 1280, 1024, and 375px instead of shrinking one desktop screen, and mobile widths switch to mobile components.') },
           { t: 'decision', q: b('假資料工具最怕流進正式站，怎麼防？', 'A fake-data tool must never reach production. How?'), a: b('五層防線，不靠人記得', 'Five automated safeguards, not memory'), text: b('用五道自動關卡擋住工具進入正式環境，細節見「隔離與同步」。', 'Five automatic checks keep the tool out of production; details under Isolation.') },
         ],
       },
@@ -381,7 +388,8 @@ export const cases: Case[] = [
           { t: 'h3', text: b('資訊架構', 'Information architecture') },
           { t: 'p', text: b('左側分成總覽、最近修改、頁面副本、設計 Token（顏色、字級等共用設定）四區。頁面副本依產品分成 5 組，每張卡片標示狀態名稱與是否待確認。', 'Four areas on the left: overview, recent changes, page previews, and design tokens. Previews split into 5 product groups, each card labeled with its state and whether it still needs a decision.') },
           { t: 'h3', text: b('瀏覽方式', 'Browsing') },
-          { t: 'p', text: b('每個狀態畫面是一格，所有格子並排就是畫廊。上方可切換 4 種寬度與繁中、簡中、EN 三種語系，搭配輔助線、以游標為中心縮放與搜尋。格子內的互動和真站一致，假 API 可以切換成功或失敗，網址會記住目前的分組與卡片，可以直接貼給同事。', 'Each state screen is a cell, and all cells side by side form the gallery. Switch between 4 widths and 3 languages, with guides, cursor-centered zoom, and search. Interactions inside each cell match the live site, fake APIs can toggle success or failure, and the URL keeps the current group and card for sharing.') },
+          { t: 'p', text: b('每個狀態畫面是一格，所有格子並排就是畫廊。瀏覽時可以：', 'Each state screen is a cell, and all cells side by side form the gallery. While browsing, you can:') },
+          { t: 'list', items: [b('在上方切換 4 種寬度，以及繁中、簡中、EN 三種語系', 'Switch between 4 widths and 3 languages at the top'), b('開啟輔助線、以游標為中心縮放，或直接搜尋', 'Turn on guides, zoom around the cursor, or search'), b('在格子裡操作，互動和真站一致，假 API 可以切換成功或失敗', 'Interact inside a cell just as on the live site, with fake APIs that switch between success and failure'), b('複製網址分享給同事，網址會記住目前的分組與卡片', 'Share the URL with a colleague; it keeps the current group and card')] },
           { t: 'figure', src: ['img/real/uispec-gallery.jpg'], alt: b('UI Spec 分組導覽與 1440 寬的狀態畫廊', 'UI Spec grouped navigation and the 1440px state gallery'), caption: b('UI Spec 開發環境實際畫面 · 1440 寬下的 Journey Rewards 狀態畫廊，同步／TBD 標示每張卡片是否待確認', 'UI Spec in the dev environment · Journey Rewards gallery at 1440px, with sync and TBD labels on each card') },
         ],
       },
@@ -392,7 +400,7 @@ export const cases: Case[] = [
           { t: 'p', text: b('靜態格子只能看「長什麼樣子」，看不到「點下去會怎樣」。評審要檢查的是完整流程，所以我加了三個能力：', 'Static cells show what a screen looks like, not what happens on click. Reviewers need to check whole flows, so I added three capabilities:') },
           { t: 'decision', q: b('在格子裡跳到別的頁面後，怎麼回來？', 'After jumping to another page inside a cell, how do you get back?'), a: b('加上返回軌跡', 'Add a back trail'), text: b('可以回上一步、回起點，也可以從下拉選單選任何一步，連畫面縮放與捲動位置都會還原。', 'Go back one step, return to the start, or pick any step from a dropdown, with zoom and scroll position restored.') },
           { t: 'decision', q: b('送出表單、彈窗這些互動，怎麼驗又不會寫到真資料？', 'How do you test submits and dialogs without touching real data?'), a: b('攔截 API，回傳可切換的成功或失敗', 'Intercept APIs and return switchable success or failure'), text: b('每一格都有自己的假回應，可以切換成功或失敗，看到兩種結果的畫面，不會寫進任何真資料。', 'Each cell has its own fake responses that can switch between success and failure, showing both outcomes without writing any real data.') },
-          { t: 'decision', q: b('改了東西，怎麼讓大家知道改在哪裡？', 'After a change, how does everyone find what changed?'), a: b('逐格記錄最近修改', 'Track recent changes per cell'), text: b('原本「最近修改」會把同一頁的所有狀態都列出來。我改成分格記錄修改時間，連引用到的副本也會追蹤，列出最新 25 格。', 'Recent changes used to list every state on a page. Now each cell records its own change time, including the copies it references, and the latest 25 cells are listed.') },
+          { t: 'decision', q: b('改了東西，怎麼讓大家知道改在哪裡？', 'After a change, how does everyone find what changed?'), a: b('逐格記錄最近修改', 'Track recent changes per cell'), text: b('原本「最近修改」會把同一頁的所有狀態都列出來。現在改成分格記錄修改時間，連引用到的副本也會追蹤，列出最新 25 格。', 'Recent changes used to list every state on a page. Now each cell records its own change time, including the copies it references, and the latest 25 cells are listed.') },
         ],
       },
       {
@@ -444,7 +452,7 @@ export const cases: Case[] = [
     title: b('網站行為分析：\n找出訂單卡在哪一步', 'Behavior analysis:\nfinding where bookings stall'),
     cardTitle: b('網站行為分析：找出訂單卡在哪一步', 'Behavior analysis: where bookings get stuck'),
     lead: b(
-      '團隊只看得到流量和轉換的表面數字，不知道客人卡在哪裡。我對照使用者的操作錄影和網站數據，找出客人最常卡住的兩個地方：一是要先登入才能繼續訂房，二是從廣告點進來的酒店頁看不到價格。我也設定每週自動產出追蹤報告，之後改版就能比較前後的差異。',
+      '團隊只看得到流量和轉換的表面數字，不知道客人卡在哪裡。我對照使用者的操作錄影和網站數據，找出客人最常卡住的兩個地方：一是要先登入才能繼續訂房，二是從廣告點進來的酒店頁看不到價格。同時設定每週自動產出追蹤報告，之後改版就能比較前後的差異。',
       'The team saw only top-line traffic and conversion. By comparing session recordings with site analytics, I found where guests got stuck most: having to log in before they could continue booking, and hotel pages from ads that showed no price. I also set up an automatic weekly tracking report, so every later fix can be compared before and after.',
     ),
     chips: ['UX Research', 'Mixpanel', 'Clarity', 'GTM'],
@@ -490,8 +498,9 @@ export const cases: Case[] = [
         id: 'measure', caps: ['pm', 'fe'], tags: ['PM', 'FE'], toc: b('先修正量測', 'Measurement'),
         title: b('404 錯誤暴增，先檢查數字怎麼算', 'A spike in 404 errors, and how the number was counted'),
         blocks: [
-          { t: 'p', text: b('週報偵測到 10 月 13 日起找不到頁面的錯誤暴增（35 → 131）。我先檢查數字怎麼算出來的，發現兩個量測問題：網址裡的編號剛好含有「404」，被誤算成錯誤頁；「造訪」和「瀏覽」也混在一起算，讓數字被放大。', 'The weekly report flagged a jump in page-not-found errors from October 13 (35 → 131). I first checked how the number was produced and found two measurement problems: page IDs that happened to contain "404" were counted as errors, and visits and page views were mixed, inflating the count.') },
-          { t: 'p', text: b('我更正篩選規則與計數方式，在原報告留下修正註記。再交叉比對錄影、事件、工程資料庫與實際操作，查明真正的原因是兩篇文章下架與舊連結，不是程式出錯，並向主管匯報處置建議。後面所有結論都改用修正後的數字。', 'I corrected the filter and counting rules and left a correction note in the original report. Cross-checking recordings, events, the engineering database, and hands-on tests showed the real cause was two unpublished articles and old links, not a code bug, and I reported the recommended fix to my manager. Every later conclusion uses the corrected numbers.') },
+          { t: 'p', text: b('週報偵測到 10 月 13 日起找不到頁面的錯誤暴增（35 → 131）。我先檢查數字怎麼算出來的，發現兩個量測問題：', 'The weekly report flagged a jump in page-not-found errors from October 13 (35 → 131). I first checked how the number was produced and found two measurement problems:') },
+          { t: 'list', ordered: true, items: [b('網址裡的編號剛好含有「404」，被誤算成錯誤頁。', 'Page IDs that happened to contain "404" were counted as errors.'), b('「造訪」和「瀏覽」混在一起算，讓數字被放大。', 'Visits and page views were mixed together, inflating the count.')] },
+          { t: 'p', text: b('篩選規則與計數方式更正後，在原報告留下修正註記，再交叉比對錄影、事件、工程資料庫與實際操作，查明真正的原因是兩篇文章下架與舊連結，不是程式出錯，並向主管匯報處置建議。後面所有結論都改用修正後的數字。', 'I corrected the filter and counting rules and left a correction note in the original report. Cross-checking recordings, events, the engineering database, and hands-on tests showed the real cause was two unpublished articles and old links, not a code bug, and I reported the recommended fix to my manager. Every later conclusion uses the corrected numbers.') },
         ],
       },
       {
@@ -499,10 +508,12 @@ export const cases: Case[] = [
         title: b('兩個轉換瓶頸', 'Two conversion bottlenecks'),
         blocks: [
           { t: 'h3', text: b('登入牆', 'The login wall') },
-          { t: 'p', text: b('點「選擇價格」後，未登入的訪客只有 9% 走到訂單表單，已登入的會員是 50%。而訪客一旦走到表單，完成率和會員差不多（50% 對 46%），所以落差出在中間的登入這一步。登入成功後只有 44% 回到原本的表單，而且註冊後不會自動登入。', 'After clicking "Select rate," only 9% of logged-out guests reached the booking form, versus 50% of logged-in members. Once guests did reach the form, they completed it at about the same rate as members (50% vs 46%), so the gap sits at the login step in between. Only 44% returned to the form after logging in, and sign-up didn\'t log people in automatically.') },
+          { t: 'p', text: b('點「選擇價格」之後的數據：', 'What happened after "Select rate":') },
+          { t: 'list', items: [b('未登入的訪客只有 9% 走到訂單表單，已登入的會員是 50%。', 'Only 9% of logged-out guests reached the booking form, versus 50% of logged-in members.'), b('訪客一旦走到表單，完成率和會員差不多（50% 對 46%），所以落差出在中間的登入這一步。', 'Once guests reached the form, they completed it at about the same rate as members (50% vs 46%), so the gap is the login step in between.'), b('登入成功後只有 44% 回到原本的表單，而且註冊後不會自動登入。', 'Only 44% returned to their form after logging in, and sign-up did not log people in automatically.')] },
           { t: 'diagram', kind: 'funnel', caption: b('示意圖 · 依專案文件中的數字重繪', 'Diagram · redrawn from project figures') },
           { t: 'h3', text: b('看不到價格的落地頁', 'Landing pages with no prices') },
-          { t: 'p', text: b('從廣告與 Google 進來的酒店頁沒有帶日期，看不到價格。90 天內有約 2.5 萬名使用者落在這類頁面，其中約 64% 帶有廣告來源標記，代表付費帶進來的客人一進站就看不到價格。四週觀察的抽樣中，活動落地頁的 48 段錄影，沒有一段進到訂單表單。', 'Hotel pages reached through ads and search had no dates, so they showed no prices. About 25,000 users landed on them in 90 days, and about 64% carried ad tracking tags, meaning paid visitors arrived to a page with no price. In a four-week sample, none of 48 recorded campaign landing sessions reached the booking form.') },
+          { t: 'p', text: b('從廣告與 Google 進來的酒店頁沒有帶日期，看不到價格。', 'Hotel pages reached through ads and search had no dates, so they showed no prices.') },
+          { t: 'list', items: [b('90 天內有約 2.5 萬名使用者落在這類頁面。', 'About 25,000 users landed on these pages in 90 days.'), b('其中約 64% 帶有廣告來源標記，代表付費帶進來的客人一進站就看不到價格。', 'About 64% carried ad tracking tags, so paid visitors arrived to a page with no price.'), b('四週觀察的抽樣中，活動落地頁的 48 段錄影，沒有一段進到訂單表單。', 'In a four-week sample, none of 48 recorded campaign landing sessions reached the booking form.')] },
           { t: 'figure', src: ['img/real/official-hotel-no-dates.jpg'], alt: b('沒有日期的酒店頁，只顯示缺少必要參數', 'Hotel page without dates showing a missing-parameters message'), caption: b('WOTA 官網正式站實際畫面 · 2026-11-16 擷取', 'Live WOTA site · captured 2026-11-16') },
           { t: 'h3', text: b('不是問題的地方', 'What turned out fine') },
           { t: 'p', text: b('訂單表單沒送出的多是看完總價後離開的比價行為，不是表單出錯；送出後成功率約 98%。', 'Most unsent booking forms were price comparison after seeing the total, not form errors; about 98% of submissions succeed.') },
@@ -512,9 +523,10 @@ export const cases: Case[] = [
         id: 'loop', caps: ['ui', 'fe'], tags: ['UI / UX', 'FE'], toc: b('載入逾時', 'Timeouts'),
         title: b('網路一慢，頁面就說「查無酒店」', 'On a slow network, the page says "no hotel found"'),
         blocks: [
-          { t: 'p', text: b('看錄影時我發現另一個發生在看價格階段的阻礙：酒店頁載入逾時的時候，畫面直接顯示「查無酒店」，客人以為酒店不存在；按上一頁又會被帶回同一頁，繞成迴圈。', 'Recordings revealed another blocker at the price-checking stage: when a hotel page timed out, it showed "no hotel found," so guests thought the hotel did not exist; going back led to the same page again, in a loop.') },
+          { t: 'p', text: b('看錄影時還發現另一個發生在看價格階段的阻礙：酒店頁載入逾時的時候，畫面直接顯示「查無酒店」，客人以為酒店不存在；按上一頁又會被帶回同一頁，繞成迴圈。', 'Recordings revealed another blocker at the price-checking stage: when a hotel page timed out, it showed "no hotel found," so guests thought the hotel did not exist; going back led to the same page again, in a loop.') },
           { t: 'diagram', kind: 'loop', caption: b('示意圖 · 依診斷紀錄重繪', 'Diagram · redrawn from the diagnosis notes') },
-          { t: 'p', text: b('我和工程一起查程式，並在 Chrome 與 Safari 實際重現，提出三個解法：載入失敗時讓客人可以重試、換頁方式改成不會留下返回迴圈、舊酒店編號自動轉成新編號。', 'With engineering I traced the code and reproduced it in Chrome and Safari, then proposed three fixes: let guests retry when loading fails, change navigation so it leaves no back-button loop, and redirect old hotel IDs to new ones.') },
+          { t: 'p', text: b('和工程一起查程式，並在 Chrome 與 Safari 實際重現後，提出三個解法：', 'With engineering I traced the code and reproduced it in Chrome and Safari, then proposed three fixes:') },
+          { t: 'list', ordered: true, items: [b('載入失敗時讓客人可以重試', 'Let guests retry when loading fails'), b('換頁方式改成不會留下返回迴圈', 'Change navigation so it leaves no back-button loop'), b('舊酒店編號自動轉成新編號', 'Redirect old hotel IDs to new ones')] },
           { t: 'p', text: b('這個問題已經找到原因並排入待辦，正在等待開發。', 'The cause has been found and the fix is in the backlog, waiting for development.') },
         ],
       },
@@ -536,7 +548,9 @@ export const cases: Case[] = [
         id: 'after', caps: ['pm'], tags: ['PM'], toc: b('改版後追蹤', 'After release'),
         title: b('改版上線後怎麼看成效', 'How results will be judged after each release'),
         blocks: [
-          { t: 'p', text: b('流量變動不一定是改版造成的，也可能是內容調整、廣告投放或季節。為了之後能客觀回報成效，我先建立改版上線紀錄，寫下每項改版預期會改變的行為，並準備上線後兩週、四週的前後比較。改版上線後，就拿實際的變化和預期行為對照。', 'Traffic changes may come from content edits, ad spend, or seasonality rather than a fix. To report results objectively later, I set up a release log, wrote down the behavior each fix should change, and prepared before-and-after comparisons at two and four weeks. After a release, the actual changes are checked against those expectations.') },
+          { t: 'p', text: b('流量變動不一定是改版造成的，也可能是內容調整、廣告投放或季節。為了之後能客觀回報成效，我先準備了這些：', 'Traffic changes may come from content edits, ad spend, or seasonality rather than a fix. To report results objectively later, I prepared:') },
+          { t: 'list', ordered: true, items: [b('改版上線紀錄', 'A release log'), b('每項改版預期會改變的行為', 'The behavior each fix is expected to change'), b('上線後兩週、四週的前後比較', 'Before-and-after comparisons at two and four weeks')] },
+          { t: 'p', text: b('改版上線後，就拿實際的變化和預期行為對照。', 'After a release, the actual changes are checked against those expectations.') },
         ],
       },
       {
@@ -588,7 +602,8 @@ export const cases: Case[] = [
           { t: 'p', text: b('社群初期迴響很好，後來參與人數下滑；新講師上任後課程也賣得不理想。團隊之前沒做過任何使用者研究，判斷都來自經營者自己的觀察。業主原本鎖定「習慣用理性邏輯處理人生問題」的人，認為服務感性族群的成本太高。', "The community started strong, then participation dropped, and courses sold poorly after a new instructor joined. The team had never done user research; decisions came from the founders' own observations. They targeted \"people who handle life problems with logic,\" believing emotionally driven members would cost too much to serve.") },
           { t: 'callout', title: b('目標', 'Goal'), text: b('找出原本參與的人為什麼漸漸離開、另一部分的人為什麼留下，並確認業主原本設定的目標客群對不對。', "Find out why some members drifted away while others stayed, and check whether the client had chosen the right target audience.") },
           { t: 'h3', text: b('我負責的部分', 'What I did') },
-          { t: 'p', text: b('我在負責「活躍用戶」的第一組，參與分析業主原本的想法和假設、設計招募問卷與訪綱，擔任主訪並用 ORID（依序記下事實、感受、詮釋與決定的整理方法）整理訪談紀錄，最後參與把三組的發現整合起來，並向業主簡報。', "I was on the active-member team. I helped analyze the client's original ideas and assumptions, designed the screener and interview guide, led interviews and coded notes with ORID, and helped merge the three teams' findings into the client readout.") },
+          { t: 'p', text: b('我在負責「活躍用戶」的第一組，參與的工作包括：', 'I was on the active-member team, and my work included:') },
+          { t: 'list', items: [b('分析業主原本的想法和假設', 'Analyzing the client\'s original ideas and assumptions'), b('設計招募問卷與訪綱', 'Designing the screener and interview guide'), b('擔任主訪，並用 ORID（依序記下事實、感受、詮釋與決定的整理方法）整理訪談紀錄', 'Leading interviews and coding notes with ORID (recording facts, feelings, interpretations, and decisions in that order)'), b('參與把三組的發現整合起來，並向業主簡報', 'Helping merge the three teams\' findings and present them to the client')] },
         ],
       },
       {
@@ -658,15 +673,17 @@ export const cases: Case[] = [
         id: 'outcome', caps: ['pm', 'ui'], tags: ['Outcome'], toc: b('成果與反思', 'Outcome'),
         title: b('第一次做研究學到的四件事', 'Four lessons from my first research project'),
         blocks: [
-          { t: 'p', text: b('2022 年 12 月，我們向業主簡報研究結果。三組的發現整理成三類建議：怎麼幫新成員融入社群、社群裡要提供哪些內容，以及平常怎麼經營社群。這是我第一次完整走過使用者研究，現在回頭看，有四件事我會做得不一樣。', "We presented our research to the client in December 2022. The three teams' findings became three kinds of recommendations: how to help newcomers settle into the community, what content the community should offer, and how to run it day to day. It was my first full research project, and looking back there are four things I'd do differently.") },
+          { t: 'p', text: b('2022 年 12 月，我們向業主簡報研究結果。三組的發現整理成三類建議：怎麼幫新成員融入社群、社群裡要提供哪些內容，以及平常怎麼經營社群。這是我第一次完整走過使用者研究，現在回頭看，有四件事會做得不一樣。', "We presented our research to the client in December 2022. The three teams' findings became three kinds of recommendations: how to help newcomers settle into the community, what content the community should offer, and how to run it day to day. It was my first full research project, and looking back there are four things I'd do differently.") },
           { t: 'h3', text: b('1. 用實際行為分群，不用「聽過什麼」分群', '1. Segment by behavior, not by what people have heard of') },
           { t: 'p', text: b('招募問卷用「有沒有聽過原子習慣」分流，結果把一些參加過社群、但沒聽過這個詞的人篩掉了。下次我會用最後一次參加活動的時間、互動頻率、有沒有付費來分群。', "Our screener routed people by whether they'd heard of \"atomic habits,\" which filtered out some who had joined the community but didn't know the term. Next time I'd segment by last activity, interaction frequency, and payment.") },
           { t: 'figure', src: ['img/case5/survey-routing-draft.jpg'], alt: b('招募問卷分流草稿', 'Draft screener routing'), caption: b('當時的問卷分流草稿 · 以「是否聽過原子習慣」作為分流條件', 'Our original screener routing draft, branching on "heard of atomic habits"') },
           { t: 'h3', text: b('2. 每個結論都標出樣本與證據強度', '2. Label every conclusion with sample and strength') },
-          { t: 'p', text: b('2026 年我用 AI 協助重新檢視這份研究時，回頭重看當年的問卷資料：認為「做決定時邏輯比心情重要」的比例，聽過原子習慣但沒實踐的人是 70%（14/20），真正在實踐的人只有 25%（3/12）。這比我們當年引用的圖更能檢驗業主的客群假設，但它量的是「有沒有實踐原子習慣」，不是「有沒有留在社群」，樣本也小。下次每個結論我都會寫出樣本數和證據強度。', "Revisiting the study with AI in 2026, I reread our survey data: 70% (14/20) of people who'd heard of atomic habits but didn't practice them said logic matters more than feelings in big decisions, versus 25% (3/12) of active practitioners. That tests the client's audience assumption better than the chart we used, but it measures practicing the method, not staying in the community, and the samples are small. Next time every conclusion gets a sample size and an evidence rating.") },
+          { t: 'p', text: b('2026 年用 AI 協助重新檢視這份研究時，回頭重看當年的問卷資料。認為「做決定時邏輯比心情重要」的比例如下：', 'Revisiting the study with AI in 2026, I reread our survey data. The share who said logic matters more than feelings in big decisions:') },
+          { t: 'list', items: [b('聽過原子習慣但沒實踐的人：70%（14/20）', 'People who\'d heard of atomic habits but didn\'t practice them: 70% (14/20)'), b('真正在實踐的人：25%（3/12）', 'Active practitioners: 25% (3/12)')] },
+          { t: 'p', text: b('這比我們當年引用的圖更能檢驗業主的客群假設，但它量的是「有沒有實踐原子習慣」，不是「有沒有留在社群」，樣本也小。下次每個結論都會寫出樣本數和證據強度。', 'That tests the client\'s audience assumption better than the chart we used, but it measures practicing the method, not staying in the community, and the samples are small. Next time every conclusion gets a sample size and an evidence rating.') },
           { t: 'diagram', kind: 'bars', caption: b('示意圖 · 2026 年回頭重看問卷資料重繪，非當年研究結論', 'Diagram · redrawn in 2026 from the survey data, not a 2022 finding') },
           { t: 'h3', text: b('3. 建立信任，但不引導答案', '3. Build rapport without leading') },
-          { t: 'p', text: b('同事回饋我在訪談中能很快讓受訪者放鬆（評語在關於我頁），但我也學到寒暄和引導的界線：開場稱讚受訪者、分享自己的看法，都可能讓對方順著我的方向回答。下次我會從「最近一次發生的具體事件」問起。', "Colleagues have said I put participants at ease quickly (see the About page), but I learned where small talk ends and leading begins: praising a participant or sharing my own view at the start can steer their answers. Next time I'd open with the most recent concrete event.") },
+          { t: 'p', text: b('同事回饋我在訪談中能很快讓受訪者放鬆（評語在「關於我」頁），但這次也學到寒暄和引導的界線：開場稱讚受訪者、分享自己的看法，都可能讓對方順著訪談者的方向回答。下次會從「最近一次發生的具體事件」問起。', "Colleagues have said I put participants at ease quickly (see the About page), but I learned where small talk ends and leading begins: praising a participant or sharing my own view at the start can steer their answers. Next time I'd open with the most recent concrete event.") },
           { t: 'h3', text: b('4. 研究同意和公開展示是兩件事', '4. Research consent is not publishing consent') },
           { t: 'p', text: b('受訪者同意的是參與研究，不代表同意公開展示。下次我會把錄音、引用、公開展示分開取得同意；對外分享研究過程時，只放去識別化的整理結果。', "Agreeing to take part in research isn't agreeing to be published. Next time I'd get separate consent for recording, quoting, and publishing, and share the process externally only as de-identified summaries.") },
         ],
@@ -681,7 +698,7 @@ export const cases: Case[] = [
     title: b('工作記憶助理：\n會議中記得準，會議後查得到', 'Work Memory Agent:\naccurate in the meeting, findable after'),
     cardTitle: b('工作記憶助理：記錄會議、提示任務、整理成可備查的摘要', 'Work Memory Agent: record meetings, surface tasks, keep searchable summaries'),
     lead: b(
-      '開完會，常記不清誰說了什麼、決定了什麼。我用 AI 開發了一個會議助理：三個本機模型一起辨識中英夾雜的會議，提到相關專案時跳出任務提示，會議後整理成附原句的摘要與待辦；我也重新設計了介面，讓不懂技術的同事也看得懂。',
+      '開完會，常記不清誰說了什麼、決定了什麼。我用 AI 開發了一個會議助理：三個本機模型一起辨識中英夾雜的會議，提到相關專案時跳出任務提示，會議後整理成附原句的摘要與待辦；介面也重新設計過，讓不懂技術的同事也看得懂。',
       'After meetings, I often couldn\'t recall who said what or what we decided. With AI, I built a meeting assistant: three local models transcribe mixed Chinese-English meetings, related tasks appear when a project comes up, and each meeting becomes a summary and to-dos with source quotes. I also redesigned the interface so colleagues without a technical background can follow it.',
     ),
     chips: ['Product Design', 'AI Tool', 'Speech-to-text', 'Design System'],
@@ -704,7 +721,7 @@ export const cases: Case[] = [
         id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
         title: b('開完會，記不清誰說了什麼、決定了什麼', 'After meetings, I lost track of who said and decided what'),
         blocks: [
-          { t: 'p', text: b('我最常遇到的狀況是，被追問「那時候為什麼這樣決定」卻答不出來。我請 AI 用單選題「拷問」我，兩輪共 8 題，把一長串想做的功能排出先後，定出工具的核心任務：', 'What kept happening was being asked "why did we decide that?" and having no answer. I had AI grill me with single-choice questions, eight across two rounds, to rank a long wish list and set the tool\'s core tasks:') },
+          { t: 'p', text: b('最常遇到的狀況是，被追問「那時候為什麼這樣決定」卻答不出來。為了理清需求，請 AI 用單選題「拷問」自己，兩輪共 8 題，把一長串想做的功能排出先後，定出工具的核心任務：', 'What kept happening was being asked "why did we decide that?" and having no answer. I had AI grill me with single-choice questions, eight across two rounds, to rank a long wish list and set the tool\'s core tasks:') },
           { t: 'table', head: [b('時機', 'When'), b('核心任務', 'Core task'), b('目前狀態', 'Status')], rows: [
             [b('會議中', 'During'), b('分辨角色，準確記錄會議內容', 'Identify speakers and record accurately'), b('準確記錄已完成；分辨講者規劃中', 'Accurate recording done; speaker identification planned')],
             [b('會議中', 'During'), b('提到相關專案或任務時，顯示多個相關任務提示', 'Show several related tasks when a project or task comes up'), b('已完成，還沒在真實會議完整驗收', 'Done; not yet fully tested in live meetings')],
@@ -756,7 +773,7 @@ export const cases: Case[] = [
           { t: 'figure', src: ['img/case6/home-before.jpg'], alt: b('改版前的首頁：寫死日期與多張說明卡', 'Old home page with a fixed date and many info cards'), caption: b('工作記憶助理實際畫面 · 改版前的首頁 · 卡片是 App 內建的示意資料', 'Work Memory Agent screenshot · old home page · cards are built-in sample data') },
           { t: 'figure', src: ['img/case6/home-after.png'], alt: b('改版後的首頁（會議前）：查詢、準備開會、我的未完成、最近的會議', 'New home page before a meeting: search, prepare, open items, recent meetings'), caption: b('工作記憶助理實際畫面 · 改版後的首頁（會議前）· 清單含同事與客戶資訊，已遮蔽', 'Work Memory Agent screenshot · new home page, before a meeting · lists hidden for privacy') },
           { t: 'h3', text: b('字幕：糾正後原地覆蓋', 'Captions: corrections replace the draft') },
-          { t: 'p', text: b('原本三個模型的字幕並排顯示。我說「我還是需要及時看到有東西出來」，參考 Notion 會議記錄，提出單欄字幕：先出草稿，AI 糾正後原地替換，行尾標示草稿、已糾錯或有疑點；三個模型的原文收進可展開區。', 'Captions from the three models used to sit side by side. I needed to see text right away, so, taking Notion\'s meeting notes as a reference, I proposed a single column: a draft first, replaced in place once AI corrects it, with each line marked draft, corrected, or uncertain. The raw model output moved into an expandable area.') },
+          { t: 'p', text: b('原本三個模型的字幕並排顯示。當時的想法是「我還是需要及時看到有東西出來」，參考 Notion 會議記錄，提出單欄字幕：先出草稿，AI 糾正後原地替換，行尾標示草稿、已糾錯或有疑點；三個模型的原文收進可展開區。', 'Captions from the three models used to sit side by side. I needed to see text right away, so, taking Notion\'s meeting notes as a reference, I proposed a single column: a draft first, replaced in place once AI corrects it, with each line marked draft, corrected, or uncertain. The raw model output moved into an expandable area.') },
           { t: 'figure', src: ['img/case6/captions-before.jpg'], alt: b('改版前：三個模型的逐字稿並排顯示，右側是相關任務', 'Before: three model transcripts side by side, related tasks on the right'), caption: b('工作記憶助理實際畫面 · 改版前：三個模型並排的即時逐字稿與相關任務 · 以系統語音模擬會議', 'Work Memory Agent screenshot · before: three transcripts side by side with related tasks · simulated meeting audio') },
           { t: 'figure', src: ['img/case6/captions-after.png'], alt: b('改版後：單欄字幕，行尾標示草稿、已糾錯或有疑點，右側是相關任務與決策', 'After: one caption column with status per line, related tasks and decisions on the right'), caption: b('工作記憶助理實際畫面 · 改版後：單欄字幕與相關任務 · 會議內容已遮蔽', 'Work Memory Agent screenshot · after: single caption column and related tasks · meeting content hidden') },
           { t: 'h3', text: b('設定：工程欄位收進進階', 'Settings: engineering fields tucked away') },
@@ -802,11 +819,13 @@ export const cases: Case[] = [
         id: 'outcome', caps: ['pm', 'ui', 'fe'], tags: ['Outcome'], toc: b('成果與反思', 'Outcome'),
         title: b('目前完成的部分', 'What is done so far'),
         blocks: [
-          { t: 'p', text: b('目前已完成三模型辨識與兩段式糾錯、會議後決策擷取、會議前與會議中兩種首頁、單一色系的視覺系統，並打包安裝在自己的電腦上。和第一版相比，我在自己的會議裡感受到辨識正確率大幅提升，但還沒有量化。', 'Done so far: three-model recognition with two-layer correction, post-meeting decision extraction, before- and during-meeting home states, and a one-hue visual system, packaged and installed on my computer. In my own meetings recognition feels far better than the first version, but it isn\'t quantified yet.') },
+          { t: 'p', text: b('目前已完成的項目：', 'Done so far:') },
+          { t: 'list', items: [b('三模型辨識與兩段式糾錯', 'Three-model recognition with two-layer correction'), b('會議後的決策擷取', 'Post-meeting decision extraction'), b('會議前與會議中兩種首頁', 'Before- and during-meeting home states'), b('單一色系的視覺系統', 'A one-hue visual system')] },
+          { t: 'p', text: b('這些都已打包安裝在自己的電腦上。和第一版相比，在自己的會議裡感受到辨識正確率大幅提升，但還沒有量化。', 'All of this is packaged and installed on my computer. In my own meetings, recognition feels far better than the first version, though it isn\'t quantified yet.') },
           { t: 'h3', text: b('下一步', 'Next') },
-          { t: 'p', text: b('接下來我會用真實會議驗收任務提示和會議後整理，並補上核心任務中還沒做的分辨講者：先分出「我」和「別人」，再做單場的講者分群。之後再收斂導覽、加入統一搜尋。', 'Validate task hints and post-meeting summaries in live meetings; add the missing core task, speaker identification, first telling me apart from others, then grouping speakers within a meeting; then simplify navigation and add unified search.') },
+          { t: 'p', text: b('接下來會用真實會議驗收任務提示和會議後整理，並補上核心任務中還沒做的分辨講者：先分出「我」和「別人」，再做單場的講者分群。之後再收斂導覽、加入統一搜尋。', 'Validate task hints and post-meeting summaries in live meetings; add the missing core task, speaker identification, first telling me apart from others, then grouping speakers within a meeting; then simplify navigation and add unified search.') },
           { t: 'h3', text: b('下次會怎麼做', 'What I\'d do next time') },
-          { t: 'p', text: b('下次我會一開始就固定一段錄音和人工校對稿當基準，量出辨識正確率；也會把驗收用和調整用的句子分開，並照和 AI 協作的實際速度來估工時。', 'Set a baseline from day one, a fixed recording with a hand-checked transcript, to measure accuracy; keep test sentences separate from tuning sentences; and estimate time at the real pace of working with AI.') },
+          { t: 'p', text: b('下次會一開始就固定一段錄音和人工校對稿當基準，量出辨識正確率；也會把驗收用和調整用的句子分開，並照和 AI 協作的實際速度來估工時。', 'Set a baseline from day one, a fixed recording with a hand-checked transcript, to measure accuracy; keep test sentences separate from tuning sentences; and estimate time at the real pace of working with AI.') },
         ],
       },
     ],

@@ -38,7 +38,7 @@ export const sections = {
     eyebrow: 'Selected Work',
     title: { 'zh-tw': '六個案例，看見研究、PM、設計與前端如何串成一條線', en: 'Six cases connecting research, product, design, and frontend' } as T,
     lead: {
-      'zh-tw': '每個案例都寫清楚：要解決的問題、我負責的範圍、AI 參與了什麼，以及我如何驗證結果。',
+      'zh-tw': '每個案例都寫清楚：要解決的問題、我負責的範圍、AI 參與了什麼，以及如何驗證結果。',
       en: 'Each case covers the problem, what I was responsible for, how AI was used, and how I validated the result.',
     } as T,
   },
@@ -146,10 +146,10 @@ export const testimonials = [
 
 // 和我合作：工作習慣（本人確認的草稿）
 export const workingWithMe = [
-  { title: { 'zh-tw': '我會把大問題切小，一步一步推進', en: 'I break big problems into small steps' }, body: { 'zh-tw': '我會把工作切成看得完、驗得了的小步，確認一步再走下一步；也會主動追進度，把待決的問題往前推。如果你需要更多時間想，直接告訴我，我會調整步調。', en: "I cut work into steps small enough to review and verify, and confirm each one before the next. I also follow up and keep open questions moving; if you need more time to think, just tell me and I'll adjust." } },
-  { title: { 'zh-tw': '討論前，我會先把情況想過一輪', en: 'I think it through before we meet' }, body: { 'zh-tw': '我會先列出可能的情況、例外和取捨，帶著選項來討論，讓會議花在做決定，而不是重新整理問題。', en: 'I map out the cases, edge cases, and trade-offs first, then bring options, so our time goes to deciding instead of re-explaining the problem.' } },
-  { title: { 'zh-tw': '我從人的處境出發', en: 'I start from where people are' }, body: { 'zh-tw': '不論是使用者還是同事，我會先理解對方在意什麼、卡在哪裡。在 Case 05 的社群研究裡，我擔任活躍用戶組的主訪，工作坊同事回饋我能很快和受訪者建立情感上的認同，讓氣氛和緩下來。那次我也學到寒暄和引導的界線，所以現在訪談時，我會從最近一次發生的具體事件問起，讓對方說出自己的實際經驗。', en: "Whether it's a user or a teammate, I first try to understand what they care about and where they're stuck. In the community research in Case 05, I led interviews for the active-member team, and workshop colleagues said I quickly built rapport and put participants at ease. That project also taught me where small talk ends and leading begins, so I now open interviews with the most recent concrete event and let people describe what actually happened." } },
-  { title: { 'zh-tw': '有不同意見，我會直接說，也歡迎你直接說', en: "If I disagree, I'll say so, and I'd like you to do the same" }, body: { 'zh-tw': '我對事不對人。比起事後才發現誤會，我更希望早點把分歧講開。', en: "It's about the work, not the person. I'd rather surface a disagreement early than find a misunderstanding later." } },
+  { title: { 'zh-tw': '我會把大問題切小，一步一步推進', en: 'I break big problems into small steps' }, body: { 'zh-tw': '工作會切成看得完、驗得了的小步，確認一步再走下一步；也會主動追進度，把待決的問題往前推。如果你需要更多時間想，直接說，我會調整步調。', en: "I cut work into steps small enough to review and verify, and confirm each one before the next. I also follow up and keep open questions moving; if you need more time to think, just tell me and I'll adjust." } },
+  { title: { 'zh-tw': '討論前，我會先把情況想過一輪', en: 'I think it through before we meet' }, body: { 'zh-tw': '會先列出可能的情況、例外和取捨，帶著選項來討論，讓會議花在做決定，而不是重新整理問題。', en: 'I map out the cases, edge cases, and trade-offs first, then bring options, so our time goes to deciding instead of re-explaining the problem.' } },
+  { title: { 'zh-tw': '我會先弄懂對方在意什麼、卡在哪裡', en: "I first find out what people care about and where they're stuck" }, body: { 'zh-tw': '對使用者和同事都是這樣。在 Case 05 的社群研究裡，我擔任活躍用戶組的主訪，工作坊同事回饋我能很快和受訪者建立情感上的認同，讓氣氛和緩下來。', en: "That goes for users and teammates alike. In the community research in Case 05, I led interviews for the active-member team, and workshop colleagues said I quickly built rapport and put participants at ease." } },
+  { title: { 'zh-tw': '有不同意見，我會直接說，也歡迎你直接說', en: "If I disagree, I'll say so, and I'd like you to do the same" }, body: { 'zh-tw': '我對事不對人。比起事後才發現誤會，更希望早點把分歧講開。', en: "It's about the work, not the person. I'd rather surface a disagreement early than find a misunderstanding later." } },
 ] as const;
 
 export const downloads = [

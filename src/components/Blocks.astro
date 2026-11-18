@@ -48,6 +48,10 @@ const { blocks, lang } = Astro.props;
       return <div class="guard">{bk.items.map(([title, code, desc]) => <div><b>{title[lang]}</b>{code && <code>{code}</code>}<br />{desc[lang]}</div>)}</div>;
     case 'diagram':
       return <figure class="fig"><div class="frame"><Diagram kind={bk.kind} lang={lang} /></div><figcaption>{bk.caption[lang]}</figcaption></figure>;
+    case 'list':
+      return bk.ordered
+        ? <ol class="list">{bk.items.map((it) => <li>{it[lang]}</li>)}</ol>
+        : <ul class="list">{bk.items.map((it) => <li>{it[lang]}</li>)}</ul>;
     case 'flow':
       return <div class="flow">{bk.items.map((it, i) => <>{i > 0 && <i aria-hidden="true">→</i>}<span>{it[lang]}</span></>)}</div>;
     case 'versions':

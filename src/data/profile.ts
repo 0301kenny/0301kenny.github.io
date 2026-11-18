@@ -36,7 +36,7 @@ export const profile = {
 export const sections = {
   work: {
     eyebrow: 'Selected Work',
-    title: { 'zh-tw': '五個案例，看見研究、PM、設計與前端如何串成一條線', en: 'Five cases connecting research, product, design, and frontend' } as T,
+    title: { 'zh-tw': '六個案例，看見研究、PM、設計與前端如何串成一條線', en: 'Six cases connecting research, product, design, and frontend' } as T,
     lead: {
       'zh-tw': '每個案例都寫清楚：要解決的問題、我負責的範圍、AI 參與了什麼，以及我如何驗證結果。',
       en: 'Each case covers the problem, what I was responsible for, how AI was used, and how I validated the result.',

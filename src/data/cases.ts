@@ -4,14 +4,14 @@ const b = (zh: string, en: string): T => ({ 'zh-tw': zh, en });
 
 export type Cap = 'pm' | 'ui' | 'fe';
 
-export type DiagramKind = 'channels' | 'rules' | 'funnel' | 'groups' | 'triad' | 'mentor' | 'bars';
+export type DiagramKind = 'channels' | 'rules' | 'funnel' | 'groups' | 'triad' | 'mentor' | 'bars' | 'memflow' | 'correction' | 'plan' | 'latency';
 
 export type Block =
   | { t: 'p'; text: T; todo?: boolean }
   | { t: 'h3'; text: T }
   | { t: 'callout'; title: T; text: T }
   | { t: 'decision'; q: T; a: T; text: T; todo?: boolean }
-  | { t: 'figure'; src: string[]; alt: T; caption: T; phone?: boolean }
+  | { t: 'figure'; src: string[]; alt: T; caption: T; phone?: boolean; pair?: boolean }
   | { t: 'table'; rows: [T, T, T][]; note?: T; head?: [T, T, T] }
   | { t: 'stats'; items: [string, T][] }
   | { t: 'guard'; items: [T, string, T][] }
@@ -538,6 +538,144 @@ export const cases: Case[] = [
           { t: 'p', text: b('快速和受訪者建立信任是我的強項，但我也學到寒暄和引導的界線：開場稱讚受訪者、分享自己的看法，都可能讓對方順著我的方向回答。下次我會從「最近一次發生的具體事件」問起。', "Building rapport quickly is one of my strengths, but I learned where small talk ends and leading begins: praising a participant or sharing my own view at the start can steer their answers. Next time I'd open with the most recent concrete event.") },
           { t: 'h3', text: b('4. 研究同意和公開展示是兩件事', '4. Research consent is not publishing consent') },
           { t: 'p', text: b('受訪者同意的是參與研究，不代表同意公開展示。下次我會把錄音、引用、公開展示分開取得同意；對外分享研究過程時，只放去識別化的整理結果。', "Agreeing to take part in research isn't agreeing to be published. Next time I'd get separate consent for recording, quoting, and publishing, and share the process externally only as de-identified summaries.") },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'memory',
+    no: '06',
+    period: '2026.11 — NOW',
+    eyebrow: 'Case 06 · Product Design · AI Tool',
+    title: b('工作記憶助理：\n會中記得準，會後查得到', 'Work Memory Agent:\naccurate in the meeting, findable after'),
+    cardTitle: b('工作記憶助理：記錄會議、提示任務、整理成可備查的摘要', 'Work Memory Agent: record meetings, surface tasks, keep searchable summaries'),
+    lead: b(
+      '開完會，常記不清誰說了什麼、決定了什麼。我用 AI 開發了一個會議助理：三個本機模型一起辨識中英夾雜的會議，提到相關專案時跳出任務提示，會後整理成附原句的摘要與待辦；介面也從工程師版收斂成辦公室人員的工具。',
+      'After meetings, I often couldn\'t recall who said what or what we decided. With AI, I built a meeting assistant: three local models transcribe mixed Chinese-English meetings, related tasks appear when a project comes up, and each meeting becomes a summary and to-dos with source quotes. I also refocused the interface from an engineer\'s tool into one for office staff.',
+    ),
+    chips: ['Product Design', 'AI Tool', 'Speech-to-text', 'Design System'],
+    meta: [
+      [b('我的角色', 'My role'), b('需求定義、架構構想、介面與視覺決策、驗收；程式由 AI 實作', 'Defined needs, proposed the architecture, made UI and visual calls, and accepted the work; AI wrote the code')],
+      [b('產品', 'Product'), b('個人用 macOS 桌面 App', 'Personal macOS desktop app')],
+      [b('期間', 'Period'), b('2026.11 — 現在', '2026.11 — now')],
+      [b('狀態', 'Status'), b('開發中 · 分辨講者規劃中 · 尚未在真實會議完整驗收', 'In development · speaker identification planned · not yet fully tested in live meetings')],
+    ],
+    kpis: [
+      ['3', b('個本機模型一起辨識', 'local models listening together'), b('Whisper large-v3-turbo、Breeze-ASR-25、TEA-ASR-1.1 都在電腦本機執行。三個模型錯的地方各不相同，AI 只能從三個版本和公司字典裡挑，不能自己改寫。', 'Whisper large-v3-turbo, Breeze-ASR-25, and TEA-ASR-1.1 all run on the computer. They make different mistakes, and AI may only choose among their versions and the company glossary, never rewrite.')],
+      ['3.2 秒', b('內出現即時字幕（95% 段落）', 'to show live captions (95% of segments)'), b('同一場 9 分鐘會議重播量測：修正前 6.7 秒、最慢 17 秒；修正後 3.2 秒、最慢 5.9 秒。', 'Measured by replaying the same 9-minute meeting: 6.7 s before (slowest 17 s), 3.2 s after (slowest 5.9 s).')],
+      ['~20', b('個設計變數取代約 90 種寫死顏色', 'design tokens replacing ~90 hard-coded colors'), b('墨綠單一色系加灰階，字級收斂成 4 種，淺深兩色的文字對比都達 4.5:1。', 'One deep-green hue plus grays, four type sizes, and 4.5:1 text contrast in both light and dark modes.')],
+    ],
+    hero: { kind: 'diagram', diagram: 'memflow', caption: b('示意圖 · 依開發紀錄重繪', 'Diagram · redrawn from the development notes') },
+    card: { kind: 'diagram', diagram: 'memflow', label: b('示意圖 · 依開發紀錄重繪', 'Diagram · redrawn from the development notes') },
+    webOnly: true,
+    sections: [
+      {
+        id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
+        title: b('開完會，記不清誰說了什麼、決定了什麼', 'After meetings, I lost track of who said and decided what'),
+        blocks: [
+          { t: 'p', text: b('最痛的時刻是被追問「那時候為什麼這樣決定」卻接不上。我請 AI 用單選題「拷問」我，兩輪共 8 題，把一長串想做的功能排出先後，定出工具的核心任務：', 'The worst moment was being asked "why did we decide that?" and having no answer. I had AI grill me with single-choice questions, eight across two rounds, to rank a long wish list and set the tool\'s core tasks:') },
+          { t: 'table', head: [b('時機', 'When'), b('核心任務', 'Core task'), b('目前狀態', 'Status')], rows: [
+            [b('會中', 'During'), b('分辨角色，準確記錄會議內容', 'Identify speakers and record accurately'), b('準確記錄已完成；分辨講者規劃中', 'Accurate recording done; speaker identification planned')],
+            [b('會中', 'During'), b('提到相關專案或任務時，顯示多個相關任務提示', 'Show several related tasks when a project or task comes up'), b('已完成，還沒在真實會議完整驗收', 'Done; not yet fully tested in live meetings')],
+            [b('會後', 'After'), b('整理內容，做成摘要與任務，備查', 'Organize the content into a summary and tasks for later lookup'), b('已完成：重點、待辦、未決與決策，都附原句', 'Done: highlights, to-dos, open questions, and decisions, each with a source quote')],
+          ] },
+          { t: 'callout', title: b('目標', 'Goal'), text: b('先讓逐字稿可信，再讓任務提示和會後摘要建立在可信的逐字稿上。', 'Make the transcript trustworthy first, then build task hints and summaries on top of it.') },
+          { t: 'p', text: b('但第一版的逐字稿「十分不正確」，中英夾雜尤其差。逐字稿不可信，上層功能都沒有意義，所以我先處理辨識。', 'But the first transcripts were badly wrong, especially with mixed Chinese and English. Without a trustworthy transcript nothing built on top would matter, so I tackled recognition first.') },
+          { t: 'h3', text: b('我負責的部分', 'What I did') },
+          { t: 'p', text: b('我定義需求、提出架構構想、決定介面與視覺，並用自己的會議驗收；程式由 Claude 實作，計劃另外請 Codex 審閱。', 'I defined the need, proposed the architecture, made the interface and visual decisions, and tested with my own meetings. Claude wrote the code, and Codex reviewed the plan.') },
+        ],
+      },
+      {
+        id: 'recognition', caps: ['pm', 'fe'], tags: ['PM', 'FE'], toc: b('辨識架構', 'Recognition'),
+        title: b('多個模型一起聽，再對照公司字典修正', 'Several models listen, a company glossary corrects'),
+        blocks: [
+          { t: 'decision', q: b('辨識不準怎麼辦？', 'Recognition is wrong. Now what?'), a: b('多個模型一起辨識，再由 AI 對照公司字典整理', 'Run several models, then let AI reconcile them with a glossary'), text: b('這是我提出的構想。用自己的會議錄音比較後，三個新模型都遠勝原本的小模型，Breeze 和 TEA 對中英夾雜最好；而且三個模型錯的地方各不相同，正好互補。', 'This was my idea. Tested on my own meeting recordings, all three new models far outperformed the original small one, with Breeze and TEA best on mixed Chinese and English, and each made different mistakes, so they cover for each other.') },
+          { t: 'decision', q: b('會中要快、會後要準，怎麼兼顧？', 'Fast during, accurate after. How?'), a: b('分成兩層處理', 'Split it into two layers'), text: b('會中只做粗略快速的修正，讓字幕先出來；會後再由三個模型整場重轉，先通讀全場，再對照字典逐批精修。', 'During the meeting, only quick fixes so captions appear fast; afterward, all three models re-transcribe the whole meeting, which is read in full and then refined batch by batch against the glossary.') },
+          { t: 'decision', q: b('AI 會不會把句子改得很通順但是錯的？', 'Could AI make sentences fluent but wrong?'), a: b('限制 AI 只能挑，不能改寫', 'Let AI choose, never rewrite'), text: b('AI 只能從三個模型的版本和字典裡挑出組合；沒把握的地方就列為「待確認詞」，不自己猜。', 'AI may only combine what the three models heard and what the glossary contains; anything uncertain is flagged for review instead of guessed.') },
+          { t: 'diagram', kind: 'correction', caption: b('示意圖 · 依開發紀錄重繪', 'Diagram · redrawn from the development notes') },
+          { t: 'h3', text: b('公司字典', 'The company glossary') },
+          { t: 'p', text: b('我指定從工作資料和官網的酒店資料整理字典，共 774 個詞，另有 3,800 間酒店的參考清單。實測時，被聽成「力力子、萬號、卡賠、香港回禮、波西蛇」的詞，被認回立鼎世、萬豪、Capella、Rosewood、Four Seasons。', 'I had the glossary built from work material and hotel data on our website: 774 terms plus a reference list of 3,800 hotels. In testing, words misheard as nonsense were restored to Leading Hotels of the World, Marriott, Capella, Rosewood, and Four Seasons.') },
+        ],
+      },
+      {
+        id: 'hints', caps: ['pm', 'ui'], tags: ['PM', 'UI / UX'], toc: b('任務提示', 'Task hints'),
+        title: b('提到相關專案時，旁邊就跳出相關任務', 'Mention a project, and related tasks appear'),
+        blocks: [
+          { t: 'p', text: b('原本的計劃是從會議裡慢慢累積任務資料。我直接提供團隊每週更新的任務表和自己的工作日誌當來源，任務庫因此當天就建好，不必從零開始。', 'The plan was to build up task data from meetings over time. Instead I pointed it at the team\'s weekly-updated task sheet and my own work log, so the task library was ready the same day.') },
+          { t: 'decision', q: b('開會時怎麼知道該提示哪些任務？', 'How does it know which tasks to show?'), a: b('比對最近一分鐘的談話，在本機完成', 'Match the last minute of talk, entirely on the computer'), text: b('每段字幕都和最近一分鐘的談話一起比對任務庫，最多顯示 5 張相關任務卡，可以釘選；比對全程在本機，不呼叫 AI。沒在開會時，同一個區塊可以手動查詢。', 'Each caption segment, together with the last minute of talk, is matched against the task library, showing up to 5 related task cards that can be pinned; matching runs locally with no AI call. Outside meetings, the same panel works as manual search.') },
+          { t: 'p', text: b('第一次用錄好的會議檢查時，提示欄在閒聊中也跳出無關的卡片，雜訊比幫助多。我把這個修正提前處理，細節見「實作與驗證」。', 'The first check with recorded meetings showed irrelevant cards popping up during small talk, more noise than help. I moved that fix forward; details are under Build.') },
+        ],
+      },
+      {
+        id: 'plan', caps: ['pm'], tags: ['PM'], toc: b('計劃與挑戰', 'Planning'),
+        title: b('計劃越寫越大時，主動找人挑戰', 'When the plan grew, I asked to be challenged'),
+        blocks: [
+          { t: 'p', text: b('下一步要把工具收斂成辦公室人員也能用的版本，計劃從 v1 一路改到 v5。計劃變大後，我先要 AI 自省整個計劃，再請另一個 AI（Codex）當挑戰者審閱。', 'The next step was turning the tool into something office staff could use, and the plan went from v1 to v5. As it grew, I first asked AI to review its own plan, then had another AI, Codex, review it as a challenger.') },
+          { t: 'diagram', kind: 'plan', caption: b('示意圖 · 依開發紀錄重繪', 'Diagram · redrawn from the development notes') },
+          { t: 'p', text: b('兩次挑戰改變了順序：核心需求「決策擷取」從第 6 階段提前到第 2 階段，錄音保護也提前到最前面。', 'Both reviews changed the order: the core need, decision extraction, moved from phase 6 to phase 2, and recording safety moved to the front.') },
+        ],
+      },
+      {
+        id: 'design', caps: ['ui'], tags: ['UI / UX'], toc: b('介面收斂', 'Design'),
+        title: b('從工程師的工具，收斂成辦公室人員的工具', 'From an engineer\'s tool to an office tool'),
+        blocks: [
+          { t: 'p', text: b('第一版是用工程角度做的。我要求用介面設計師的方法重新盤點：情境走查、內容盤點、使用性原則，看過 7 個頁面，找出 7 個跨頁問題。', 'The first version was built from an engineering angle. I had it re-audited the way an interface designer would, with scenario walkthroughs, a content inventory, and usability heuristics: 7 pages reviewed, 7 cross-page problems found.') },
+          { t: 'h3', text: b('首頁：只留開會時用得到的東西', 'Home: only what a meeting needs') },
+          { t: 'p', text: b('原本首頁有寫死的日期、8 張示意資料卡和整排工程說明。改版後拿掉這些，依狀態切換：會前是查詢、準備開會、我的未完成；會中是錄音列、字幕與相關任務。', 'The old home page had a hard-coded date, 8 placeholder cards, and rows of engineering notes. They\'re gone; the page now switches by state: before a meeting, search, prepare, and my open items; during one, the recording bar, captions, and related tasks.') },
+          { t: 'figure', src: ['img/case6/home-before.jpg'], alt: b('改版前的首頁：寫死日期與多張說明卡', 'Old home page with a fixed date and many info cards'), caption: b('工作記憶助理實際畫面 · 改版前的首頁 · 卡片是 App 內建的示意資料', 'Work Memory Agent screenshot · old home page · cards are built-in sample data') },
+          { t: 'figure', src: ['img/case6/home-after.png'], alt: b('改版後的首頁（會前）：查詢、準備開會、我的未完成、最近的會議', 'New home page before a meeting: search, prepare, open items, recent meetings'), caption: b('工作記憶助理實際畫面 · 改版後的首頁（會前）· 清單含同事與客戶資訊，已遮蔽', 'Work Memory Agent screenshot · new home page, before a meeting · lists hidden for privacy') },
+          { t: 'h3', text: b('字幕：糾正後原地覆蓋', 'Captions: corrections replace the draft') },
+          { t: 'p', text: b('原本三個模型的字幕並排顯示。我說「我還是需要及時看到有東西出來」，參考 Notion 會議記錄，提出單欄字幕：先出草稿，AI 糾正後原地替換，行尾標示草稿、已糾錯或有疑點；三個模型的原文收進可展開區。', 'Captions from the three models used to sit side by side. I needed to see text right away, so, taking Notion\'s meeting notes as a reference, I proposed a single column: a draft first, replaced in place once AI corrects it, with each line marked draft, corrected, or uncertain. The raw model output moved into an expandable area.') },
+          { t: 'figure', src: ['img/case6/captions-before.jpg'], alt: b('改版前：三個模型的逐字稿並排顯示，右側是相關任務', 'Before: three model transcripts side by side, related tasks on the right'), caption: b('工作記憶助理實際畫面 · 改版前：三個模型並排的即時逐字稿與相關任務 · 以系統語音模擬會議', 'Work Memory Agent screenshot · before: three transcripts side by side with related tasks · simulated meeting audio') },
+          { t: 'figure', src: ['img/case6/captions-after.png'], alt: b('改版後：單欄字幕，行尾標示草稿、已糾錯或有疑點，右側是相關任務與決策', 'After: one caption column with status per line, related tasks and decisions on the right'), caption: b('工作記憶助理實際畫面 · 改版後：單欄字幕與相關任務 · 會議內容已遮蔽', 'Work Memory Agent screenshot · after: single caption column and related tasks · meeting content hidden') },
+          { t: 'h3', text: b('設定：工程欄位收進進階', 'Settings: engineering fields tucked away') },
+          { t: 'p', text: b('工程欄位「全部收進進階，不刪」，設定頁分成幾個區塊，並寫明逐字稿會送到哪裡。', 'Engineering fields went into an Advanced section rather than being deleted, settings were grouped, and the page now states where transcripts are sent.') },
+          { t: 'figure', src: ['img/case6/settings-before.jpg'], alt: b('改版前的設定頁：Provider、Local command 等工程欄位直接攤開', 'Old settings page with engineering fields such as Provider and Local command'), caption: b('工作記憶助理實際畫面 · 設定頁改版前', 'Work Memory Agent screenshot · settings before') },
+          { t: 'figure', src: ['img/case6/settings-after.png'], alt: b('改版後的設定頁：工程欄位收進進階，並寫明逐字稿會送到哪裡', 'New settings page: engineering fields under Advanced, with where transcripts are sent'), caption: b('工作記憶助理實際畫面 · 設定頁改版後', 'Work Memory Agent screenshot · settings after') },
+          { t: 'h3', text: b('視覺：單一色系、少粗體', 'Visuals: one hue, fewer bold weights') },
+          { t: 'compare', title: b('過程證據：第一版樣張 vs 我的修改原則', 'Evidence: first specimen vs my revision'), aiLabel: b('第一版樣張', 'First specimen'), meLabel: b('我的修改原則', 'My direction'),
+            ai: b('macOS 藍色當強調色；「未確認」「附條件」「資訊」各用不同顏色；粗體很多。', 'macOS blue as the accent; "unconfirmed," "conditional," and "info" each in a different color; lots of bold.'),
+            me: b('「顏色不要太多種，用單一色系深淺變化」「字體不要太多粗體字，感覺整個很厚重，又不知道畫面重點」。保留原本的墨綠，標籤改成灰階，粗體只留標題。第二版一次通過，直接套用。', '"Not too many colors, use shades of one hue." "Not so much bold; it feels heavy and hides what matters." I kept the original deep green, turned tags gray, and limited bold to headings. The second version passed on the first try.'),
+            source: b('2026 年 11 月 18 日 · 確認視覺樣張時', '18 Nov 2026 · reviewing the visual specimen') },
+          { t: 'figure', src: ['img/case6/specimen-v1.jpg'], alt: b('第一版視覺樣張：藍色強調色、多色標籤', 'First visual specimen: blue accent and multicolor tags'), caption: b('第一版視覺樣張 · 淺色與深色模式 · 示意資料', 'First visual specimen · light and dark · sample data') },
+          { t: 'figure', src: ['img/case6/specimen-v2.jpg'], alt: b('第二版視覺樣張：墨綠單一色系、灰色標籤', 'Second visual specimen: one deep-green hue and gray tags'), caption: b('依我的回饋修改的第二版 · 已套用到整個 App · 示意資料', 'Second specimen, revised from my feedback · applied across the app · sample data') },
+        ],
+      },
+      {
+        id: 'decisions', caps: ['pm', 'ui'], tags: ['PM', 'UI / UX'], toc: b('會後整理', 'After the meeting'),
+        title: b('會後整理成摘要與任務，每一條都找得到原句', 'Summaries and tasks after each meeting, all traceable to a quote'),
+        blocks: [
+          { t: 'p', text: b('會議結束後，工具自動擷取重點、待辦、未決事項與決策候選。這些整理好的內容留著備查：被追問時，要能找到當初的決定。', 'After each meeting, the tool extracts highlights, to-dos, open questions, and decision candidates, kept for later lookup: when someone asks, I can find the original decision.') },
+          { t: 'decision', q: b('怎麼避免 AI 編出不存在的決定？', 'How do we stop AI inventing decisions?'), a: b('每條都要附逐字稿原句，找不到就清空', 'Each needs a transcript quote, or it\'s cleared'), text: b('每個欄位都要對得回逐字稿裡的原句；對不回來的欄位直接清空，不讓 AI 補。', 'Every field must match a sentence in the transcript; fields that don\'t are cleared rather than filled in by AI.') },
+          { t: 'decision', q: b('還分不出誰在說話，人物怎麼填？', 'Speakers aren\'t identified yet. Who said it?'), a: b('讓 AI 推測，但標出信心度', 'Let AI guess, with a confidence label'), text: b('分辨講者排在之後的階段；在那之前，提出人由 AI 推測並標示信心度，確認前都只是候選。', 'Speaker identification comes in a later phase; until then, AI guesses who proposed it and labels its confidence, and everything stays a candidate until confirmed.') },
+          { t: 'figure', src: ['img/case6/decision.png'], alt: b('會後擷取的決策卡：附依據原句，可以修改或回聽原音', 'Extracted decision card with its source quote, edit and replay buttons'), caption: b('工作記憶助理實際畫面 · 會後擷取的決策 · 附依據原句，可修改或回聽原音', 'Work Memory Agent screenshot · an extracted decision · source quote, edit, and replay') },
+          { t: 'p', text: b('確認後會保存前後 15 秒的原音，被追問時可以直接回聽；沒確認的候選 30 天後自動封存。', 'Once confirmed, 15 seconds of audio on each side are kept for replay; unconfirmed candidates are archived after 30 days.') },
+        ],
+      },
+      {
+        id: 'build', caps: ['fe'], tags: ['FE'], toc: b('實作與驗證', 'Build'),
+        title: b('沒有會議，也先用錄好的會議驗收', 'No meeting? Test with recorded ones'),
+        blocks: [
+          { t: 'p', text: b('檢查點原本要等真實會議。當下沒有會議，我請 AI 用錄好的會議重播代跑，結果發現會中提示欄「雜訊多於幫助」：閒聊 3 分鐘就跳出 4 張無關的任務卡。這個修正因此從第 9 階段提前到第 4 階段，修完後雜訊降到 0 張。', 'The checkpoint was meant to wait for live meetings. With none scheduled, I had AI replay recorded ones instead, and it showed the in-meeting hint panel did more harm than good: 4 irrelevant task cards in 3 minutes of small talk. The fix moved from phase 9 to phase 4 and brought the noise down to zero.') },
+          { t: 'diagram', kind: 'latency', caption: b('示意圖 · 依重播量測數據重繪', 'Diagram · redrawn from replay measurements') },
+          { t: 'p', text: b('字幕延遲也是用同一種方法量：重播同一場 9 分鐘會議，95% 段落的草稿延遲從 6.7 秒降到 3.2 秒。另外，錄音每 2 秒寫進硬碟，當機或關掉視窗都不會遺失。', 'Caption delay was measured the same way, replaying one 9-minute meeting: the 95th-percentile draft delay fell from 6.7 to 3.2 seconds. Recordings are also written to disk every 2 seconds, so a crash or closed window loses nothing.') },
+          { t: 'table', rows: [
+            [b('需求', 'Needs'), b('用單選題拷問、整理功能排序', 'Grill me with questions, rank features'), b('作答、定出核心需求', 'Answer and set the core need')],
+            [b('實作', 'Build'), b('寫程式、跑測試、打包', 'Write code, run tests, package'), b('提出架構構想、決定介面與視覺', 'Propose the architecture, decide UI and visuals')],
+            [b('驗收', 'Verify'), b('重播錄音代跑檢查點、量延遲', 'Replay recordings, measure delay'), b('用自己的會議回饋、決定下一步順序', 'Test in my own meetings, choose what comes next')],
+          ] },
+          { t: 'callout', title: b('這些數字的限制', 'Limits of these numbers'), text: b('代跑時，決策的標註和擷取都由 AI 做，延遲也是在同一段錄音上調整與量測，所以只代表方向對了；真實會議的效果還要再驗證。', 'In the replays, AI both labeled and extracted the decisions, and delay was tuned and measured on the same recording, so these show direction, not proof; live meetings still need to confirm them.') },
+        ],
+      },
+      {
+        id: 'outcome', caps: ['pm', 'ui', 'fe'], tags: ['Outcome'], toc: b('成果與反思', 'Outcome'),
+        title: b('先讓逐字稿可信，再讓決策找得到', 'First a trustworthy transcript, then findable decisions'),
+        blocks: [
+          { t: 'p', text: b('目前已完成三模型辨識與兩段式糾錯、會後決策擷取、會前與會中兩種首頁、單一色系的視覺系統，並打包安裝在自己的電腦上。和第一版相比，我在自己的會議裡感受到辨識正確率大幅提升，但還沒有量化。', 'Done so far: three-model recognition with two-layer correction, post-meeting decision extraction, before- and during-meeting home states, and a one-hue visual system, packaged and installed on my computer. In my own meetings recognition feels far better than the first version, but it isn\'t quantified yet.') },
+          { t: 'h3', text: b('下一步', 'Next') },
+          { t: 'p', text: b('用真實會議驗收任務提示和會後整理；補上核心任務中還沒做的分辨講者，先分出「我」和「別人」，再做單場的講者分群；接著收斂導覽、做統一搜尋。', 'Validate task hints and post-meeting summaries in live meetings; add the missing core task, speaker identification, first telling me apart from others, then grouping speakers within a meeting; then simplify navigation and add unified search.') },
+          { t: 'h3', text: b('下次會怎麼做', 'What I\'d do next time') },
+          { t: 'p', text: b('一開始就固定一段錄音加人工校對稿當基準，量出辨識正確率；驗收用的句子和調整用的句子分開；工時也照和 AI 協作的實際速度來估。', 'Set a baseline from day one, a fixed recording with a hand-checked transcript, to measure accuracy; keep test sentences separate from tuning sentences; and estimate time at the real pace of working with AI.') },
         ],
       },
     ],

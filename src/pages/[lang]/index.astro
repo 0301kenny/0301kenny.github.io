@@ -13,6 +13,11 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Lang;
+// 首頁預設顯示前 5 個案例，第 6 個起收在「看更多專案」後面
+const VISIBLE_CASES = 5;
+const extraCases = Math.max(0, cases.length - VISIBLE_CASES);
+const moreLabel = { 'zh-tw': `看更多專案（${extraCases}）`, en: `More projects (${extraCases})` }[lang];
+const lessLabel = { 'zh-tw': '收合專案', en: 'Show fewer' }[lang];
 const tx = <V,>(v: V | Record<Lang, V>): V =>
   v && typeof v === 'object' && lang in (v as object) ? (v as Record<Lang, V>)[lang] : (v as V);
 ---
@@ -48,8 +53,8 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
         <p>{s.work.lead[lang]}</p>
       </div>
       <div class="cases">
-        {cases.map((c) => (
-          <a class="case" href={url(lang, `work/${c.slug}`)}>
+        {cases.map((c, i) => (
+          <a class="case" href={url(lang, `work/${c.slug}`)} hidden={i >= VISIBLE_CASES} data-extra-case={i >= VISIBLE_CASES ? '' : undefined}>
             <div class="case-media">
               {c.card.kind === 'phones' && (
                 <div class="phones">{c.card.src!.map((src) => <img src={asset(src)} alt="" width="782" height="1440" loading="lazy" />)}</div>
@@ -70,6 +75,11 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
           </a>
         ))}
       </div>
+      {extraCases > 0 && (
+        <div class="cases-more">
+          <button type="button" class="btn btn-ghost" aria-expanded="false" data-more-cases data-more={moreLabel} data-less={lessLabel}>{moreLabel}</button>
+        </div>
+      )}
     </div>
   </section>
 
@@ -144,3 +154,15 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
     </div>
   </section>
 </Base>
+
+<script>
+  // 展開或收合第 6 個以後的案例
+  const btn = document.querySelector<HTMLButtonElement>('[data-more-cases]');
+  btn?.addEventListener('click', () => {
+    const open = btn.getAttribute('aria-expanded') !== 'true';
+    document.querySelectorAll<HTMLElement>('[data-extra-case]').forEach((el) => { el.hidden = !open; });
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = (open ? btn.dataset.less : btn.dataset.more) ?? '';
+    if (!open) document.getElementById('work-title')?.scrollIntoView({ block: 'start' });
+  });
+</script>

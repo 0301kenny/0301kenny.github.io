@@ -26,7 +26,7 @@ const { blocks, lang } = Astro.props;
     case 'figure':
       return (
         <figure class="fig">
-          <div class={bk.phone ? 'frame phone-fig' : 'frame'}>
+          <div class={bk.phone ? 'frame phone-fig' : bk.pair ? 'frame pair' : 'frame'}>
             {bk.src.map((src) => <img src={asset(src)} alt={bk.alt[lang]} loading="lazy" />)}
           </div>
           <figcaption>{bk.caption[lang]}</figcaption>

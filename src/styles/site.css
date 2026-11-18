@@ -89,6 +89,9 @@
 
   /* work */
   .cases { display: grid; gap: 28px; }
+  .case[hidden] { display: none; }
+  .cases-more { display: flex; justify-content: center; margin-top: 28px; }
+  .cases-more .btn { cursor: pointer; font-family: inherit; }
   .case { display: grid; grid-template-columns: 1.1fr .9fr; gap: 0; border: 1px solid var(--line); border-radius: 18px; overflow: hidden; text-decoration: none; transition: box-shadow .2s ease, transform .2s ease; }
   .case:hover { box-shadow: 0 18px 40px -24px rgba(30,28,24,.35); transform: translateY(-2px); }
   .case:nth-child(even) .case-media { order: 2; }

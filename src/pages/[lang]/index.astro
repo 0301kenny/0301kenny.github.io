@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Tiers from '../../components/Tiers.astro';
 import Todo from '../../components/Todo.astro';
 import Diagram from '../../components/Diagram.astro';
+import Icon, { type IconName } from '../../components/Icon.astro';
 import '../../styles/site.css';
 import { langs, ui, url, asset, type Lang } from '../../i18n';
 import { profile, sections as s, approach, legacy, timeline, downloads } from '../../data/profile';
@@ -22,6 +23,7 @@ const moreLabel = { 'zh-tw': `看更多專案（${extraCases}）`, en: `More pro
 const lessLabel = { 'zh-tw': '收合專案', en: 'Show fewer' }[lang];
 const tx = <V,>(v: V | Record<Lang, V>): V =>
   v && typeof v === 'object' && lang in (v as object) ? (v as Record<Lang, V>)[lang] : (v as V);
+const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc', Design: 'pen', Build: 'code', Validate: 'check' };
 ---
 <Base lang={lang} title={`${profile.nameEn} · Product Designer`} description={profile.heroLead[lang]}>
   <section class="hero" id="top">
@@ -92,7 +94,7 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
         <p>{s.approach.lead[lang]}</p>
       </div>
       <div class="chain-grid">
-        {approach.map((st) => <div class="step"><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p>{st.body[lang]}</p></div>)}
+        {approach.map((st) => <div class="step"><span class="step-icon"><Icon name={stepIcons[st.title]} size={26} filled /></span><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p>{st.body[lang]}</p></div>)}
       </div>
       <div class="ai-bar"><span><b>AI-Integrated Workflow</b>　{s.approach.barLeft[lang]}</span><span>{s.approach.barRight[lang]}</span></div>
     </div>
@@ -141,7 +143,7 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
           <div class="dl">
             <span class="ext">{d.ext[lang]}</span><b>{d.title[lang]}</b><span>{d.desc[lang]}</span>
             {d.file
-              ? <a class={(lang === 'en' ? d.file.endsWith('_en.pdf') : d.primary) ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} href={asset(d.file)} download>PDF ↓</a>
+              ? <a class={(lang === 'en' ? d.file.endsWith('_en.pdf') : d.primary) ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} href={asset(d.file)} download><Icon name="download" size={16} />PDF</a>
               : <span class={(lang === 'en' ? d.file.endsWith('_en.pdf') : d.primary) ? 'btn btn-primary btn-sm' : 'btn btn-ghost btn-sm'} aria-disabled="true">{s.download.pending[lang]}</span>}
           </div>
         ))}
@@ -149,8 +151,8 @@ const tx = <V,>(v: V | Record<Lang, V>): V =>
       <div class="contact">
         <div><h3>{s.download.contactTitle[lang]}</h3><p>{profile.contact.location[lang]}</p></div>
         <div class="hero-cta">
-          <a class="btn btn-primary" href={`mailto:${profile.contact.email}`}>Email</a>
-          <a class="btn btn-ghost" href={profile.contact.linkedin} target="_blank" rel="noopener">LinkedIn ↗</a>
+          <a class="btn btn-primary" href={`mailto:${profile.contact.email}`}><Icon name="mail" size={18} />Email</a>
+          <a class="btn btn-ghost" href={profile.contact.linkedin} target="_blank" rel="noopener">LinkedIn<Icon name="external" size={16} /></a>
         </div>
       </div>
     </div>

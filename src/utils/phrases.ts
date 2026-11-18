@@ -21,30 +21,31 @@ export function phrases(text: string): string[] {
   return out;
 }
 
-// 短標籤用：依詞切開；單一個中文字黏到下一個詞，標點黏到前一個詞。
+// 短標籤用：依詞切開；單一個中文字黏到下一個詞，結尾標點黏到前一個詞，開頭標點黏到下一個詞。
+// 空白會單獨回傳成 ' '，畫面上要輸出成一般文字，不要包進 span，空格才不會被吃掉。
 const seg = new Intl.Segmenter('zh-Hant', { granularity: 'word' });
 const isCjk = (s: string) => /[一-鿿]/.test(s);
 export function words(text: string): string[] {
-  if (!isCjk(text)) return [text];
-  const toks = [...seg.segment(text)].map((x) => x.segment);
+  if (!isCjk(text)) return text.split(/(\s+)/).filter(Boolean).map((t) => (/^\s+$/.test(t) ? ' ' : t));
   const out: string[] = [];
   let carry = '';
-  for (const t of toks) {
-    if (/^[，、：；。）」%]$/.test(t) && out.length) {
+  for (const t of [...seg.segment(text)].map((x) => x.segment)) {
+    if (/^\s+$/.test(t)) {
+      if (carry) { out.push(carry); carry = ''; }
+      out.push(' ');
+      continue;
+    }
+    if (/^[，、：；。）」%]$/.test(t) && out.length && out[out.length - 1] !== ' ' && !carry) {
       out[out.length - 1] += t;
       continue;
     }
-    const cur = carry + t;
-    if ([...t].length === 1 && isCjk(t)) {
-      carry = cur;
+    if (/^[「（]$/.test(t) || ([...t].length === 1 && isCjk(t))) {
+      carry += t;
       continue;
     }
+    out.push(carry + t);
     carry = '';
-    out.push(cur);
   }
-  if (carry) {
-    if (out.length) out[out.length - 1] += carry;
-    else out.push(carry);
-  }
+  if (carry) out.push(carry);
   return out;
 }

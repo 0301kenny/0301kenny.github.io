@@ -49,7 +49,7 @@
   .eyebrow { font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
   h1, h2, h3 { font-family: var(--sans); font-weight: 300; letter-spacing: .02em; margin: 0; }
   h1, h2, h3, .decision .q, .decision .a { text-wrap: balance; }
-  .kpis span, .stat span, .kpi-label { text-wrap: balance; }
+  .kpis > div > span, .stat > span, .kpi-label { text-wrap: balance; }
   .brand, .stat b, .kpis b, .tier b { font-weight: 300 !important; }
   .case-body h3, .step h3, .legacy-card h3, .contact h3 { font-weight: 400; }
   section { padding: 96px 0; }
@@ -62,6 +62,7 @@
   .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
   .hero h1 { font-size: clamp(30px, 3.9vw, 46px); line-height: 1.28; margin: 16px 0 20px; letter-spacing: -.02em; }
   .ph { display: inline-block; }
+  .wd { white-space: nowrap; }
   .hero h1 em { font-style: normal; color: var(--gold); }
   .nw { white-space: nowrap; display: inline-block; }
   .hero .lead { font-size: 17px; color: var(--ink-2); max-width: 520px; margin: 0 0 32px; }

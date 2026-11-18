@@ -4,6 +4,7 @@ import Blocks from '../../../components/Blocks.astro';
 import Tiers from '../../../components/Tiers.astro';
 import Diagram from '../../../components/Diagram.astro';
 import { phrases, words } from '../../../utils/phrases';
+import { imageSizes } from '../../../data/imageSizes';
 import '../../../styles/case.css';
 import { langs, ui, url, asset, type Lang } from '../../../i18n';
 import { cases, neighbors, capLabel, type Cap } from '../../../data/cases';
@@ -33,7 +34,7 @@ const lines = c.title[lang].split('\n');
         ) : <div><b>{v}</b><span>{words(l[lang]).map((w) => <span class="ph">{w}</span>)}</span></div>)}</div>
       </div>
       <figure>
-        {c.hero.kind === 'image' ? <img src={asset(c.hero.src)} alt={c.hero.alt[lang]} /> : c.hero.kind === 'diagram' ? <div class="hero-diagram"><Diagram kind={c.hero.diagram} lang={lang} /></div> : <Tiers />}
+        {c.hero.kind === 'image' ? <img src={asset(c.hero.src)} alt={c.hero.alt[lang]} width={imageSizes[c.hero.src]?.[0]} height={imageSizes[c.hero.src]?.[1]} /> : c.hero.kind === 'diagram' ? <div class="hero-diagram"><Diagram kind={c.hero.diagram} lang={lang} /></div> : <Tiers />}
         <figcaption>{c.hero.caption[lang]}</figcaption>
       </figure>
     </div>

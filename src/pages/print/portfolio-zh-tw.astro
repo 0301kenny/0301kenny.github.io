@@ -19,7 +19,9 @@ const pick = (slug: string) => {
 };
 
 const pages = cases.map((x) => pick(x.slug));
-const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? '/' + cs.hero.src : '/img/real/official-membership.jpg');
+// PDF 用 JPG：Chrome 產生 PDF 時會直接嵌入 JPG，WebP 則會轉成較大的格式
+const printImg = (src: string) => '/img/print/' + src.split('/').pop()!.replace(/\.webp$/, '.jpg');
+const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? printImg(cs.hero.src) : '/img/print/official-membership.jpg');
 ---
 <!doctype html>
 <html lang="zh-Hant">
@@ -109,7 +111,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? '/' 
       <div>
         <div class="eyebrow">Portfolio Summary · 作品集摘要</div>
         <div class="cover-id">
-          <img src="/img/kenny-portrait.jpg" alt="鄭偉助的照片" />
+          <img src="/img/print/kenny-portrait.jpg" alt="鄭偉助的照片" />
           <div><h1>鄭偉助<small>Kenny Cheng</small></h1><div class="role">{profile.title}</div></div>
         </div>
         <p class="lead">{profile.heroLead[lang]}</p>

@@ -2,6 +2,7 @@
 import Todo from './Todo.astro';
 import Diagram from './Diagram.astro';
 import { ui, asset, type Lang } from '../i18n';
+import { imageSizes } from '../data/imageSizes';
 import type { Block } from '../data/cases';
 
 interface Props { blocks: Block[]; lang: Lang }
@@ -27,7 +28,7 @@ const { blocks, lang } = Astro.props;
       return (
         <figure class="fig">
           <div class={bk.phone ? 'frame phone-fig' : bk.pair ? 'frame pair' : 'frame'}>
-            {bk.src.map((src) => <img src={asset(src)} alt={bk.alt[lang]} loading="lazy" />)}
+            {bk.src.map((src) => <img src={asset(src)} alt={bk.alt[lang]} loading="lazy" width={imageSizes[src]?.[0]} height={imageSizes[src]?.[1]} />)}
           </div>
           <figcaption>{bk.caption[lang]}</figcaption>
         </figure>

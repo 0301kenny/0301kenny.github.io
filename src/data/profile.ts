@@ -5,8 +5,8 @@ export const profile = {
   nameEn: 'Kenny Cheng',
   title: 'Product Designer · AI-Integrated Product Design',
   heroTitle: {
-    'zh-tw': ['從產品問題', '到上線介面，', '用 <em>AI</em> 串起每一步。'],
-    en: ['From product problems', 'to working interfaces,', 'with <em>AI</em> at every step.'],
+    'zh-tw': ['從產品的需求', '到上線介面，', '用 <em>AI Agents</em>', '串起每一步。'],
+    en: ['From product needs', 'to working interfaces,', 'with <em>AI agents</em> at every step.'],
   },
   heroLead: {
     'zh-tw': '我有 8 年以上的產品設計經驗，整合 PM、UI/UX 與前端實作，在旅宿訂房產品中負責跨平台的需求規劃、介面設計與交付驗證。',
@@ -130,10 +130,10 @@ export const timeline = [
 
 // 融創時期作品（Behance），只在 About 時間軸簡短帶過
 export const earlyWorks = [
-  { name: 'Sight', type: { 'zh-tw': '行車記錄器', en: 'Dash cam' }, year: '2020', url: 'https://www.behance.net/gallery/97365753/Sight-dash-cam-', img: 'img/behance/sight.jpg' },
-  { name: 'Doweing', type: { 'zh-tw': '旅遊足跡 App', en: 'Travel journal app' }, year: '2020', url: 'https://www.behance.net/gallery/97367211/Doweing', img: 'img/behance/doweing.jpg' },
-  { name: 'Healthy Way', type: { 'zh-tw': '飲食健身 App', en: 'Food & fitness app' }, year: '2020', url: 'https://www.behance.net/gallery/106837503/Healthy-way', img: 'img/behance/healthy.jpg' },
-  { name: 'travel to map', type: { 'zh-tw': '旅遊網站', en: 'Travel website' }, year: '2021', url: 'https://www.behance.net/gallery/128260943/travel-to-map', img: 'img/behance/travel.jpg' },
+  { name: 'Sight', type: { 'zh-tw': '行車記錄器', en: 'Dash cam' }, year: '2020', url: 'https://www.behance.net/gallery/97365753/Sight-dash-cam-', img: 'img/behance/sight.webp' },
+  { name: 'Doweing', type: { 'zh-tw': '旅遊足跡 App', en: 'Travel journal app' }, year: '2020', url: 'https://www.behance.net/gallery/97367211/Doweing', img: 'img/behance/doweing.webp' },
+  { name: 'Healthy Way', type: { 'zh-tw': '飲食健身 App', en: 'Food & fitness app' }, year: '2020', url: 'https://www.behance.net/gallery/106837503/Healthy-way', img: 'img/behance/healthy.webp' },
+  { name: 'travel to map', type: { 'zh-tw': '旅遊網站', en: 'Travel website' }, year: '2021', url: 'https://www.behance.net/gallery/128260943/travel-to-map', img: 'img/behance/travel.webp' },
 ] as const;
 
 // 同事評語：中文為原話，不潤飾；英文為翻譯

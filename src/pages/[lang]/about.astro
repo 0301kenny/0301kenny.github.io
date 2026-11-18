@@ -40,7 +40,7 @@ const title = t.title[lang].split('\n');
 <Base lang={lang} title={`${t.eyebrow} · Kenny Cheng`} description={t.intro[lang]} path="about">
   <section class="page-head">
     <div class="wrap about-hero">
-      <img class="photo" src={asset('img/kenny-portrait.jpg')} alt={t.photo[lang]} width="480" height="720">
+      <img class="photo" src={asset('img/kenny-portrait.webp')} alt={t.photo[lang]} width="480" height="720">
       <div>
         <div class="eyebrow">{t.eyebrow}</div>
         <h1>{title.map((l, i) => <>{i > 0 && <br />}{l}</>)}</h1>

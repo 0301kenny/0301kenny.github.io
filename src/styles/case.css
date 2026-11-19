@@ -48,6 +48,12 @@
   .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px; }
   .kpis b { display: block; font-size: 34px; font-weight: 300; line-height: 1.2; }
   .kpis span { font-size: 13px; color: var(--ink-3); }
+  /* 大數字的 % 與斜線縮小，數字本身是重點 */
+  .kpis b .u, .stat b .u { font-size: .7em; margin-left: .04em; color: inherit; }
+  .kpis b .u.sp, .stat b .u.sp { margin-left: .12em; }
+  .kpis b .pre, .stat b .pre { font-size: .7em; margin-right: .06em; color: inherit; }
+  .kpis b .up, .stat b .up { position: relative; top: -.22em; }
+  .kpis b .sep { font-size: .75em; color: var(--ink-3); margin: 0 .2em; }
   .kpis > div > span:not(.kpi-tip) { display: block; line-height: 1.5; margin-top: 4px; }
   .summary figure { margin: 0; background: var(--surface); border-radius: var(--radius); padding: 20px; }
   .summary .hero-diagram { background: var(--bg); border-radius: 10px; padding: 18px 16px; }

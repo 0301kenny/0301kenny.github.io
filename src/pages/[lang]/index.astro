@@ -9,6 +9,7 @@ import { langs, ui, url, asset, type Lang } from '../../i18n';
 import { profile, sections as s, approach, legacy, timeline, downloads } from '../../data/profile';
 import { cases } from '../../data/cases';
 import { phrases, words } from '../../utils/phrases';
+import { unitHtml } from '../../utils/numUnit';
 import { imageSizes } from '../../data/imageSizes';
 
 export function getStaticPaths() {
@@ -39,7 +40,7 @@ const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc',
           <a class="btn btn-ghost" href={url(lang, 'resume')}>{profile.ctaResume[lang]}</a>
         </div>
         <div class="stats">
-          {profile.stats.map((st) => <div class="stat"><b>{st.value}</b><span>{words(st.label[lang]).map((w) => w === ' ' ? ' ' : <span class="wd">{w}</span>)}</span></div>)}
+          {profile.stats.map((st) => <div class="stat"><b set:html={unitHtml(st.value, lang)} /><span>{words(st.label[lang]).map((w) => w === ' ' ? ' ' : <span class="wd">{w}</span>)}</span></div>)}
         </div>
       </div>
       <div class="hero-visual" aria-hidden="true">
@@ -73,7 +74,7 @@ const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc',
               <h3>{phrases(c.cardTitle[lang]).map((ph) => <span class="ph">{ph}</span>)}</h3>
               <p>{c.lead[lang]}</p>
               <div class="chips">{c.chips.map((ch, i) => <span class={i === 0 ? 'chip gold' : 'chip'}>{ch}</span>)}</div>
-              <div class="kpis">{c.kpis.map(([v, l]) => <div><b>{v}</b><span>{words(l[lang]).map((w) => w === ' ' ? ' ' : <span class="wd">{w}</span>)}</span></div>)}</div>
+              <div class="kpis">{c.kpis.map(([v, l]) => <div><b set:html={unitHtml(v, lang)} /><span>{words(l[lang]).map((w) => w === ' ' ? ' ' : <span class="wd">{w}</span>)}</span></div>)}</div>
               <span class="more">{ui.case.read[lang]}</span>
             </div>
           </a>

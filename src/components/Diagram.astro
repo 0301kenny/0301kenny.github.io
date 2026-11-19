@@ -30,6 +30,8 @@ const steps = [
   { n: t('第 3 步', 'STEP 3'), lines: zh ? ['引導者帶新成員'] : ['Guides lead', 'newcomers'], sub: t('講師在旁觀察', 'Instructor observes') },
 ];
 const BW = 230; // 100% 長條寬度
+const FX = zh ? 64 : 88; // Case 04 漏斗圖長條的起點：英文標籤比較長，要多留空間
+const LH = 17; // 示意圖多行標籤的行距（14px 字約 1.2 倍）
 
 // Case 06
 const models = ['Whisper turbo', 'Breeze-ASR-25', 'TEA-ASR-1.1'];
@@ -59,9 +61,9 @@ const latency = [
   { title: t('最慢的一段', 'Slowest segment'), rows: [[t('修正前', 'Before'), 17], [t('修正後', 'After'), 5.9]] },
 ] as const;
 const pct = [
-  { label: t('聽過但沒實踐', 'Heard of it, not practicing'), v: 70, n: '14/20', fill: 'var(--d-gold)' },
-  { label: t('全體填答', 'All respondents'), v: 56, n: '24/43', fill: 'var(--d-ink-3)' },
-  { label: t('有在實踐', 'Practicing'), v: 25, n: '3/12', fill: 'var(--d-ink)' },
+  { label: zh ? ['聽過但沒實踐'] : ['Heard of it,', 'not practicing'], v: 70, n: '14/20', fill: 'var(--d-gold)' },
+  { label: [t('全體填答', 'All respondents')], v: 56, n: '24/43', fill: 'var(--d-ink-3)' },
+  { label: [t('有在實踐', 'Practicing')], v: 25, n: '3/12', fill: 'var(--d-ink)' },
 ];
 ---
 <div class="diagram">
@@ -114,9 +116,9 @@ const pct = [
           {g.rows.map(([label, v], ri) => (
             <g>
               <text x="10" y={59 + gi * 118 + ri * 36} font-size="15" fill="var(--d-ink-2)">{label}</text>
-              <rect x="64" y={42 + gi * 118 + ri * 36} width={W} height="24" rx="5" fill="var(--d-surface)" />
-              <rect x="64" y={42 + gi * 118 + ri * 36} width={(W * v) / 100} height="24" rx="5" fill={ri === 0 ? 'var(--d-gold)' : 'var(--d-ink)'} />
-              <text x={72 + (W * v) / 100} y={60 + gi * 118 + ri * 36} font-size="16" font-weight="600" fill="var(--d-ink)">{v}%</text>
+              <rect x={FX} y={42 + gi * 118 + ri * 36} width={W} height="24" rx="5" fill="var(--d-surface)" />
+              <rect x={FX} y={42 + gi * 118 + ri * 36} width={(W * v) / 100} height="24" rx="5" fill={ri === 0 ? 'var(--d-gold)' : 'var(--d-ink)'} />
+              <text x={FX + 8 + (W * v) / 100} y={60 + gi * 118 + ri * 36} font-size="16" font-weight="600" fill="var(--d-ink)">{v}%</text>
             </g>
           ))}
         </g>
@@ -208,7 +210,7 @@ const pct = [
       <text x="10" y="46" font-size="13" fill="var(--d-ink-2)">{t('回答「同意」或「非常同意」的比例', 'Share answering "agree" or "strongly agree"')}</text>
       {pct.map((r, i) => (
         <g>
-          <text x="10" y={89 + i * 44} font-size="14" fill="var(--d-ink-2)">{r.label}</text>
+          <text font-size="14" fill="var(--d-ink-2)">{r.label.map((line, j) => <tspan x="10" y={89 + i * 44 + (j - (r.label.length - 1) / 2) * LH}>{line}</tspan>)}</text>
           <rect x="160" y={72 + i * 44} width={BW} height="24" rx="5" fill="var(--d-surface)" />
           <rect x="160" y={72 + i * 44} width={(BW * r.v) / 100} height="24" rx="5" fill={r.fill} />
           <text x={168 + (BW * r.v) / 100} y={90 + i * 44} font-size="15" font-weight="600" fill="var(--d-ink)">{r.v}%<tspan font-size="13" font-weight="400" fill="var(--d-ink-3)"> ({r.n})</tspan></text>

@@ -4,6 +4,7 @@ import Blocks from '../../../components/Blocks.astro';
 import Tiers from '../../../components/Tiers.astro';
 import Diagram from '../../../components/Diagram.astro';
 import { phrases, words } from '../../../utils/phrases';
+import { unitHtml } from '../../../utils/numUnit';
 import { imageSizes } from '../../../data/imageSizes';
 import '../../../styles/case.css';
 import { langs, ui, url, asset, type Lang } from '../../../i18n';
@@ -30,8 +31,8 @@ const lines = c.title[lang].split('\n');
         <p class="lead">{c.lead[lang]}</p>
         <dl class="meta">{c.meta.map(([k, v]) => <div><dt>{k[lang]}</dt><dd>{v[lang]}</dd></div>)}</dl>
         <div class="kpis">{c.kpis.map(([v, l, tip], i) => tip ? (
-          <div class="kpi has-tip" tabindex="0" aria-describedby={`kpi-tip-${i}`}><b>{v}</b><span class="kpi-label">{words(l[lang]).map((w) => w === ' ' ? ' ' : <span class="wd">{w}</span>)}</span><span class="kpi-tip" role="tooltip" id={`kpi-tip-${i}`}>{tip[lang]}</span></div>
-        ) : <div><b>{v}</b><span>{words(l[lang]).map((w) => w === ' ' ? ' ' : <span class="wd">{w}</span>)}</span></div>)}</div>
+          <div class="kpi has-tip" tabindex="0" aria-describedby={`kpi-tip-${i}`}><b set:html={unitHtml(v, lang)} /><span class="kpi-label">{words(l[lang]).map((w) => w === ' ' ? ' ' : <span class="wd">{w}</span>)}</span><span class="kpi-tip" role="tooltip" id={`kpi-tip-${i}`}>{tip[lang]}</span></div>
+        ) : <div><b set:html={unitHtml(v, lang)} /><span>{words(l[lang]).map((w) => w === ' ' ? ' ' : <span class="wd">{w}</span>)}</span></div>)}</div>
       </div>
       <figure>
         {c.hero.kind === 'image' ? <img src={asset(c.hero.src)} alt={c.hero.alt[lang]} width={imageSizes[c.hero.src]?.[0]} height={imageSizes[c.hero.src]?.[1]} /> : c.hero.kind === 'diagram' ? <div class="hero-diagram"><Diagram kind={c.hero.diagram} lang={lang} /></div> : <Tiers />}

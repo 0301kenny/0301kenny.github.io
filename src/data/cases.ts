@@ -68,15 +68,15 @@ export const cases: Case[] = [
     ),
     chips: ['Product Design', 'UX Flow', 'i18n', 'Frontend'],
     meta: [
-      [b('我的角色', 'My role'), b('官網 3.0 產品規劃與 UI/UX 主導 · LIFF UI、前端協作與驗收', 'Led website v3.0 planning and UI/UX · LIFF UI, frontend collaboration, and QA')],
+      [b('我的角色', 'My role'), b('官網 3.0 產品規劃與 UI/UX 主導 · LIFF UI 與方向主導、前端協作與驗收', 'Led website v3.0 planning and UI/UX · Led LIFF UI and direction; frontend collaboration and QA')],
       [b('產品', 'Product'), b('高端旅宿訂房平台', 'Luxury hotel booking')],
       [b('期間', 'Period'), b('2023.03 — 現在', '2023.03 — now')],
       [b('平台', 'Platforms'), b('官網 · LIFF · 白牌，共用後端與後台', 'Website · LIFF · bank white-label sites, sharing one backend and admin')],
     ],
     kpis: [
       ['13', b('個面向客人的功能區完成 UI 設計', 'customer-facing modules designed'), b('官網 3.0 的 13 個面向客人的功能區（前台模組），UI 設計全部完成，每頁都附給工程的行為說明。', 'UI design is complete for all 13 customer-facing modules of website v3.0, and every page comes with behavior notes for engineering.')],
-      ['11', b('個共用元件庫', 'shared component libraries'), b('官網 3.0 元件頁共 735 個元件與變體，拆成 VI（品牌視覺規範）、字級、色彩、圖示、Email、元件等 11 個元件庫，官網、LIFF 與通知信都用同一套。', 'The v3.0 component page holds 735 components and variants, organized into 11 libraries covering brand identity, type, color, icons, email, components, and more, which the website, LIFF, and notification emails all share.')],
-      ['3,548', b('個字串四語同步', 'strings synced in 4 languages'), b('官網的 3,548 個文案字串同步成 Figma 四語系變數；2,615 個 Figma 文字全部綁定，已綁定文字的四語不一致為 0。', 'All 3,548 site strings were synced to four-language variables in Figma. Every one of the 2,615 Figma text layers is bound, with zero mismatches across languages.')],
+      ['11', b('個共用元件庫', 'shared component libraries'), b('官網 3.0 的 Figma 元件頁共 735 個元件與變體，拆成 VI（品牌視覺規範）、字級、色彩、圖示、Email、通用元件等 11 個元件庫，官網、LIFF 與通知信都用同一套。', 'The website v3.0 Figma component page holds 735 components and variants, organized into 11 libraries (visual identity, type scale, color, icons, email, general components, and more) shared by the website, LIFF, and notification emails.')],
+      ['3,548', b('個字串四語同步', 'strings synced in 4 languages'), b('官網的 3,548 個文案字串同步成 Figma 四語系變數；2,615 個可綁定的 Figma 文字層全部綁定變數（價格、日期等 264 層另列待審）；已綁定文字與官網字串不一致為 0。', 'All 3,548 website copy strings were synced to four-language Figma variables, and all 2,615 bindable text layers are bound to them (264 layers with prices, dates, and similar content are on a separate review list). The bound text shows zero mismatches with the website strings.')],
     ],
     hero: {
       kind: 'image',
@@ -90,7 +90,7 @@ export const cases: Case[] = [
         id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
         title: b('舊官網少了高端質感，找酒店也不夠順', 'The old site didn\'t feel luxurious, and hotel search fell short'),
         blocks: [
-          { t: 'p', text: b('WOTA 經營的是高端旅宿，但舊官網的視覺缺少奢華的美感，和品牌調性對不上。搜尋酒店的行為也需要優化，例如客人看不出哪些酒店正在優惠。', 'WOTA sells luxury stays, but the old site\'s visuals didn\'t convey luxury or match the brand. Search needed work too; for example, guests couldn\'t tell which hotels had deals running.') },
+          { t: 'p', text: b('WOTA 經營的是高端旅宿，但舊官網的視覺缺少奢華的美感，和品牌調性對不上。酒店搜尋也不夠好用，例如客人看不出哪些酒店正在優惠。', 'WOTA sells luxury stays, but the old website didn\'t look luxurious and didn\'t match the brand. Hotel search wasn\'t easy to use either: for example, guests couldn\'t tell which hotels had active deals.') },
           { t: 'p', text: b('之後 LINE LIFF（在 LINE 裡打開的訂房網頁）和銀行白牌（掛銀行品牌的訂房站）陸續加入，三個前台共用同一個後端，官網的設計與文案也要延伸過去。', 'Later, a LINE mini-app (LIFF) and white-label sites for bank partners came on board. All three run on one backend, so the website\'s design and copy had to carry over.') },
           { t: 'callout', title: b('目標', 'Goal'), text: b('讓官網呈現高端旅宿應有的典雅質感，讓客人更容易找到適合、正在優惠的酒店；也讓 LINE 和銀行合作網站使用同樣的設計，而且都支援繁中、簡中、英文、日文 4 種語言。', 'Give the site the refined feel expected of a luxury hotel brand, make it easier to find the right hotel and its deals, and bring the same design to LINE and the bank partner sites, all in Traditional Chinese, Simplified Chinese, English, and Japanese.') },
           { t: 'diagram', kind: 'channels', caption: b('示意圖 · 依專案文件中的數字重繪', 'Diagram · redrawn from project figures') },
@@ -107,7 +107,7 @@ export const cases: Case[] = [
         id: 'ia', caps: ['pm', 'ui'], tags: ['PM', 'UI / UX'], toc: b('資訊架構', 'IA'),
         title: b('官網要放哪些服務，又該怎麼分區', 'What the site offers, and how it\'s organized'),
         blocks: [
-          { t: 'p', text: b('官網要同時承載酒店、會員、私人訂製（量身規劃的行程）、機場通關服務、極致奢旅（高端旅遊行程）與文章內容。我先盤點這些服務的範圍，再把網站分成四塊：導覽入口、訂房主線、會員中心，以及給未登入訪客與搜尋引擎看的品牌、國家、城市標準頁。', "The site had to carry hotels, membership, bespoke travel, airport services, luxury trips, and articles. I mapped their scope first, then split the site into four parts: navigation, the booking path, the member center, and brand, country, and city pages for logged-out visitors and search engines.") },
+          { t: 'p', text: b('官網要同時承載酒店、會員、私人訂製（量身規劃的行程）、機場通關服務、極致奢旅（高端旅遊行程）與文章內容。我先盤點這些服務的範圍，再把網站分成四塊：導覽入口、訂房主線、會員中心，以及給未登入訪客與搜尋引擎看的品牌、國家、城市標準頁。', "The site had to carry hotels, membership, bespoke travel, airport services, Ultra Luxe (high-end trips), and articles. I mapped their scope first, then split the site into four parts: navigation, the booking path, the member center, and brand, country, and city pages for logged-out visitors and search engines.") },
           { t: 'diagram', kind: 'ia', caption: b('示意圖 · 依官網 3.0 開發細項重繪', 'Diagram · redrawn from the v3.0 development breakdown') },
           { t: 'list', items: [b('訂房主線：從目的地、日期、人數開始，經過結果篩選與地圖、房型與方案（同一房型不同的價格與條件），到結帳與特殊需求，要能一路連續。', 'Booking path: one unbroken flow from destination, dates, and guests, through filters and the map, to rooms and rates (different prices and terms for the same room), then checkout and special requests.'), b('會員中心：把會籍、酒店訂單、一般訂單與個人資料放在同一個結構裡；訂單分成全部、已確認、已入住、已取消，也設計了沒有資料時的空狀態。', 'Member center: membership, hotel orders, other orders, and profile live in one structure. Orders can be filtered by all, confirmed, stayed, and cancelled, and the empty states are designed too.')] },
         ],
@@ -117,7 +117,7 @@ export const cases: Case[] = [
         title: b('改版時做的決定', 'Calls I made during the redesign'),
         blocks: [
           { t: 'decision', q: b('改版要怎麼控管 79 個頁面？', 'How do you track a 79-page redesign?'), a: b('自建進度表，每頁走同一條流程', 'One tracker, one path for every page'), text: b('我自建一張進度表，讓每一頁都照同樣的順序推進：先出 UI 初版、定稿、開 Jira，再做成桌機與手機網頁、接上後端資料，最後驗收。2023 年 10 月時，79 頁中已有 70 頁完成初版、49 頁定稿。', 'I built a tracker so every page followed the same order: first draft, final design, a Jira ticket, desktop and mobile implementation, API integration, and finally QA. By October 2023, 70 of 79 pages had first drafts and 49 were final.') },
-          { t: 'decision', q: b('LIFF 的文案要自己寫，還是跟官網一致？', 'Should LIFF have its own copy or match the website?'), a: b('以官網用語為準，只有 LIFF 專屬功能才自訂', 'Website wording is the source of truth; LIFF-only features get custom copy'), text: b('LIFF 和官網的 774 條多語系文案（i18n key）逐條比對過，每一條標成一致、有差異或無法配對，再依這個分類逐批修正。', 'I compared 774 i18n keys on both sides, marked each as matched, different, or unmatched, then fixed them batch by batch.') },
+          { t: 'decision', q: b('LIFF 的文案要自己寫，還是跟官網一致？', 'Should LIFF have its own copy or match the website?'), a: b('以官網用語為準，只有 LIFF 專屬功能才自訂', 'Website wording is the source of truth; LIFF-only features get custom copy'), text: b('LIFF 和官網的 774 條多語系文案（i18n key）逐條比對過。AI 產出比對表並分類，標成一致、有差異或無法配對；我判斷差異是否合理、親自審核 138 筆，再依分類逐批修正。', 'LIFF\'s 774 i18n keys were compared with the website\'s one by one: AI produced the comparison table and labeled each key as matched, different, or unmatched, and I judged whether each difference was justified and personally reviewed 138 of those decisions. The copy was then fixed in batches by label.') },
           { t: 'decision', q: b('客人習慣用官網，怎麼讓他們改用 LINE？', 'Guests prefer the website. How do we move them to LINE?'), a: b('不強迫切換，在既有接觸點加入 LINE 入口', 'No forced switch; add LINE entry points where guests already are'), text: b('在訂單完成頁和入住提醒信加上「加入 LINE，隨時查看訂單」的引導，也和行銷、銷售團隊一起準備宣傳素材，並約定追蹤成效的方式。', 'I added "Join LINE to track your booking" prompts to the confirmation page and pre-arrival emails, and worked with marketing and sales on promo assets and how to track results.') },
         ],
       },
@@ -151,8 +151,8 @@ export const cases: Case[] = [
             ['2026-06～09', b('UAT、跨語系與 UI 架構持續改善', 'UAT, cross-language fixes, and ongoing UI structure work')],
           ] },
           { t: 'decision', q: b('已經是官網會員的人，怎麼在 LINE 接著用？', 'How do existing members carry on inside LINE?'), a: b('先把登入與既有帳號綁定寫成流程', 'Define sign-in and account linking first'), text: b('既有會員要能用原本的帳號登入並綁定 LINE，訂單與會籍才接得上。我先把這段寫進 PRD，讓工程與測試有共同的流程依據。', 'Existing members needed to sign in with their accounts and link LINE so orders and membership carried over. I put this flow in the PRD first, giving engineering and QA one reference.') },
-          { t: 'decision', q: b('從通知點進來要登入時，客人會不會回不到原本的頁面？', 'After tapping a LINE notification and signing in, do guests end up back where they were?'), a: b('把通知、登入、返回原頁當成同一條路徑追', 'Treat notification, sign-in, and return as one path'), text: b('客人從 LINE 通知點進來，登入後要再跳回原本的方案，這一路上有幾個地方會斷掉。這些斷點都列出來，排進修正追蹤，讓客人能回到正確的頁面。', 'When guests tap a LINE notification, sign in, and then need to get back to the rate they were viewing, the path can break at several points. I listed each break and put them into tracked fixes so guests land on the right page.') },
-          { t: 'p', text: b('為了讓之後的頁面和 AI 實作都依照相同的規則，我分析現有頁面、公司共用的元件庫、字型與色彩，寫成設計系統手冊、用元件組出頁面的說明，以及給 AI 的實作規範。', 'To keep future pages and AI-written code on the same rules, I analyzed existing pages, the company\'s shared libraries, type, and color, then wrote a design system handbook, a guide to assembling pages from components, and implementation guidelines for AI.') },
+          { t: 'decision', q: b('從通知點進來要登入時，客人會不會回不到原本的頁面？', 'After tapping a LINE notification and signing in, do guests end up back where they were?'), a: b('把通知、登入、返回原頁當成同一條路徑追', 'Treat notification, sign-in, and return as one path'), text: b('客人從 LINE 通知點進來，登入後要再跳回原本的方案，這一路上有幾個地方會斷掉。這些斷點都列出來，排進修正追蹤，目標是讓客人能回到正確的頁面。', 'When guests tap a LINE notification, sign in, and then need to get back to the rate they were viewing, the path can fail in several places. I listed every failure point and logged them for fixes, with the goal of getting guests back to the right page.') },
+          { t: 'p', text: b('為了讓之後的頁面和 AI 實作都依照相同的規則，我分析現有頁面、公司共用的元件庫、字型與色彩，撰寫時搭配 AI，整理成設計系統手冊、用元件組出頁面的說明，以及給 AI 的實作規範。', 'To keep future pages and AI-built implementations on the same rules, I analyzed the existing pages, the company\'s shared component libraries, type, and color, then worked with AI to write them up as a design system handbook, a guide to assembling pages from components, and implementation guidelines for AI.') },
         ],
       },
       {
@@ -161,7 +161,7 @@ export const cases: Case[] = [
         blocks: [
           { t: 'stats', items: [['3,548', b('個官網字串同步成 Figma 四語變數', 'site strings synced to Figma variables')], ['2,615', b('個 Figma 文字全部綁定變數', 'Figma text layers bound to variables')], ['0', b('個已綁定文字四語不一致', 'mismatches in bound text')], ['774', b('個 LIFF 文案項目與官網比對', 'LIFF copy keys compared with the website')]] },
           { t: 'p', text: b('四語系的檢查分成兩部分：', 'The four-language checks came in two parts:') },
-          { t: 'list', items: [b('代表畫面：挑出 12 個代表畫面逐一切換四種語言，共核對 1,107 次、0 處不符，也抽查了日文的版面。', 'Representative screens: 12 screens checked in all four languages, 1,107 checks with zero mismatches, plus a Japanese layout spot check.'), b('酒店元件：從 294 個變體、489 個文字層裡，挑出能確定意思的 225 層，對應到 91 個官方變數，225 層全部完成綁定。', 'Hotel components: out of 294 variants and 489 text layers, the 225 layers whose meaning was certain were mapped to 91 official variables, and all 225 are bound.')] },
+          { t: 'list', items: [b('代表畫面：挑出 12 個代表畫面逐一切換四種語言，共核對 1,107 次，與官網字串 0 處不符，也抽查了日文的版面。', 'Representative screens: 12 screens were each switched through all four languages, for 1,107 checks with zero mismatches against the website strings, plus a spot check of the Japanese layouts.'), b('酒店元件：從 294 個變體、489 個文字層裡，挑出能確定意思的 225 層，對應到 91 個官方變數，225 層全部完成綁定。', 'Hotel components: out of 294 variants and 489 text layers, the 225 layers whose meaning was certain were mapped to 91 official variables, and all 225 are bound.')] },
           { t: 'decision', q: b('價格、日期這類會變的文字，也要綁進變數嗎？', 'Should prices, dates, and other changing text be bound too?'), a: b('不硬綁，列入待審清單', 'No. They go in a review queue'), text: b('價格、日期、內容管理系統的內容與客人輸入，硬綁成固定文字反而會出錯。這類 264 個文字層留在待審清單，交接時可以清楚分辨哪些已處理、哪些還要人工判斷。每批改動前也先保存快照與復原清單，避免改錯後追不回來。', 'Binding prices, dates, CMS content, or guest input to fixed text would break them. These 264 layers stay in a review queue, so the handover makes clear what\'s done and what still needs a human call. Before each batch I also saved a snapshot and a rollback list, so any mistake could be undone.') },
           { t: 'compare', ai: b('Figma 裡還有 36 個舊變數被畫面引用，AI 判斷「有引用就不能刪」，建議全部保留。', 'Figma still had 36 legacy variables in use. The AI concluded "in use means keep" and proposed keeping them all.'), me: b('我指出「改套用到正式變數不就可以刪了」。流程改成先改綁、再檢查、最後刪除：這 36 個舊變數在畫面上共 122 處引用，全部改綁。整體清理後，變數從 271 個降到 219 個，壞掉的引用 0 個。', 'I pointed out they could be rebound to the official variables and then removed. The flow became rebind, check, then delete: the 36 variables were used in 122 places, all rebound. After the full cleanup, variables went from 271 to 219 with zero broken references.'), source: b('2026 年 7～8 月 · Figma 四語系遷移時', 'Jul–Aug 2026 · during the Figma four-language migration') },
         ],
@@ -181,7 +181,7 @@ export const cases: Case[] = [
           { t: 'p', text: b('2024 年 3 月的 UAT 記錄到這些問題：', 'The March 2024 UAT logged issues such as:') },
           { t: 'list', ordered: true, items: [b('搜尋條件都填好後，警示沒有消失', 'A warning stayed after all search fields were filled'), b('地圖沒有移到篩選範圍', 'The map did not move to the filtered area'), b('幣別沒有跟著更新', 'Currency did not update'), b('切換方案會捲回頁首', 'Switching rates jumped back to the top'), b('酒店訂單版面和 Figma 不一致', 'The hotel order layout differed from Figma')] },
           { t: 'p', text: b('每一項都對回設計稿，變成工程可以直接定位的修正線索。', 'Each one was traced back to the design so engineers could locate the fix.') },
-          { t: 'callout', title: b('用真實資料型的案例做測試', 'Testing with realistic data'), text: b('上線後我們發現，護照英文姓名的格式只有在真實客人資料下才會出錯。之後測試一律改用中文姓名、英文護照名等真實資料型案例，不再隨意填寫。', 'After launch, we found that passport-name formatting only failed with real guest data. Since then, testing uses realistic cases such as Chinese names and English passport names instead of random filler.') },
+          { t: 'callout', title: b('用真實資料型的案例做測試', 'Testing with realistic data'), text: b('官網 3.0 上線後我們發現，護照英文姓名的格式只有在真實客人資料下才會出錯。之後測試一律改用中文姓名、英文護照名等真實資料型案例，不再隨意填寫。', 'After website v3.0 launched, we found that English passport-name formatting broke only with real guest data. Since then, we always test with realistic cases, such as Chinese names paired with English passport names, instead of filling in arbitrary values.') },
         ],
       },
       {
@@ -200,8 +200,8 @@ export const cases: Case[] = [
     no: '02',
     period: '2025 — 2026',
     eyebrow: 'Case 02 · Product Management · Systems Thinking',
-    title: b('WOTA Journey Rewards：\n把複雜規則變成可交付的規格', 'WOTA Journey Rewards:\nturning complex rules into shippable specs'),
-    cardTitle: b('WOTA Journey Rewards：把複雜規則變成可交付的規格', 'WOTA Journey Rewards: complex rules into shippable specs'),
+    title: b('WOTA Journey Rewards：\n把複雜規則變成可交付的規格', 'WOTA Journey Rewards:\nturning complex rules into a spec the team could build from'),
+    cardTitle: b('WOTA Journey Rewards：把複雜規則變成可交付的規格', 'WOTA Journey Rewards: complex rules into a spec the team could build from'),
     lead: b(
       '會員等級、房晚入帳、升等積分、兌換與庫存規則彼此牽動。我把這些規則寫成產品需求文件（PRD）和資訊架構（IA），也做成可以實際點擊的原型，讓設計、工程和客服對每一條規則的理解都一樣。',
       'Tiers, room-night credits, upgrade points, redemptions, and inventory all depend on one another. I wrote the rules into a product requirements document (PRD) and information architecture (IA), and built clickable prototypes, so design, engineering, and support all work from the same understanding of every rule.',
@@ -214,7 +214,7 @@ export const cases: Case[] = [
       [b('狀態', 'Status'), b('Phase 1 於 2026 Q3 在官網與 LIFF 上線', 'Phase 1 launched on the website and LIFF in Q3 2026')],
     ],
     kpis: [
-      ['18', b('種兌換狀態頁', 'redemption states'), b('兌換中心的 18 種狀態依優先級分成三批：最優先 6 種、第二批 7 種、第三批 5 種。', 'The 18 redemption-center states were split into three priority batches: 6 first, 7 second, and 5 third.')],
+      ['18', b('種兌換狀態頁', 'redemption states'), b('兌換中心的 18 種狀態依優先級分成三批交付：最優先 6 種、第二批 7 種、第三批 5 種。', 'The 18 redemption-center states were split into three delivery batches by priority: 6 first, 7 second, and 5 third.')],
       ['28', b('題升等規則定案', 'upgrade rules settled'), b('升等積分的 28 個規則問題逐題列出選項讓團隊拍板，例如定案「效期結束時積分歸零，會籍一律降一級」。', 'I laid out 28 upgrade-point rule questions, each with options for the team to decide on, for example "points reset at the end of the term, and the tier always drops one level."')],
       ['4', b('處會員權益被誤改，上線前找出', 'benefit changes caught before launch'), b('用 Codex 比對 16 頁新版兌換流程概念稿與現行畫面後，我挑出 4 處改到會員權益的差異交給團隊，例如機場接送少了「禮賓」。', 'After Codex compared a 16-screen redemption concept with the current screens, I flagged 4 changes that altered member benefits, such as airport transfer losing "concierge."')],
     ],
@@ -250,10 +250,9 @@ export const cases: Case[] = [
         id: 'states', caps: ['pm', 'ui'], tags: ['PM', 'UI / UX'], toc: b('房晚狀態', 'Night states'),
         title: b('房晚入帳前的各種狀態', 'The states a room night passes through'),
         blocks: [
-          { t: 'p', text: b('房晚有 Pending、Upcoming、Processing、Active、Excluded 等狀態，名字很像，會員和營運都容易混淆。', 'Room nights move through states like Pending, Upcoming, Processing, Active, and Excluded. The names sound alike, so members and the ops team mix them up easily.') },
+          { t: 'p', text: b('房晚有 Pending、Upcoming、Processing、Active、Excluded 等狀態，名字很像，會員和營運都容易混淆。', 'Room nights move through states like Pending, Upcoming, Processing, Active, and Excluded. The names are similar enough that members and the ops team mix them up easily.') },
           { t: 'p', text: b('我把每個狀態對回訂單狀態，整理前台與後台需要的資料與文案，例如不計入的房晚，就直接寫「不計入」。', 'I mapped each state back to an order status and listed the data and copy each screen needed across the customer-facing UI and the admin. Excluded nights, for example, simply say "not counted."') },
           { t: 'p', text: b('「我的房晚紀錄」的列表與明細，讓每一筆都看得出來源、酒店、入住日期與入帳進度，也設計了沒有資料、載入中、出錯與分頁時的畫面。', 'The "My room nights" list and detail show each night\'s source, hotel, stay date, and credit progress, with empty, loading, error, and paging states designed too.') },
-          { t: 'p', text: b('這部分目前做到規格和原型，部分項目還在工程審核中。', 'This part is at the spec and prototype stage, and some items are still in engineering review.') },
         ],
       },
       {
@@ -288,7 +287,7 @@ export const cases: Case[] = [
         id: 'build', caps: ['fe'], tags: ['FE'], toc: b('實作與驗證', 'Build'),
         title: b('前台實作與新稿比對', 'Frontend work and reviewing a new draft'),
         blocks: [
-          { t: 'p', text: b('Phase 1 的工程任務由工程團隊開立，我負責追蹤進度；前台則用 Claude Code 參與 Journey Rewards 頁面與 LIFF「我的房晚紀錄」的實作並串接 API。', 'Engineering created the Phase 1 tickets and I tracked progress. On the frontend, I used Claude Code to help build the Journey Rewards pages and LIFF "My room nights," wired to the API.') },
+          { t: 'p', text: b('Phase 1 的工程任務由工程團隊開立，我負責追蹤進度。前台由我用 Claude Code 撰寫 Journey Rewards 頁面與 LIFF「我的房晚紀錄」的程式並串接 API，我負責審查與驗收，全端工程師也會 review 程式碼。', 'The engineering team created the Phase 1 tickets, and I tracked their progress. On the front end, I used Claude Code to write the code for the Journey Rewards pages and My Room Nights in LIFF, including the API integration; I reviewed and accepted the work, and a full-stack engineer also reviewed the code.') },
           { t: 'table', rows: [
             [b('規則', 'Rules'), b('整理規則、比對各版文件、探索流程分支', 'Organize rules, diff versions, explore branches'), b('判斷衝突、決定以哪份規則為準', 'Resolve conflicts and pick the source of truth')],
             [b('規格', 'Specs'), b('產生 PRD 與兌換規格初稿、例外情境檢查清單', 'Draft the PRD, redemption spec, and edge-case checklist'), b('確認使用者體驗與交付範圍', 'Confirm the experience and delivery scope')],
@@ -298,7 +297,7 @@ export const cases: Case[] = [
             title: b('過程證據：AI 比對，我判斷', 'Evidence: AI compares, I judge'),
             aiLabel: b('AI 負責', 'What AI did'), meLabel: b('我的判斷', 'My call'),
             ai: b('新版兌換流程概念稿有 16 頁。我用 Codex 把每一頁和 UI Spec（Case 03 開發中的工具）裡的現行畫面比對，列出所有文字與欄位的差異。', 'A new redemption-flow concept had 16 screens. I had Codex compare each one against the current screens in UI Spec, the in-development tool from Case 03, and list every text and field difference.'),
-            me: b('我從差異裡挑出 4 處改到會員權益的地方：機場接送少了「禮賓」、機場通關服務刪掉「出境」、特定酒店的早餐禮遇消失、「Elite 可兌換」被改成「Elite 規格」：原意是 Elite 會員可以兌換，改成「規格」後像在描述品項，會員會搞不清楚自己能不能換。這 4 處標出來交給團隊，避免新稿在不知不覺中改掉已定案的權益。', 'From those differences I picked out 4 that changed member benefits: the airport transfer lost "concierge," the fast-track service dropped "departure," a hotel breakfast benefit disappeared, and "Elite can redeem" became "Elite spec," which reads like an item description, so members couldn\'t tell whether they qualify. I flagged all 4 for the team so a new draft couldn\'t quietly rewrite benefits that were already settled.'),
+            me: b('我從差異裡挑出 4 處改到會員權益的地方：機場接送少了「禮賓」、機場通關服務刪掉「出境」、特定酒店的早餐禮遇消失、「Elite 可兌換」被改成「Elite 規格」：原意是 Elite 會員可以兌換，改成「規格」後像在描述品項，會員會搞不清楚自己能不能換。這 4 處標出來交給團隊，避免新稿在不知不覺中改掉已定案的權益。', 'From those differences I picked out 4 that changed member benefits: the airport transfer lost "concierge," the fast-track service dropped "departure," a hotel breakfast benefit disappeared, and "Elite can redeem" became "Elite spec," which reads like an item description, so members couldn\'t tell whether they qualify. I flagged all 4 for the team so a new draft wouldn\'t change already-settled benefits without anyone noticing.'),
             source: b('2026 年 11 月 · 審查新版兌換流程概念稿時', 'Nov 2026 · while reviewing a new redemption-flow concept') },
         ],
       },

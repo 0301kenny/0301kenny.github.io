@@ -271,7 +271,7 @@ export const cases: Case[] = [
           { t: 'p', text: b('只有 IA 時，失敗、暫停、連結失效這些狀態都沒有定義。我做了 4 支互相串接的互動原型，讓工程與客服可以直接操作。', 'An IA alone left states like failure, pause, and expired links undefined, so I built four linked, interactive prototypes that engineering and support could click through themselves.') },
           { t: 'p', text: b('兩支互相矛盾的規則原型也合併成一支，讓原型、IA、Figma、設計系統四處一致。', 'Two prototypes with conflicting rules were merged into one, so the prototype, IA, Figma, and design system all agree.') },
           { t: 'h3', text: b('名詞統一', 'One set of terms') },
-          { t: 'p', text: b('「可兌換房晚」改為「累計房晚」，並統一使用「房晚」而不是夜泊或點數。i18n、介面、PRD 與客服說法都改用同一組詞。', '"Redeemable nights" became "accumulated nights," and "room nights" replaced the mix of other terms. i18n, UI, PRD, and support now all use the same words.') },
+          { t: 'p', text: b('「可兌換房晚」改為「累計房晚」，並統一使用「房晚」而不是夜泊或點數。i18n、介面、PRD 與客服說法都改用同一組詞。', '"Redeemable nights" became "accumulated nights," and "room nights" replaced variants like "nights stayed" and "points." i18n, UI, PRD, and support now all use the same words.') },
         ],
       },
       {
@@ -741,7 +741,7 @@ export const cases: Case[] = [
           { t: 'decision', q: b('AI 會不會把句子改得很通順但是錯的？', 'Could AI make sentences fluent but wrong?'), a: b('限制 AI 只能挑，不能改寫', 'Let AI choose, never rewrite'), text: b('AI 只能從三個模型的版本和字典裡挑出組合；沒把握的地方就列為「待確認詞」，不自己猜。', 'AI may only combine what the three models heard and what the glossary contains; anything uncertain is flagged for review instead of being guessed.') },
           { t: 'diagram', kind: 'correction', caption: b('示意圖 · 依開發紀錄重繪', 'Diagram · redrawn from the development notes') },
           { t: 'h3', text: b('公司字典', 'The company glossary') },
-          { t: 'p', text: b('我指定從工作資料和官網的酒店資料整理字典，共 774 個詞，另有 3,800 間酒店的參考清單。實測時，被聽成「力力子、萬號、卡賠、香港回禮、波西蛇」的詞，被認回立鼎世、萬豪、Capella、Rosewood、Four Seasons 這幾個酒店品牌。', 'I had the glossary built from work documents and hotel data on our website: 774 terms plus a reference list of 3,800 hotels. In testing, words misheard as Chinese sound-alikes were correctly recognized as the hotel brands Leading Hotels of the World, Marriott, Capella, Rosewood, and Four Seasons.') },
+          { t: 'p', text: b('我指定從工作資料和官網的酒店資料整理字典，共 774 個詞，另有 3,800 間酒店的參考清單。實測時，被聽成「力力子、萬號、卡賠、香港回禮、波西蛇」的詞，被認回立鼎世、萬豪、Capella、Rosewood、Four Seasons 這幾個酒店品牌與酒店聯盟。', 'I had the glossary built from work documents and hotel data on our website: 774 terms plus a reference list of 3,800 hotels. In testing, words misheard as Chinese sound-alikes were correctly recognized as the hotel alliance and brands Leading Hotels of the World, Marriott, Capella, Rosewood, and Four Seasons.') },
         ],
       },
       {
@@ -805,7 +805,7 @@ export const cases: Case[] = [
         blocks: [
           { t: 'p', text: b('檢查點原本要等真實會議。當下沒有會議，我請 AI 用錄好的會議重播代跑，結果發現會議中提示欄「雜訊多於幫助」：閒聊 3 分鐘就跳出 4 張無關的任務卡。這個修正因此從計劃的後段提前處理，修完後雜訊降到 0 張。', 'The checkpoint was originally planned for live meetings. With none scheduled, I had AI replay recorded ones instead, and it showed the in-meeting hint panel was more noise than help: 4 irrelevant task cards in 3 minutes of small talk. The fix moved up from late in the plan and brought the noise down to zero.') },
           { t: 'diagram', kind: 'latency', caption: b('示意圖 · 依重播量測數據重繪', 'Diagram · redrawn from replay measurements') },
-          { t: 'p', text: b('字幕延遲也是用同一種方法量：重播同一場 9 分鐘會議，95% 段落的草稿延遲從 6.7 秒降到 3.2 秒。另外，錄音每 2 秒寫進硬碟，當機或關掉視窗都不會遺失。', 'Caption delay was measured the same way, replaying one 9-minute meeting: the 95th-percentile draft delay fell from 6.7 to 3.2 seconds. Recordings are also written to disk every 2 seconds, so a crash or closed window loses nothing.') },
+          { t: 'p', text: b('字幕延遲也是用同一種方法量：重播同一場 9 分鐘會議，95% 段落的草稿延遲從 6.7 秒降到 3.2 秒。另外，錄音每 2 秒寫進硬碟，當機或關掉視窗時，最多只會遺失最後幾秒。', 'Caption delay was measured the same way, replaying one 9-minute meeting: the 95th-percentile draft delay fell from 6.7 to 3.2 seconds. Recordings are also written to disk every 2 seconds, so a crash or closed window loses at most the last few seconds.') },
           { t: 'table', rows: [
             [b('需求', 'Requirements'), b('用單選題拷問、整理功能排序', 'Quiz me with multiple-choice questions, rank features'), b('作答、定出核心需求', 'Answer and set the core need')],
             [b('實作', 'Build'), b('寫程式、跑測試、打包', 'Write code, run tests, package'), b('提出架構構想、決定介面與視覺', 'Propose the architecture, decide UI and visuals')],

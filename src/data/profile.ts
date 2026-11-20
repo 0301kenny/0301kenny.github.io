@@ -73,7 +73,7 @@ export const sections = {
     eyebrow: 'Download',
     title: { 'zh-tw': '履歷與作品集', en: 'Resume and portfolio' } as T,
     lead: {
-      'zh-tw': '一頁履歷與作品集摘要，方便面試前快速瀏覽，或轉給團隊一起看。',
+      'zh-tw': '一頁履歷與 5 頁作品集摘要，方便面試前快速瀏覽，或轉給團隊一起看。',
       en: 'A one-page resume and a portfolio summary to skim before an interview or share with your team.',
     } as T,
     contactTitle: { 'zh-tw': '一起聊聊產品？', en: "Let's talk product" } as T,

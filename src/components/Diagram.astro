@@ -14,19 +14,19 @@ const ruleItems = [
 ];
 const W = 290; // 100% 長條的寬度
 const bars = [
-  { title: t('點「選擇價格」後，走到訂單表單', 'Reached the booking form after "Select rate"'), rows: [[t('訪客', 'Guests'), 9], [t('會員', 'Members'), 50]] },
-  { title: t('走到表單之後的轉換', 'Conversion after reaching the form'), rows: [[t('訪客', 'Guests'), 50], [t('會員', 'Members'), 46]] },
+  { title: t('點「選擇價格」後，走到訂單表單', 'Reached the booking form after "Select rate"'), rows: [[t('訪客', 'Visitors'), 9], [t('會員', 'Members'), 50]] },
+  { title: t('走到表單之後的轉換', 'Conversion after reaching the form'), rows: [[t('訪客', 'Visitors'), 50], [t('會員', 'Members'), 46]] },
 ] as const;
 
 // Case 05
 const groups = [
   [t('活躍用戶', 'Active members'), t('為什麼留下', 'Why they stay')],
-  [t('流失或觀望', 'Lapsed members'), t('為什麼離開', 'Why they left')],
-  [t('潛在用戶', 'Prospective'), t('為什麼沒進來', 'Why they never joined')],
+  [t('流失或觀望', 'Lapsed or undecided'), t('為什麼離開', 'Why they left')],
+  [t('潛在用戶', 'Prospective members'), t('為什麼沒進來', 'Why they never joined')],
 ];
 const steps = [
   { n: t('第 1 步', 'STEP 1'), lines: zh ? ['講師帶三人小組'] : ['Instructor leads', 'groups of three'], sub: '' },
-  { n: t('第 2 步', 'STEP 2'), lines: zh ? ['練習得好的學員', '培養成引導者'] : ['Strong members', 'trained as guides'], sub: '' },
+  { n: t('第 2 步', 'STEP 2'), lines: zh ? ['練習得好的學員', '培養成引導者'] : ['Skilled members', 'trained as guides'], sub: '' },
   { n: t('第 3 步', 'STEP 3'), lines: zh ? ['引導者帶新成員'] : ['Guides lead', 'newcomers'], sub: t('講師在旁觀察', 'Instructor observes') },
 ];
 const BW = 230; // 100% 長條寬度
@@ -41,7 +41,7 @@ const lanes = [
 ];
 const planSteps = [
   t('介面盤點', 'UI audit'),
-  t('收斂成辦公室工具', 'Adapt for office staff'),
+  t('收斂成辦公室工具', 'Refocus as an office tool'),
   t('加入長期功能', 'Add long-term features'),
   t('核心需求提前到第 2 階段', 'Core need moved to phase 2'),
   t('錄音保護提前', 'Recording safety moved up'),
@@ -52,7 +52,7 @@ const LW = 300; // 17 秒的長條寬度
 const iaCols = [
   { title: t('導覽入口', 'Navigation'), items: zh ? ['酒店', '會員', '私人訂製', '通關', '極致奢旅', '文章'] : ['Hotels', 'Membership', 'Bespoke', 'Airport', 'Ultra Luxe', 'Articles'] },
   { title: t('訂房主線', 'Booking path'), items: zh ? ['目的地搜尋', '結果篩選', '地圖', '房型與方案', '結帳'] : ['Search', 'Filters', 'Map', 'Rooms & rates', 'Checkout'] },
-  { title: t('會員中心', 'Member center'), items: zh ? ['會籍總覽', '酒店訂單', '一般訂單', '個人資料', '我的收藏'] : ['Membership', 'Hotel orders', 'Other orders', 'Profile', 'Saved'] },
+  { title: t('會員中心', 'Member center'), items: zh ? ['會籍總覽', '酒店訂單', '一般訂單', '個人資料', '我的收藏'] : ['Membership', 'Hotel bookings', 'Other orders', 'Profile', 'Saved'] },
   { title: t('標準頁', 'Browse pages'), items: zh ? ['集團', '品牌', '國家', '城市'] : ['Groups', 'Brands', 'Countries', 'Cities'] },
 ];
 const loopSteps = [t('打開酒店頁', 'Open hotel'), t('載入逾時', 'Load times out'), t('顯示查無酒店', "'No hotel'"), t('按上一頁', 'Tap back')];
@@ -133,8 +133,8 @@ const pct = [
       {groups.map(([title, q], i) => (
         <g>
           <rect x={10 + i * 156} y="10" width="148" height="104" rx="10" fill="var(--d-bg)" stroke="var(--d-line)" />
-          <text x={84 + i * 156} y="42" text-anchor="middle" font-size="16" font-weight="600" fill="var(--d-ink)">{title}</text>
-          <text x={84 + i * 156} y="68" text-anchor="middle" font-size="14" fill="var(--d-gold)">{q}</text>
+          <text x={84 + i * 156} y="42" text-anchor="middle" font-size={zh ? 16 : 13.5} font-weight="600" fill="var(--d-ink)">{title}</text>
+          <text x={84 + i * 156} y="68" text-anchor="middle" font-size={zh ? 14 : 13} fill="var(--d-gold)">{q}</text>
           <text x={84 + i * 156} y="94" text-anchor="middle" font-size="13" fill="var(--d-ink-3)">{t('6 位受訪者', '6 interviews')}</text>
           <line x1={84 + i * 156} y1="114" x2={84 + i * 156} y2="146" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-g)" />
         </g>
@@ -172,8 +172,8 @@ const pct = [
       <line x1="398" y1="128" x2="398" y2="162" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-t)" />
       <rect x="340" y="166" width="116" height="70" rx="8" fill="var(--d-bg)" stroke="var(--d-line)" />
       <text x="398" y="196" text-anchor="middle" font-size="16" font-weight="600" fill="var(--d-ink)">Discord</text>
-      <text x="398" y="220" text-anchor="middle" font-size="14" fill="var(--d-ink-2)">{t('隨機配對', 'Random pairs')}</text>
-      <text x="398" y="268" text-anchor="middle" font-size="14" font-weight="600" fill="var(--d-gold)">{t('熟悉感變弱', 'Weaker familiarity')}</text>
+      <text x="398" y="220" text-anchor="middle" font-size="14" fill="var(--d-ink-2)">{t('隨機配對', 'Random matching')}</text>
+      <text x="398" y="268" text-anchor="middle" font-size="14" font-weight="600" fill="var(--d-gold)">{t('熟悉感變弱', 'Less familiarity')}</text>
     </svg>
   )}
 
@@ -223,7 +223,7 @@ const pct = [
     <svg viewBox="0 0 480 300" role="img" aria-label={t('會議聲音由三個本機模型同時辨識，分成兩層：會議中求快，草稿約 3 秒出現，AI 每 3 段糾正一次並原地覆蓋；會議後求準，三個模型整場重轉、對照公司字典精修，並擷取附原句的決策', 'Meeting audio is transcribed by three on-device models in two stages: during the meeting, a draft appears in about 3 seconds and AI fixes every 3 segments in place; afterward, the full meeting is re-transcribed, refined with the glossary, and decisions are extracted with quotes')}>
       <defs><marker id="arr-m" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker></defs>
       <rect x="10" y="10" width="460" height="40" rx="10" fill="var(--d-surface)" />
-      <text x="240" y="36" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-ink)">{t('會議聲音（麥克風＋電腦聲音）', 'Meeting audio (mic + computer sound)')}</text>
+      <text x="240" y="36" text-anchor="middle" font-size="15" font-weight="600" fill="var(--d-ink)">{t('會議聲音（麥克風＋電腦聲音）', 'Meeting audio (mic + system audio)')}</text>
       {models.map((m, i) => (
         <g>
           <line x1={84 + i * 156} y1="50" x2={84 + i * 156} y2="68" stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-m)" />
@@ -330,7 +330,7 @@ const pct = [
       ))}
       <path d="M418 82 C418 140, 64 140, 64 88" fill="none" stroke="var(--d-gold)" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#arr-l)" />
       <text x="240" y="152" text-anchor="middle" font-size="14" font-weight="600" fill="var(--d-gold)">{t('又回到同一頁，繞成迴圈', 'Back to the same page, in a loop')}</text>
-      <text x="240" y="180" text-anchor="middle" font-size="13" fill="var(--d-ink-3)">{t('客人以為酒店不存在，其實只是載入失敗', "Guests think the hotel doesn't exist; it only failed to load")}</text>
+      <text x="240" y="180" text-anchor="middle" font-size="13" fill="var(--d-ink-3)">{t('客人以為酒店不存在，其實只是載入失敗', "Guests think the hotel doesn't exist; the page only failed to load")}</text>
     </svg>
   )}
 </div>

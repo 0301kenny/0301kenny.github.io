@@ -109,7 +109,7 @@ const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc',
       </div>
       <ol class="timeline">
         {timeline.map((t) => (
-          <li class={t.now ? 'now' : undefined}><span class="when">{t.when}</span><div><b>{tx(t.title)}</b><div class="co">{t.org[lang]}</div></div></li>
+          <li class={t.now ? 'now' : undefined}><span class="when">{tx(t.when)}</span><div><b>{tx(t.title)}</b><div class="co">{t.org[lang]}</div></div></li>
         ))}
       </ol>
     </div>

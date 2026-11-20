@@ -56,7 +56,7 @@ const { blocks, lang } = Astro.props;
     case 'flow':
       return <div class="flow">{bk.items.map((it, i) => <>{i > 0 && <i aria-hidden="true">→</i>}<span>{it[lang]}</span></>)}</div>;
     case 'versions':
-      return <ol class="versions">{bk.items.map(([v, text]) => <li><b>{v}</b>{text[lang]}</li>)}</ol>;
+      return <ol class="versions">{bk.items.map(([v, text]) => <li><b>{typeof v === 'string' ? v : v[lang]}</b>{text[lang]}</li>)}</ol>;
     case 'compare':
       return (
         <div class="compare">

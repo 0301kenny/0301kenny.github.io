@@ -33,7 +33,7 @@ const t = {
   },
   early: { 'zh-tw': '這段時期的作品', en: 'Selected work from this period' },
   working: { eyebrow: 'Collaboration', title: { 'zh-tw': '和我合作', en: 'Working with me' } },
-  legacyTitle: { 'zh-tw': '品牌與視覺設計基礎', en: 'A foundation in brand and print design' },
+  legacyTitle: { 'zh-tw': '品牌與視覺設計基礎', en: 'A foundation in brand and visual design' },
 };
 const title = t.title[lang].split('\n');
 ---
@@ -54,7 +54,7 @@ const title = t.title[lang].split('\n');
       <div class="section-head"><div><div class="eyebrow">{s.experience.eyebrow}</div><h2>{s.experience.title[lang]}</h2></div></div>
       <ol class="timeline">
         {timeline.map((it) => (
-          <li class={it.now ? 'now' : undefined}><span class="when">{it.when}</span><div><b>{tx(it.title)}</b><div class="co">{it.org[lang]}</div>
+          <li class={it.now ? 'now' : undefined}><span class="when">{tx(it.when)}</span><div><b>{tx(it.title)}</b><div class="co">{it.org[lang]}</div>
             {'key' in it && it.key === 'fusion' && (
               <p class="early"><span class="early-label">{t.early[lang]}</span>
                 {earlyWorks.map((w, i) => (

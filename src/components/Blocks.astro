@@ -4,6 +4,7 @@ import Diagram from './Diagram.astro';
 import { ui, asset, type Lang } from '../i18n';
 import { imageSizes } from '../data/imageSizes';
 import type { Block } from '../data/cases';
+import { phrases } from '../utils/phrases';
 
 interface Props { blocks: Block[]; lang: Lang }
 const { blocks, lang } = Astro.props;
@@ -13,7 +14,7 @@ const { blocks, lang } = Astro.props;
     case 'p':
       return <p>{bk.text[lang]}{bk.todo && <Todo lang={lang} />}</p>;
     case 'h3':
-      return <h3>{bk.text[lang]}</h3>;
+      return <h3>{phrases(bk.text[lang]).map((ph) => <span class="ph">{ph}</span>)}</h3>;
     case 'callout':
       return <div class="callout"><b>{bk.title[lang]}</b><p>{bk.text[lang]}</p></div>;
     case 'decision':

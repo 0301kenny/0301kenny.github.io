@@ -596,7 +596,7 @@ export const cases: Case[] = [
     sections: [
       {
         id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
-        title: b('業主只知道人在變少，不知道為什麼', 'The client knew people were leaving, not why'),
+        title: b('業主只知道社群成員正在流失，但卻不知道是什麼原因', 'The client knew community members were leaving, but not why'),
         blocks: [
           { t: 'p', text: b('社群初期迴響很好，後來參與人數下滑；新講師上任後課程也賣得不理想。團隊之前沒做過任何使用者研究，判斷都來自經營者自己的觀察。業主原本鎖定「習慣用理性邏輯處理人生問題」的人，認為服務感性族群的成本太高。', "The community started strong, then participation dropped, and courses sold poorly after a new instructor joined. The team had never done user research; decisions came from the founders' own observations. They targeted \"people who handle life problems with logic,\" believing emotionally driven members would cost too much to serve.") },
           { t: 'callout', title: b('目標', 'Goal'), text: b('找出原本參與的人為什麼漸漸離開、另一部分的人為什麼留下，並確認業主原本設定的目標客群對不對。', "Find out why some members drifted away while others stayed, and check whether the client had chosen the right target audience.") },

@@ -610,11 +610,11 @@ export const cases: Case[] = [
         title: b('三群用戶由三組分開研究', 'Three user groups, three research teams'),
         blocks: [
           { t: 'flow', items: [
-            b('需求訪談與商業假設拆解（10 月中）', 'Client interview and assumption mapping (mid-Oct)'),
-            b('社群觀察：LINE、Facebook、Discord（10 月）', 'Community observation on LINE, Facebook, Discord (Oct)'),
-            b('招募問卷篩選三群受訪者', 'Screener survey to recruit three groups'),
+            b('需求訪談與商業假設拆解（10 月中）', 'Client interview + assumptions (mid-Oct)'),
+            b('社群觀察：LINE、Facebook、Discord（10 月）', 'Observing LINE, Facebook, Discord (Oct)'),
+            b('招募問卷篩選三群受訪者', 'Screener survey, 3 groups'),
             b('18 場訪談，ORID 紀錄（11 月）', '18 interviews, ORID notes (Nov)'),
-            b('親合圖、同理心地圖、三組整合，向業主簡報（12 月）', 'Affinity mapping, empathy maps, cross-team synthesis, client readout (Dec)'),
+            b('三組整合，向業主簡報（12 月）', 'Synthesis + client readout (Dec)'),
           ] },
           { t: 'p', text: b('三群各由一組負責，因為同一個問題在三群人身上的答案不同：留下的人說得出「為什麼留」，流失的人說得出「為什麼走」，沒接觸過的人才看得到「為什麼一開始沒進來」。', "Each group had its own team because the same question gets different answers: people who stayed can say why they stayed, people who left can say why they left, and people who never joined show why they didn't join in the first place.") },
         ],

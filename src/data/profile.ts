@@ -122,7 +122,7 @@ export const legacy = [
 
 export const timeline = [
   { when: { 'zh-tw': '2023.03 — Now', en: '2023.03 — Present' }, now: true, title: 'Product Designer', org: { 'zh-tw': 'WOTA 沃塔國際旅行社 · 旅宿訂房平台、會員獎勵、郵輪產品', en: 'Wota Lifestyle · hotel booking platform, member rewards, cruise products' } },
-  { when: '2018.08 — 2023.03', key: 'fusion', title: 'UI/UX Designer', org: { 'zh-tw': '融創新科 · 帶領 4 人以下設計團隊，負責 UI 系統、UX Flow 與 RWD', en: 'Fusion Next · led a design team of up to 4 working on UI systems, UX flows, and responsive design' } },
+  { when: '2018.08 — 2023.03', key: 'fusion', title: 'UI/UX Designer', org: { 'zh-tw': '融創新科 · 負責 UI 系統、UX Flow 與 RWD', en: 'Fusion Next · UI systems, UX flows, and responsive design' } },
   { when: '2014.04 — 2018.02', title: { 'zh-tw': '視覺設計總監', en: 'Visual Design Director' }, org: { 'zh-tw': '台中廣天宮 · 多媒體開發主管，品牌視覺與網站規劃', en: 'Taichung Guangtian Temple · multimedia lead, brand visuals and web' } },
   { when: '2010.10 — 2013.12', title: { 'zh-tw': '設計總監', en: 'Design Director' }, org: { 'zh-tw': '岱展有限公司 · 帶領 3–4 人，品牌、包裝與 CIS', en: 'Daizhan (food retail) · led a team of 3–4 working on brand, packaging, and identity' } },
   { when: '2008.10 — 2010.09', title: { 'zh-tw': '美術企劃 / 美編', en: 'Graphic Designer' }, org: { 'zh-tw': '平面設計、出版編排與印刷製作', en: 'Graphic design, publication layout, and print production' } },

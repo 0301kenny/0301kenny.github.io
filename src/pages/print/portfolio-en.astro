@@ -1,0 +1,200 @@
+---
+import { profile, approach } from '../../data/profile';
+import { printCases as cases } from '../../data/cases';
+import type { Block } from '../../data/cases';
+import { unitHtml } from '../../utils/numUnit';
+
+const lang = 'en' as const;
+const c = profile.contact;
+const site = c.portfolio.replace(/^https?:\/\//, '');
+
+const pick = (slug: string) => {
+  const cs = cases.find((x) => x.slug === slug)!;
+  const sec = (id: string) => cs.sections.find((s) => s.id === id)!;
+  const decisions = sec('decisions').blocks.filter((b): b is Extract<Block, { t: 'decision' }> => b.t === 'decision');
+  const outcome = sec('outcome').blocks.find((b): b is Extract<Block, { t: 'p' }> => b.t === 'p' && !b.todo);
+  const outcomeStats = sec('outcome').blocks.find((b): b is Extract<Block, { t: 'stats' }> => b.t === 'stats');
+  const goal = sec('problem').blocks.find((b): b is Extract<Block, { t: 'callout' }> => b.t === 'callout');
+  const table = sec('build').blocks.find((b): b is Extract<Block, { t: 'table' }> => b.t === 'table');
+  const compare = cs.sections.flatMap((x) => x.blocks).find((b): b is Extract<Block, { t: 'compare' }> => b.t === 'compare');
+  return { cs, decisions, outcome, outcomeStats, goal, table, compare };
+};
+
+const pages = cases.map((x) => pick(x.slug));
+// PDF 用 JPG：Chrome 產生 PDF 時會直接嵌入 JPG，WebP 則會轉成較大的格式
+const printImg = (src: string) => '/img/print/' + src.split('/').pop()!.replace(/\.webp$/, '.jpg');
+const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? printImg(cs.hero.src) : '/img/print/official-membership.jpg');
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Kenny Cheng · Portfolio Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4 landscape; margin: 0; }
+  :root { --ink: #0E2240; --ink-2: #3D4D66; --ink-3: #76849A; --line: #D9E0EA; --accent: #2F64A8; --soft: #F2F5F9; --deep: #0B1C36; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #E9EDF2; }
+  body { font-family: 'Inter', 'Noto Sans TC', 'PingFang TC', sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .page { width: 297mm; height: 210mm; margin: 0 auto; background: #fff; padding: 13mm 15mm 10mm; display: flex; flex-direction: column; overflow: hidden; page-break-after: always; break-after: page; position: relative; }
+  .page:last-child { page-break-after: auto; break-after: auto; }
+  @media screen { .page { margin: 24px auto; box-shadow: 0 4px 24px rgba(14,34,64,.12); } }
+  a { color: inherit; text-decoration: none; }
+  .eyebrow { font-size: 8.5pt; font-weight: 600; letter-spacing: .14em; color: var(--accent); text-transform: uppercase; }
+  footer { margin-top: auto; padding-top: 3mm; border-top: .6pt solid var(--line); font-size: 8pt; color: var(--ink-3); display: flex; justify-content: space-between; }
+
+  /* cover */
+  .cover { background: var(--deep); color: #E6ECF4; }
+  .cover footer { border-color: #22385A; color: #8597B0; }
+  .cover-top { display: grid; grid-template-columns: 1.25fr 1fr; gap: 14mm; align-items: start; }
+  .cover h1 { margin: 6mm 0 2mm; font-weight: 300; font-size: 34pt; letter-spacing: .02em; color: #fff; line-height: 1.15; }
+  .cover h1 small { font-size: 16pt; color: #9CB0C9; margin-left: 4mm; }
+  .cover .role { font-size: 12pt; color: #9CC3F0; font-weight: 500; }
+  .cover .lead { margin: 6mm 0 0; font-size: 12pt; line-height: 1.75; color: #C5D1E0; max-width: 150mm; }
+  .cover .eyebrow { color: #9CC3F0; }
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5mm; margin-top: 6mm; }
+  .stats div { border: .6pt solid #22385A; border-radius: 3mm; padding: 4mm 5mm; }
+  .stats b { display: block; font-size: 22pt; font-weight: 300; color: #fff; }
+  .stats span { font-size: 8.5pt; color: #8597B0; }
+  .index { margin-top: 9mm; display: grid; grid-template-columns: repeat(4, 1fr); gap: 4mm; }
+  .index div { border-top: 1.2pt solid #9CC3F0; padding-top: 3mm; }
+  .index small { display: block; font-size: 8pt; color: #8597B0; letter-spacing: .1em; }
+  .index b { display: block; margin-top: 1.5mm; font-size: 12pt; font-weight: 500; color: #fff; line-height: 1.45; }
+  .index span { display: block; margin-top: 1.5mm; font-size: 9.4pt; color: #9CB0C9; }
+  .contact { margin-top: 8mm; font-size: 10pt; color: #C5D1E0; display: flex; gap: 8mm; flex-wrap: wrap; }
+  .contact b { color: #9CC3F0; font-weight: 500; margin-right: 2mm; }
+
+  /* case page */
+  .case-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8mm; }
+  .case-head .link { font-size: 8.5pt; color: var(--ink-3); }
+  .case-grid { display: grid; grid-template-columns: 1fr 1.05fr; gap: 10mm; margin-top: 3mm; flex: 1; min-height: 0; }
+  h2 { margin: 2mm 0 3mm; font-weight: 300; font-size: 22pt; line-height: 1.3; }
+  .lead2 { margin: 0 0 4mm; font-size: 10.6pt; line-height: 1.7; color: var(--ink-2); }
+  .meta { display: grid; grid-template-columns: repeat(2, 1fr); gap: 3mm 8mm; padding: 3.5mm 0; border-top: .6pt solid var(--line); border-bottom: .6pt solid var(--line); }
+  .meta dt { font-size: 8.2pt; color: var(--ink-3); }
+  .meta dd { margin: 1.2mm 0 0; font-size: 9.6pt; font-weight: 500; line-height: 1.45; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 4mm; }
+  .kpis b { display: block; font-size: 22pt; font-weight: 300; line-height: 1.2; }
+  .kpis span { font-size: 8.8pt; color: var(--ink-3); line-height: 1.35; display: block; }
+  .goal { margin-top: 4mm; background: var(--soft); border-radius: 3mm; padding: 3.5mm 4.5mm; font-size: 9.6pt; line-height: 1.65; color: var(--ink-2); }
+  .goal b { color: var(--ink); font-weight: 600; margin-right: 2mm; }
+  .right { display: flex; flex-direction: column; gap: 4mm; min-height: 0; }
+  .shot { background: var(--soft); border-radius: 3mm; padding: 3mm; height: 74mm; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+  .shot img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 1.5mm; }
+  .shot-cap { font-size: 7.4pt; color: var(--ink-3); margin-top: -2mm; }
+  h3 { margin: 0 0 2mm; font-size: 8.6pt; font-weight: 600; letter-spacing: .12em; color: var(--accent); text-transform: uppercase; }
+  .decisions { display: grid; gap: 2.2mm; }
+  .decisions div { border-left: 1.2pt solid var(--accent); padding-left: 3mm; }
+  .decisions .q { font-size: 8.6pt; color: var(--ink-3); line-height: 1.4; }
+  .decisions .a { font-size: 9.8pt; font-weight: 500; line-height: 1.45; }
+  .outcome { font-size: 9.6pt; line-height: 1.65; color: var(--ink-2); margin: 0; }
+  .ostats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin: 0 0 2mm; }
+  .ostats b { display: block; font-size: 15pt; font-weight: 300; line-height: 1.2; }
+  .ostats span { display: block; font-size: 7.6pt; color: var(--ink-3); line-height: 1.35; }
+  .ai { font-size: 8.2pt; color: var(--ink-3); line-height: 1.5; }
+  .evidence { margin-top: 4mm; border: .6pt solid var(--line); border-radius: 3mm; padding: 3.5mm 4.5mm; }
+  .evidence h3 { margin-bottom: 1.5mm; }
+  .evidence p { margin: 0; font-size: 9pt; line-height: 1.65; color: var(--ink-2); }
+  .evidence small { display: block; margin-top: 1.5mm; font-size: 7.6pt; color: var(--ink-3); }
+  .cover-id { display: flex; gap: 7mm; align-items: flex-end; margin-top: 6mm; }
+  /* English runs longer than Chinese: tighter type on case pages */
+  h2 { font-size: 17pt; line-height: 1.25; margin: 1.5mm 0 2.5mm; }
+  .lead2 { font-size: 9.2pt; line-height: 1.55; margin-bottom: 3mm; }
+  .meta { gap: 2mm 6mm; padding: 2.5mm 0; }
+  .meta dd { font-size: 8.6pt; line-height: 1.35; }
+  .kpis { margin-top: 3mm; }
+  .kpis b { font-size: 18pt; }
+  .kpis span { font-size: 8pt; }
+  .goal { font-size: 8.6pt; line-height: 1.5; margin-top: 3mm; padding: 3mm 4mm; }
+  .shot { height: 34mm; }
+  .right { gap: 3mm; }
+  .decisions .q { font-size: 8pt; }
+  .decisions .a { font-size: 8.8pt; line-height: 1.4; }
+  .outcome { font-size: 8.6pt; line-height: 1.5; }
+  .evidence { margin-top: 3mm; padding: 3mm 4mm; }
+  .evidence p { font-size: 8.2pt; line-height: 1.5; }
+  .cover-id img { width: 30mm; height: 45mm; object-fit: cover; border-radius: 2.5mm; }
+  .cover-id h1 { margin: 0 0 2mm; }
+  .steps { margin-top: 8mm; display: grid; grid-template-columns: repeat(5, 1fr); gap: 3mm; }
+  .steps div { background: rgba(255,255,255,.04); border: .6pt solid #22385A; border-radius: 2.5mm; padding: 3mm 3.5mm; }
+  .steps small { font-size: 7.6pt; color: #8597B0; }
+  .steps b { display: block; font-size: 11pt; font-weight: 400; color: #fff; margin-top: .5mm; }
+  .steps span { display: block; font-size: 8.4pt; color: #9CC3F0; margin-top: .5mm; }
+  /* line breaks: avoid one-word or one-character last lines */
+  h2, .cover b { text-wrap: balance; }
+  .stats span, .kpis span, .ostats span, .shot-cap, .evidence p, .lead2, .goal { text-wrap: pretty; }
+  .cover .steps { margin-top: 6mm; }
+  .cover .contact { margin-top: 6mm; margin-bottom: 3mm; }
+</style>
+</head>
+<body>
+  <section class="page cover">
+    <div class="cover-top">
+      <div>
+        <div class="eyebrow">Portfolio Summary</div>
+        <div class="cover-id">
+          <img src="/img/print/kenny-portrait.jpg" alt="Portrait of Kenny Cheng" />
+          <div><h1>Kenny Cheng</h1><div class="role">{profile.heroEyebrow}</div></div>
+        </div>
+        <p class="lead">{profile.heroLead[lang]}</p>
+      </div>
+      <div class="stats">
+        {profile.stats.map((s) => <div><b>{s.value}</b><span>{s.label[lang]}</span></div>)}
+      </div>
+    </div>
+    <div class="steps">
+      {approach.map((st) => <div><small>{st.n}</small><b>{st.title}</b><span>{st.role}</span></div>)}
+    </div>
+    <div class="index">
+      {cases.map((cs) => (
+        <div><small>CASE {cs.no}</small><b>{cs.cardTitle[lang]}</b><span>{cs.kpis.map(([v, l]) => `${v} ${l[lang]}`)[0]}</span></div>
+      ))}
+    </div>
+    <div class="contact">
+      <span><b>Email</b>{c.email}</span>
+      <span><b>Phone</b>{c.phoneIntl}</span>
+      <span><b>Portfolio</b>{site}</span>
+      <span><b>LinkedIn</b>{c.linkedin.replace(/^https?:\/\/(www\.)?/, '')}</span>
+    </div>
+    <footer><span>Full case studies, process evidence, and reflections are on the portfolio site</span><span>2026.11</span></footer>
+  </section>
+
+  {pages.map(({ cs, decisions, outcome, outcomeStats, goal, table, compare }) => (
+    <section class="page">
+      <div class="case-head">
+        <span class="eyebrow">{cs.eyebrow}</span>
+        <a class="link" href={`${c.portfolio}/en/work/${cs.slug}/`}>{site}/en/work/{cs.slug}</a>
+      </div>
+      <div class="case-grid">
+        <div>
+          <h2>{cs.title[lang].replace('\n', ' ')}</h2>
+          <p class="lead2">{cs.lead[lang]}</p>
+          <dl class="meta">{cs.meta.map(([k, v]) => <div><dt>{k[lang]}</dt><dd>{v[lang]}</dd></div>)}</dl>
+          <div class="kpis">{cs.kpis.map(([v, l]) => <div><b set:html={unitHtml(v, lang)} /><span>{l[lang]}</span></div>)}</div>
+          {goal && <div class="goal"><b>{goal.title[lang]}</b>{goal.text[lang]}</div>}
+        </div>
+        <div class="right">
+          <div class="shot"><img src={heroSrc(cs)} alt="" /></div>
+          {cs.hero.kind === 'image' && <div class="shot-cap">{cs.hero.caption[lang]}</div>}
+          <div>
+            <h3>Key decisions</h3>
+            <div class="decisions">{decisions.map((d) => <div><div class="q">{d.q[lang]}</div><div class="a">{d.a[lang]}</div></div>)}</div>
+          </div>
+          <div>
+            <h3>Outcome</h3>
+            {outcomeStats && <div class="ostats">{outcomeStats.items.map(([v, l]) => <div><b set:html={unitHtml(v, lang)} /><span>{l[lang]}</span></div>)}</div>}
+            {outcome && <p class="outcome">{outcome.text[lang]}</p>}
+          </div>
+          {table?.note && <div class="ai">{table.note[lang]}</div>}
+          {compare && <div class="evidence"><h3>{compare.title ? compare.title[lang] : 'Process evidence: how I corrected AI'}</h3><p>{compare.me[lang]}</p><small>{compare.source[lang]}</small></div>}
+        </div>
+      </div>
+      <footer><span>Kenny Cheng · Portfolio Summary</span><span>Case {cs.no} / 04</span></footer>
+    </section>
+  ))}
+</body>
+</html>

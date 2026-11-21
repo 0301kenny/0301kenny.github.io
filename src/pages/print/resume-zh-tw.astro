@@ -6,24 +6,25 @@ const portfolioLabel = c.portfolio.replace(/^https?:\/\//, '');
 const linkedinLabel = c.linkedin.replace(/^https?:\/\/(www\.)?/, '');
 
 const wota = [
-  '主導官網 3.0 產品規劃與全站 UI/UX：完成 13 個前台模組、11 個共用元件庫，主持 UAT 收斂 30 項問題；導入襯線體搭配中黑體提升高端質感，並優化酒店搜尋。',
-  '負責 LINE LIFF 訂房的 UI 設計、PM 與驗收：2026 年 5 月對外推出、7 月正式發布信用卡購買會籍與英文版；Figma 約 238 個畫面，撰寫設計系統手冊 v1.3。',
-  '把 Journey Rewards 會員獎勵規則落成 PRD v2.2、5 份 IA 與 4 支互動原型：定義 18 種兌換狀態、逐題定案 28 項升等規則，並攔下新提案中 4 處被改寫的會員權益。',
-  '主導 Figma 四語系治理：3,548 個官網字串同步成繁中、簡中、英、日變數，親自審核 138 筆判定，四語核對 0 個不一致。',
-  '發起網站行為分析，以錄影、Mixpanel 與事件定義交叉驗證：找出登入牆瓶頸（訪客 9%、會員 50% 走到訂單表單），整理 41 項附證據的改版清單，並建立每週自動追蹤。',
-  '用 Claude Code 在既有 Vue / Quasar 專案中建置 UI Spec 工具：免登入檢視 129 個狀態畫面，設五層防線避免進入正式站，驗證時抓到 2 個已影響正式站會員的 bug。',
+  '主導官網 3.0 改版的產品規劃與全站介面設計：建立全站共用的設計規範與 11 個元件庫，主持上線前驗收（UAT），30 項問題全部修正後上線；字體與版面改成符合高端旅宿定位的風格，酒店搜尋也更容易看到優惠。上線後 30 天，從酒店頁到完成訂單的比例提升到 5% 以上（上線前 1～5%），UI 相關 bug 從 10～30 件降到 10 件以下。',
+  '負責 LINE 訂房網頁（LIFF）的介面設計、產品管理與驗收：2026 年 5 月上線，7 月加入信用卡購買會籍與英文版；撰寫設計系統手冊，讓官網與 LINE 共用同一組設計元件。',
+  '整合 Journey Rewards 會員獎勵的累積、升等與兌換規則，寫成產品規格（PRD）與 4 支互動原型：定義 18 種兌換狀態，28 項升等規則逐題列出選項讓團隊定案；並比對新提案，找出 4 處會改變既有會員權益的地方。',
+  '主導官網四種語言的文案管理：3,548 段網站文字在 Figma 統一管理繁中、簡中、英、日四個版本，親自審核 138 筆判定，已綁定的 Figma 文字與網站核對 0 個不一致。',
+  '主動發起網站行為分析，交叉比對使用者操作錄影與數據工具：發現登入是訂房的主要卡點，點了「選擇價格」的人中，未登入訪客只有 9% 走到訂單表單，會員是 50%；整理成 41 項附證據的改版清單，並設定每週自動追蹤。',
+  '用 AI（Claude Code）在既有網站程式中做出內部檢查工具（UI Spec）：設計、PM 與 QA 不用換帳號，就能看到 129 種會員畫面狀態，檢查一個狀態從約 30 分鐘縮短到 1 分鐘內（估計）；只在開發環境使用，不會上正式站。驗證時發現 2 個已影響會員的錯誤。',
 ];
 
 const rong = [
   '負責產品 UI 視覺系統、UX Flow、Sitemap、Wireframe 與互動原型。',
   '設計響應式網站介面，與工程師協作前端互動頁面，並提出使用者體驗改善方案。',
+  '負責 Doweing 旅遊足跡地圖社群 App 的全產品 UI/UX，產品已上線。',
 ];
 
 const skills = [
-  ['產品', 'PRD · 需求拆解 · IA · User Flow · 例外情境 · UAT 驗收 · Jira'],
-  ['設計', 'Figma · Design System · Design Token · Prototype · 多語系 i18n · WCAG'],
-  ['前端與 AI', 'HTML / CSS · Vue / Quasar · Claude Code · ChatGPT · Codex'],
-  ['研究與數據', '使用者訪談 · 可用性測試 · Mixpanel · Clarity · GTM'],
+  ['產品規劃', '需求分析、流程設計、例外情境、上線驗收', 'PRD · IA · UAT · Jira'],
+  ['介面設計', '設計系統、互動原型、多語系、無障礙', 'Figma · Design Token · i18n · WCAG'],
+  ['AI 與前端', 'AI 協作開發、前端實作', 'Claude Code · ChatGPT · Codex · HTML / CSS · Vue / Quasar'],
+  ['研究與數據', '使用者訪談、可用性測試、網站行為分析', 'Mixpanel · Clarity · GTM'],
 ];
 ---
 <!doctype html>
@@ -31,7 +32,7 @@ const skills = [
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<title>鄭偉助 Kenny Cheng · Product Designer 履歷</title>
+<title>鄭偉助 Kenny Cheng · Senior Product Designer 履歷</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -69,6 +70,7 @@ const skills = [
   .skills dd { margin: 0; color: var(--ink-2); }
   .side p { margin: 0 0 1.4mm; font-size: 8.9pt; line-height: 1.55; color: var(--ink-2); }
   .side p b { color: var(--ink); font-weight: 600; }
+  .skills dd .tools { color: var(--ink-3); }
   footer { margin-top: auto; padding-top: 3mm; border-top: .6pt solid var(--line); font-size: 8pt; color: var(--ink-3); display: flex; justify-content: space-between; }
 </style>
 </head>
@@ -77,7 +79,7 @@ const skills = [
   <header>
     <div>
       <h1>鄭偉助<small>Kenny Cheng</small></h1>
-      <div class="role">Product Designer｜AI-Integrated Product Design</div>
+      <div class="role">Senior Product Designer｜從需求規劃、介面設計到上線驗收</div>
     </div>
     <div class="contact">
       <div><a href={`mailto:${c.email}`}>{c.email}</a>{c.phone && <> · {c.phone}</>}</div>
@@ -87,7 +89,7 @@ const skills = [
     </div>
   </header>
 
-  <p class="summary">8 年產品設計經驗、品牌視覺出身的產品設計師。整合產品規劃、UI/UX 與前端實作，在高端旅宿訂房平台負責官網、LINE LIFF 與白牌的需求定義、介面設計與交付驗證。近年將 AI 整合進研究、規格、設計與前端，由我主導方向與驗收。</p>
+  <p class="summary">8 年數位產品設計經驗，之前有 8 年多品牌視覺與設計管理經歷。在高端旅宿訂房平台負責官網、LINE 內的訂房網頁（LIFF）與銀行合作訂房網站（白牌），從需求規劃、介面設計到上線驗收，並與產品負責人、工程和客服對齊規則。AI 協助研究整理、撰寫文件與前端程式；需求判斷、設計決策與最終驗收由我負責。</p>
 
   <h2>工作經歷</h2>
   <div class="job">
@@ -95,33 +97,33 @@ const skills = [
     <ul>{wota.map((t) => <li>{t}</li>)}</ul>
   </div>
   <div class="job">
-    <div class="job-head"><div><b>UI/UX Designer</b><span class="org">融創新科</span></div><time>2018.08 — 2023.03</time></div>
+    <div class="job-head"><div><b>UI/UX Designer</b><span class="org">融創新科 · IoT App 與雲端平台</span></div><time>2018.08 — 2023.03</time></div>
     <ul>{rong.map((t) => <li>{t}</li>)}</ul>
   </div>
 
   <h2>品牌視覺與印前基礎</h2>
   <div class="early">
-    <b>視覺設計總監</b><span>台中廣天宮 · 多媒體開發主管，品牌視覺、網站規劃與專案驗收</span><time>2014.04 — 2018.02</time>
+    <b>視覺設計總監</b><span>台中廣天宮（宗教組織）· 多媒體開發主管，品牌視覺、網站規劃與專案驗收</span><time>2014.04 — 2018.02</time>
     <b>設計總監</b><span>岱展有限公司 · 帶領 3–4 人，CIS、包裝、型錄與印前發包</span><time>2010.10 — 2013.12</time>
-    <b>美編 / 美術企劃</b><span>平面文宣、出版編排與印刷製作</span><time>2008.10 — 2010.09</time>
+    <b>美編</b><span>凱全貿易（紡織）· 平面文宣、出版編排與印刷製作</span><time>2009.09 — 2010.09</time>
   </div>
 
   <div class="bottom">
     <div>
       <h2>核心能力</h2>
-      <dl class="skills">{skills.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}</dl>
+      <dl class="skills">{skills.map(([k, plain, tools]) => <><dt>{k}</dt><dd>{plain}<br><span class="tools">{tools}</span></dd></>)}</dl>
     </div>
     <div class="side">
       <h2>學歷與語言</h2>
       <p><b>東海大學</b> 美術系 學士</p>
-      <p><b>語言</b> 中文 · 台語（中等）<br>英文（讀寫中等）</p>
+      <p><b>語言</b> 中文（母語）· 台語（中等）<br>英文（讀寫中等）</p>
       <h2>作品集</h2>
-      <p>精選案例：跨平台訂房、會員獎勵、UI Spec 工具、網站行為分析</p>
+      <p>代表作：跨平台訂房、網站行為分析<br>其他案例：會員獎勵、UI Spec 工具</p>
       <p><a href={c.portfolio}>{portfolioLabel}</a></p>
     </div>
   </div>
 
-  <footer><span>鄭偉助 Kenny Cheng · Product Designer</span><span>2026.11</span></footer>
+  <footer><span>鄭偉助 Kenny Cheng · Senior Product Designer</span><span>2026.11</span></footer>
 </div>
 </body>
 </html>

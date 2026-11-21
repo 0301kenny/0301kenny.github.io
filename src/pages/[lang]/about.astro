@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Todo from '../../components/Todo.astro';
 import '../../styles/site.css';
 import { langs, asset, type Lang } from '../../i18n';
-import { profile, sections as s, legacy, timeline, testimonials, workingWithMe, earlyWorks } from '../../data/profile';
+import { profile, sections as s, legacy, timeline, testimonials, workingWithMe, earlyWorks, impact } from '../../data/profile';
 
 export function getStaticPaths() {
   return langs.map((lang) => ({ params: { lang } }));
@@ -17,8 +17,8 @@ const t = {
   eyebrow: 'About',
   title: { 'zh-tw': '把複雜的規則與流程，\n做成好懂、好用的產品', en: 'Turning complex rules and flows\ninto products people can easily understand and use' },
   intro: {
-    'zh-tw': '我是鄭偉助（Kenny），有 8 年以上產品設計經驗。現在在 WOTA 負責官網、LINE LIFF 與銀行白牌（掛銀行品牌的訂房網站）的旅宿訂房產品。工作範圍從分析使用者行為、定義需求、規劃資訊架構，到設計介面、和工程師一起實作與驗收。研究、寫規格、設計和前端開發時，都會用 AI 協助。更早之前，我做了十年品牌與視覺設計。',
-    en: "I'm Kenny Cheng, a product designer with 8+ years of experience. At WOTA, I work on hotel booking products across our website, a booking site inside LINE, and white-label sites for bank partners. My work spans user behavior analysis, requirements, and information architecture, as well as interface design, implementation, and QA with engineers. AI is part of how I research, write specs, design, and build. Before product design, I spent ten years in brand and visual design.",
+    'zh-tw': '我是鄭偉助（Kenny），有 8 年以上產品設計經驗。現在在 WOTA 負責官網、LINE LIFF 與銀行白牌（掛銀行品牌的訂房網站）的旅宿訂房產品。工作範圍從分析使用者行為、定義需求、規劃資訊架構，到設計介面、和工程師一起實作與驗收。研究、寫規格、設計和前端開發時，都會用 AI 協助。更早之前，我做了 8 年多的品牌與視覺設計。',
+    en: "I'm Kenny Cheng, a product designer with 8+ years of experience. At WOTA, I work on hotel booking products across our website, a booking site inside LINE, and white-label sites for bank partners. My work spans user behavior analysis, requirements, and information architecture, as well as interface design, implementation, and QA with engineers. AI is part of how I research, write specs, design, and build. Before product design, I spent more than eight years in brand and visual design.",
   },
   photo: { 'zh-tw': '鄭偉助 Kenny Cheng 的照片', en: 'Portrait of Kenny Cheng' },
   facts: [
@@ -31,7 +31,7 @@ const t = {
     title: { 'zh-tw': '合作過的人怎麼說', en: "What people I've worked with say" },
     note: { 'zh-tw': '', en: 'Translated from Chinese.' },
   },
-  early: { 'zh-tw': '這段時期的作品', en: 'Selected work from this period' },
+  early: { 'zh-tw': '這段時期負責 UI/UX 的作品', en: 'Products I designed the UI/UX for in this period' },
   working: { eyebrow: 'Collaboration', title: { 'zh-tw': '和我合作', en: 'Working with me' } },
   legacyTitle: { 'zh-tw': '品牌與視覺設計基礎', en: 'A foundation in brand and visual design' },
 };
@@ -75,6 +75,15 @@ const title = t.title[lang].split('\n');
         {testimonials.map((q) => (
           <figure class="quote"><blockquote>{q.quote[lang]}</blockquote><figcaption>{q.by[lang]}</figcaption></figure>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="impact" aria-labelledby="impact-title">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">Impact</div><h2 id="impact-title">{impact.title[lang]}</h2></div><p>{impact.lead[lang]}</p></div>
+      <div class="impact-grid">
+        {impact.groups.map((g) => <div class="impact-card"><h3>{g.title[lang]}</h3><ul>{g.items.map((it) => <li>{it[lang]}</li>)}</ul></div>)}
       </div>
     </div>
   </section>

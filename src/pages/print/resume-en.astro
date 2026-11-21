@@ -6,24 +6,24 @@ const portfolioLabel = c.portfolio.replace(/^https?:\/\//, '');
 const linkedinLabel = c.linkedin.replace(/^https?:\/\/(www\.)?/, '');
 
 const wota = [
-  'Led product planning and end-to-end UI/UX for a full website redesign (v3.0): 13 storefront modules and 11 shared component libraries; ran UAT to close 30 issues; paired a serif with a medium-weight sans for a luxury feel and improved hotel search.',
-  'Owned UI design, product management, and QA for hotel booking inside LINE (LIFF): public launch in May 2026, full release in July with card-based membership purchase and English; about 238 Figma screens and design system v1.3.',
-  'Turned Journey Rewards loyalty rules into PRD v2.2, 5 IA documents, and 4 linked prototypes: defined 18 redemption states, finalized 28 upgrade rules, and caught 4 member benefits silently changed in a new proposal.',
-  'Led four-language Figma i18n governance: synced 3,548 website strings into Traditional Chinese, Simplified Chinese, English, and Japanese variables; personally reviewed 138 decisions, with zero mismatches.',
-  'Initiated website behavior analysis, cross-checking session recordings, Mixpanel, and event definitions: found the login-wall bottleneck (9% of logged-out visitors vs. 50% of members reach the booking form) and built a 41-item evidence-backed backlog with weekly automated tracking.',
-  'Built a UI Spec tool with Claude Code in the existing Vue / Quasar codebase: 129 state screens viewable without login, five safeguards that keep it out of production, and 2 bugs affecting live members caught during verification.',
+  'Led planning and interface design for the v3.0 website redesign: built 11 shared component libraries and ran pre-launch UAT, with all 30 issues fixed before launch; reworked type and layout for a luxury brand and surfaced deals in search. Within 30 days of launch, hotel-page booking rate rose above 5% (from 1–5%) and UI bugs fell from 10–30 to under 10.',
+  'Owned interface design, product management, and QA for hotel booking inside LINE (LIFF): launched in May 2026, then added credit-card payment for memberships and English in July. Wrote the design system guide that lets the website and LINE share one set of components.',
+  'Pulled Journey Rewards earning, tier, and redemption rules into a PRD and 4 clickable prototypes: defined 18 redemption states and laid out options for each of 28 tier rules so the team could decide. Compared a new proposal against current rules and found 4 places where it would change existing member benefits.',
+  'Led copy management across four languages: brought 3,548 pieces of website copy into Figma in Traditional Chinese, Simplified Chinese, English, and Japanese; personally reviewed 138 judgment calls; a check of bound Figma text against the live site found zero mismatches.',
+  'Initiated website behavior analysis, cross-checking session recordings with analytics: found that login is where bookings stall. After "Select rate," only 9% of logged-out visitors reached the booking form, versus 50% of members. Turned the findings into a 41-item, evidence-backed backlog with weekly automated tracking.',
+  'Built an internal review tool (UI Spec) in the existing codebase with AI (Claude Code): design, PM, and QA can see 129 member screen states without switching accounts, cutting a check from about 30 minutes to under a minute (estimated); it runs only in development. Verification surfaced 2 bugs already affecting members.',
 ];
 
 const fusion = [
-  'Owned product UI systems, UX flows, sitemaps, wireframes, and interactive prototypes.',
-  'Designed responsive web interfaces and partnered with engineers on interactive frontend pages and UX improvements.',
+  'Owned product UI systems, UX flows, sitemaps, wireframes, and prototypes; designed responsive web interfaces with engineers.',
+  'Designed the full product UI/UX for Doweing, a map-based travel journal and community app, which shipped.',
 ];
 
 const skills = [
-  ['Product', 'PRD · requirements · information architecture · user flows · edge cases · UAT · Jira'],
-  ['Design', 'Figma · design systems · design tokens · prototyping · i18n · WCAG'],
-  ['Frontend & AI', 'HTML / CSS · Vue / Quasar · Claude Code · ChatGPT · Codex'],
-  ['Research & data', 'User interviews · usability testing · Mixpanel · Clarity · GTM'],
+  ['Product', 'Requirements, user flows, edge cases, launch QA', 'PRD · IA · UAT · Jira'],
+  ['Design', 'Design systems, prototyping, localization, accessibility', 'Figma · design tokens · i18n · WCAG'],
+  ['AI & frontend', 'AI-assisted development · HTML / CSS · Vue / Quasar', 'Claude Code · ChatGPT · Codex'],
+  ['Research', 'User interviews, usability testing, behavior analysis', 'Mixpanel · Clarity · GTM'],
 ];
 ---
 <!doctype html>
@@ -31,7 +31,7 @@ const skills = [
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<title>Kenny Cheng · Product Designer Resume</title>
+<title>Kenny Cheng · Senior Product Designer Resume</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -68,6 +68,7 @@ const skills = [
   .skills dd { margin: 0; color: var(--ink-2); }
   .side p { margin: 0 0 1.3mm; font-size: 8.7pt; line-height: 1.5; color: var(--ink-2); }
   .side p b { color: var(--ink); font-weight: 600; }
+  .skills dd .tools { color: var(--ink-3); }
   footer { margin-top: auto; padding-top: 3mm; border-top: .6pt solid var(--line); font-size: 8pt; color: var(--ink-3); display: flex; justify-content: space-between; }
 </style>
 </head>
@@ -76,17 +77,17 @@ const skills = [
   <header>
     <div>
       <h1>Kenny Cheng</h1>
-      <div class="role">Product Designer | AI-Integrated Product Design</div>
+      <div class="role">Senior Product Designer</div>
     </div>
     <div class="contact">
       <div><a href={`mailto:${c.email}`}>{c.email}</a>{c.phoneIntl && <> · {c.phoneIntl}</>}</div>
       <div><a href={c.portfolio}>{portfolioLabel}</a></div>
       <div><a href={c.linkedin}>{linkedinLabel}</a></div>
-      <div>New Taipei City · Taipei · Remote or hybrid</div>
+      <div>New Taipei City · Taipei, Taiwan (GMT+8) · Remote or hybrid</div>
     </div>
   </header>
 
-  <p class="summary">Product designer with 8 years of experience and a foundation in brand and visual design. I combine product planning, UI/UX, and frontend implementation. At a luxury hotel booking platform, I own requirements, interface design, and delivery across the website, a booking site inside LINE, and white-label sites. I use AI across research, specs, design, and frontend work, and keep direction and sign-off myself.</p>
+  <p class="summary">Product designer with 8+ years in digital products, after 8+ years in brand design. At a luxury hotel booking platform, I take the website, LINE booking (LIFF), and white-label sites for bank partners from requirements through launch QA, aligning rules with product and engineering. AI speeds up research, docs, and code; I make the calls and sign off.</p>
 
   <h2>Experience</h2>
   <div class="job">
@@ -108,19 +109,19 @@ const skills = [
   <div class="bottom">
     <div>
       <h2>Skills</h2>
-      <dl class="skills">{skills.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}</dl>
+      <dl class="skills">{skills.map(([k, plain, tools]) => <><dt>{k}</dt><dd>{plain}<br><span class="tools">{tools}</span></dd></>)}</dl>
     </div>
     <div class="side">
       <h2>Education and languages</h2>
       <p><b>Tunghai University</b> BFA, Fine Arts</p>
-      <p><b>Languages</b> Mandarin (native) · Taiwanese<br>English (intermediate reading and writing)</p>
+      <p><b>Languages</b> Mandarin (native) · Taiwanese Hokkien (intermediate)<br>English (intermediate reading and writing)</p>
       <h2>Portfolio</h2>
-      <p>Selected case studies: cross-platform booking, member rewards, UI Spec tool, behavior analysis</p>
+      <p>Featured: booking platform, behavior analysis<br>Also: member rewards, UI Spec tool</p>
       <p><a href={c.portfolio}>{portfolioLabel}</a></p>
     </div>
   </div>
 
-  <footer><span>Kenny Cheng · Product Designer</span><span>Nov 2026</span></footer>
+  <footer><span>Kenny Cheng · Senior Product Designer</span><span>Nov 2026</span></footer>
 </div>
 </body>
 </html>

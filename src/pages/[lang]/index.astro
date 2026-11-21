@@ -17,20 +17,19 @@ export function getStaticPaths() {
 }
 
 const lang = Astro.params.lang as Lang;
-// 首頁預設顯示前 5 個案例，第 6 個起收在「看更多專案」後面
-const VISIBLE_CASES = 5;
-const extraCases = Math.max(0, cases.length - VISIBLE_CASES);
-const moreLabel = { 'zh-tw': `看更多專案（${extraCases}）`, en: `More case studies (${extraCases})` }[lang];
-const lessLabel = { 'zh-tw': '收合專案', en: 'Show less' }[lang];
+// 代表作固定 Case 01、04，其他案例放在「更多作品」，用精簡卡片呈現
+const FEATURED = ['booking', 'analytics'];
+const featured = FEATURED.map((slug) => cases.find((c) => c.slug === slug)!);
+const others = cases.filter((c) => !FEATURED.includes(c.slug));
 const tx = <V,>(v: V | Record<Lang, V>): V =>
   v && typeof v === 'object' && lang in (v as object) ? (v as Record<Lang, V>)[lang] : (v as V);
 const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc', Design: 'pen', Build: 'code', Validate: 'check' };
 ---
-<Base lang={lang} title={`${profile.nameEn} · Product Designer`} description={profile.heroLead[lang]}>
+<Base lang={lang} title={`${profile.nameEn} · Senior Product Designer`} description={profile.heroLead[lang]}>
   <section class="hero" id="top">
     <div class="wrap hero-grid">
       <div>
-        <div class="eyebrow">{profile.title}</div>
+        <div class="eyebrow">{profile.heroEyebrow}</div>
         <h1>{profile.heroTitle[lang].map((line, i) => (
           <>{i > 0 && lang === 'zh-tw' && i === 2 && <br />}{lang === 'zh-tw' && i === 3 && ' '}{i > 0 && lang === 'en' && <br />}<span class="nw" set:html={line} /></>
         ))}</h1>
@@ -58,8 +57,8 @@ const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc',
         <p>{s.work.lead[lang]}</p>
       </div>
       <div class="cases">
-        {cases.map((c, i) => (
-          <a class="case" href={url(lang, `work/${c.slug}`)} hidden={i >= VISIBLE_CASES} data-extra-case={i >= VISIBLE_CASES ? '' : undefined}>
+        {featured.map((c) => (
+          <a class="case" href={url(lang, `work/${c.slug}`)}>
             <div class="case-media">
               {c.card.kind === 'phones' && (
                 <div class="phones">{c.card.src!.map((src) => <img src={asset(src)} alt="" width="400" height="737" loading="lazy" />)}</div>
@@ -80,11 +79,27 @@ const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc',
           </a>
         ))}
       </div>
-      {extraCases > 0 && (
-        <div class="cases-more">
-          <button type="button" class="btn btn-ghost" aria-expanded="false" data-more-cases data-more={moreLabel} data-less={lessLabel}>{moreLabel}</button>
-        </div>
-      )}
+      <div class="more-head">
+        <h3>{s.work.moreTitle[lang]}</h3>
+        <p>{s.work.moreLead[lang]}</p>
+      </div>
+      <div class="cases-mini">
+        {others.map((c) => (
+          <a class="case-mini" href={url(lang, `work/${c.slug}`)}>
+            <div class="mini-media">
+              {c.card.kind === 'image' && <img src={asset(c.card.src![0])} alt="" loading="lazy" width={imageSizes[c.card.src![0]]?.[0]} height={imageSizes[c.card.src![0]]?.[1]} />}
+              {c.card.kind === 'phones' && <div class="phones">{c.card.src!.map((src) => <img src={asset(src)} alt="" width="400" height="737" loading="lazy" />)}</div>}
+              {c.card.kind === 'tiers' && <Tiers />}
+              {c.card.kind === 'diagram' && <div class="mini-diagram"><Diagram kind={c.card.diagram!} lang={lang} /></div>}
+            </div>
+            <span class="no">CASE {c.no} · {c.period}</span>
+            <h4>{phrases(c.cardTitle[lang]).map((ph) => <span class="ph">{ph}</span>)}</h4>
+            <p>{c.lead[lang]}</p>
+            <div class="chips">{c.chips.map((ch, i) => <span class={i === 0 ? 'chip gold' : 'chip'}>{ch}</span>)}</div>
+            <span class="more">{ui.case.read[lang]}</span>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -160,14 +175,3 @@ const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc',
   </section>
 </Base>
 
-<script>
-  // 展開或收合第 6 個以後的案例
-  const btn = document.querySelector<HTMLButtonElement>('[data-more-cases]');
-  btn?.addEventListener('click', () => {
-    const open = btn.getAttribute('aria-expanded') !== 'true';
-    document.querySelectorAll<HTMLElement>('[data-extra-case]').forEach((el) => { el.hidden = !open; });
-    btn.setAttribute('aria-expanded', String(open));
-    btn.textContent = (open ? btn.dataset.less : btn.dataset.more) ?? '';
-    if (!open) document.getElementById('work-title')?.scrollIntoView({ block: 'start' });
-  });
-</script>

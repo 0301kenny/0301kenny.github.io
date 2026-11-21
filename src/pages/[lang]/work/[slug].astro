@@ -39,6 +39,13 @@ const lines = c.title[lang].split('\n');
         <figcaption>{c.hero.caption[lang]}</figcaption>
       </figure>
     </div>
+    {c.glance && (
+      <section class="glance" aria-label={lang === 'zh-tw' ? '重點摘要' : 'At a glance'}>
+        <div><b>{lang === 'zh-tw' ? '問題' : 'Problem'}</b><p>{c.glance.problem[lang]}</p></div>
+        <div><b>{lang === 'zh-tw' ? '我的決定' : 'What I decided'}</b><p>{c.glance.decision[lang]}</p></div>
+        <div><b>{lang === 'zh-tw' ? '結果' : 'Result'}</b><p>{c.glance.result[lang]}</p></div>
+      </section>
+    )}
   </div>
 
   <div class="filter" role="region" aria-label={ui.case.filterLabel[lang]}>

@@ -77,7 +77,8 @@ const { name } = Astro.props;
 </svg>
 
 <style>
-  .step-art .soft { fill: var(--gold-soft, #E3EDF8); stroke: none; }
+  .step-art .soft { fill: var(--art-soft, var(--gold-soft, #E3EDF8)); stroke: none; }
+  .step-art * { vector-effect: non-scaling-stroke; }
   .step-art .paper { fill: #fff; }
   .step-art .soft-fill { fill: var(--gold-soft, #E3EDF8); }
   .step-art .dot { fill: currentColor; stroke: none; }

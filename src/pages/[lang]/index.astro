@@ -111,7 +111,7 @@ const stepArt: Record<string, StepArtName> = { Discover: 'discover', Define: 'de
         <p>{s.approach.lead[lang]}</p>
       </div>
       <div class="chain-grid">
-        {approach.map((st) => <div class="step"><span class="step-icon"><StepArt name={stepArt[st.title]} /></span><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p>{st.body[lang]}</p></div>)}
+        {approach.map((st) => <div class="step"><span class="step-band"><StepArt name={stepArt[st.title]} /></span><div class="step-body"><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p>{st.body[lang]}</p></div></div>)}
       </div>
       <div class="ai-bar"><span><b>AI-Integrated Workflow</b>　{s.approach.barLeft[lang]}</span><span>{s.approach.barRight[lang]}</span></div>
     </div>

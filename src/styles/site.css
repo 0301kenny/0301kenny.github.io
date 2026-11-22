@@ -85,9 +85,11 @@
   /* value chain */
   .chain { background: var(--surface); }
   .chain-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-  .step { position: relative; background: #fff; border-radius: var(--radius); padding: 22px 20px; border: 1px solid var(--line); }
-  .step-icon { position: absolute; top: 14px; right: 14px; display: flex; color: var(--gold); }
-  .step .step-icon ~ h3 { margin-top: 22px; }
+  .step { position: relative; display: flex; flex-direction: column; background: #fff; border-radius: var(--radius); border: 1px solid var(--line); overflow: hidden; }
+  .step-band { display: flex; align-items: center; justify-content: center; height: 112px; background: #DCE7F5; color: var(--gold); --art-soft: #fff; }
+  .step-band .step-art { width: 88px; height: auto; }
+  .step-body { padding: 18px 20px 22px; }
+  @media (max-width: 600px) { .step-band { height: 88px; } .step-band .step-art { width: 72px; } }
   .btn .icon { flex: none; }
   @media (max-width: 960px) { .chain-grid .step:last-child { grid-column: 1 / -1; } }
   @media (max-width: 600px) { .chain-grid .step:last-child { grid-column: auto; } }

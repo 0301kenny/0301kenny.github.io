@@ -11,7 +11,7 @@ export const profile = {
   },
   heroLead: {
     'zh-tw': '我有 8 年以上的產品設計經驗，在高端旅宿訂房平台負責官網與 LINE 訂房的需求規劃、介面設計與上線驗收。研究、規格和前端實作都用 AI 加快，方向與驗收由我決定。',
-    en: 'Product designer with 8+ years of experience. At a luxury hotel booking platform, I own requirements, interface design, and launch QA for the website and for booking inside LINE. I use AI to speed up research, specs, and frontend work, and I set the direction and sign off on the results.',
+    en: 'Product designer with 8+ years of experience. At a luxury hotel booking platform, I own requirements, UI design, and launch QA for the website and LINE booking. I use AI to speed up research, specs, and frontend work, and I set the direction and sign off on the results.',
   } as T,
   ctaWork: { 'zh-tw': '看代表作品 ↓', en: 'See selected work ↓' } as T,
   ctaResume: { 'zh-tw': '下載一頁履歷', en: 'Download resume' } as T,
@@ -55,7 +55,7 @@ export const sections = {
       en: 'I see products through from definition to design, build, and QA. AI handles gathering data, organizing content, and writing code. I set the direction, make the trade-offs, give the final sign-off, and double-check what AI concludes.',
     } as T,
     barLeft: { 'zh-tw': 'ChatGPT · Claude Code · Codex · Figma AI，貫穿全流程', en: 'ChatGPT · Claude Code · Codex · Figma AI, used end to end' } as T,
-    barRight: { 'zh-tw': 'Human-led：需求取捨、設計品質與交付責任', en: 'Human-led: scope decisions, design quality, and responsibility for delivery' } as T,
+    barRight: { 'zh-tw': 'Human-led：需求取捨、設計品質與交付責任', en: 'Human-led: scope trade-offs, design quality, and ownership of delivery' } as T,
   },
   legacy: {
     eyebrow: 'Foundation · 2009 — 2018',
@@ -68,7 +68,7 @@ export const sections = {
   },
   experience: {
     eyebrow: 'Experience',
-    title: { 'zh-tw': '經歷', en: 'Career timeline' } as T,
+    title: { 'zh-tw': '經歷', en: 'Experience' } as T,
     lead: {
       'zh-tw': '2018 年起專注於產品設計，至今 8 年；更早之前做了 8 年多的品牌與視覺設計。東海大學美術系畢業。',
       en: "I've focused on product design since 2018, after more than eight years in brand and visual design. I hold a BFA from Tunghai University.",
@@ -79,7 +79,7 @@ export const sections = {
     title: { 'zh-tw': '履歷與作品集', en: 'Resume and portfolio' } as T,
     lead: {
       'zh-tw': '一頁履歷與 5 頁作品集摘要，方便面試前快速瀏覽，或轉給團隊一起看。',
-      en: 'A one-page resume and a portfolio summary to skim before an interview or share with your team.',
+      en: 'A one-page resume and a five-page portfolio summary to skim before an interview or share with your team.',
     } as T,
     contactTitle: { 'zh-tw': '一起聊聊產品？', en: "Let's talk product" } as T,
     pending: { 'zh-tw': '製作中', en: 'Coming soon' } as T,
@@ -158,7 +158,7 @@ export const impact = {
       title: { 'zh-tw': '成為團隊共用的做法', en: 'Practices the team adopted' },
       items: [
         { 'zh-tw': '四語系文案作業流程：新文案都照這個流程加進繁中、簡中、英、日四個版本。', en: 'A four-language copy workflow: new copy goes into Traditional Chinese, Simplified Chinese, English, and Japanese through the same steps.' },
-        { 'zh-tw': '設計系統手冊 v1.3：之後的 LIFF 頁面和 AI 實作，都依照這份手冊。', en: 'Design system handbook v1.3: later LIFF pages and AI-built code follow it.' },
+        { 'zh-tw': '設計系統手冊 v1.3：之後的 LIFF 頁面和 AI 實作，都依照這份手冊。', en: 'Design system guidelines v1.3: later LIFF pages and AI-built code follow them.' },
         { 'zh-tw': '逐頁進度表與驗收流程：每一頁都走「初版、定稿、Jira、切版、串接、驗收」同一條路。', en: 'A page-by-page tracker and QA flow: every page goes through draft, final, Jira, build, integration, and QA.' },
       ],
     },
@@ -166,7 +166,7 @@ export const impact = {
       title: { 'zh-tw': '我提出、團隊採納的決定', en: 'Decisions I proposed that the team adopted' },
       items: [
         { 'zh-tw': 'LIFF 的文案以官網用語為準，只有 LIFF 專屬功能才自訂，774 條文案依此統一。', en: 'LIFF copy follows the website\'s wording, with custom copy only for LIFF-only features; 774 copy keys were aligned this way.' },
-        { 'zh-tw': '用行為分析的證據，把「登入後接續訂單」排為改版的第一優先。', en: 'Using evidence from the behavior analysis, I made "resume booking after login" the top redesign priority.' },
+        { 'zh-tw': '用行為分析的證據，把「登入後接續訂單」排為改版的第一優先。', en: 'I used evidence from the behavior analysis to get "resume booking after login" ranked as the top redesign priority.' },
       ],
     },
   ],
@@ -174,7 +174,7 @@ export const impact = {
 
 // 和我合作：工作習慣（本人確認的草稿）
 export const workingWithMe = [
-  { title: { 'zh-tw': '我會把大問題切小，一步一步推進', en: 'I break big problems into small steps' }, body: { 'zh-tw': '工作會切成看得完、驗得了的小步，確認一步再走下一步；也會主動追進度，把待決的問題往前推。例如 Case 03 用 AI 實作時，我把每批工作限制在 30 到 90 秒、最多改 5 個檔案，每批都驗過才繼續。如果你需要更多時間想，直接說，我會調整步調。', en: "I break work into pieces small enough to review and test, and check each one before moving on. I also follow up so open questions don't hold things up. In Case 03, for example, I capped each batch of AI work at 30 to 90 seconds and at most 5 files, and checked each batch before moving on. If you need more time to think something over, just say so and I'll adjust my pace." } },
+  { title: { 'zh-tw': '我會把大問題切小，一步一步推進', en: 'I break big problems into small steps' }, body: { 'zh-tw': '工作會切成看得完、驗得了的小步，確認一步再走下一步；也會主動追進度，把待決的問題往前推。例如 Case 03 用 AI 實作時，我把每批工作限制在 30 到 90 秒、最多改 5 個檔案，每批都驗過才繼續。如果你需要更多時間想，直接說，我會調整步調。', en: "I break work into pieces small enough to review and test, and check each one before moving on. I also follow up so open questions don't hold things up. In Case 03, for example, I capped each batch of AI work at 30 to 90 seconds and at most 5 files, and checked each batch before starting the next. If you need more time to think something over, just say so and I'll adjust my pace." } },
   { title: { 'zh-tw': '討論前，我會先把情況想過一輪', en: 'I think it through before we meet' }, body: { 'zh-tw': '會先列出可能的情況、例外和取捨，帶著選項來討論，讓會議花在做決定，而不是重新整理問題。例如 Case 02 的 28 題升等規則，我逐題列出選項，讓團隊直接定案。', en: 'I map out the possible scenarios, edge cases, and trade-offs first, then bring options, so we spend the meeting making decisions, not restating the problem. For the 28 upgrade rules in Case 02, I laid out options for each one so the team could settle them directly.' } },
   { title: { 'zh-tw': '我會先弄懂對方在意什麼、卡在哪裡', en: "I start by understanding what people care about and where they're stuck" }, body: { 'zh-tw': '對使用者和同事都是這樣。在 Case 05 的社群研究裡，我擔任活躍用戶組的主訪，工作坊同事回饋我能很快和受訪者建立情感上的認同，讓氣氛和緩下來。', en: "That goes for users and teammates alike. In the community research in Case 05, I led interviews for the team studying active members, and my workshop teammates said I quickly built rapport and put participants at ease." } },
   { title: { 'zh-tw': '有不同意見，我會直接說，也歡迎你直接說', en: "If I disagree, I'll tell you, and I hope you'll do the same" }, body: { 'zh-tw': '我對事不對人。比起事後才發現誤會，更希望早點把分歧講開。', en: "It's about the work, not the person. I'd rather surface a disagreement early than discover a misunderstanding later." } },

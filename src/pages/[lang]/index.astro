@@ -3,7 +3,8 @@ import Base from '../../layouts/Base.astro';
 import Tiers from '../../components/Tiers.astro';
 import Todo from '../../components/Todo.astro';
 import Diagram from '../../components/Diagram.astro';
-import Icon, { type IconName } from '../../components/Icon.astro';
+import Icon from '../../components/Icon.astro';
+import StepArt, { type StepArtName } from '../../components/StepArt.astro';
 import '../../styles/site.css';
 import { langs, ui, url, asset, type Lang } from '../../i18n';
 import { profile, sections as s, approach, legacy, timeline, downloads } from '../../data/profile';
@@ -23,7 +24,7 @@ const featured = FEATURED.map((slug) => cases.find((c) => c.slug === slug)!);
 const others = cases.filter((c) => !FEATURED.includes(c.slug));
 const tx = <V,>(v: V | Record<Lang, V>): V =>
   v && typeof v === 'object' && lang in (v as object) ? (v as Record<Lang, V>)[lang] : (v as V);
-const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc', Design: 'pen', Build: 'code', Validate: 'check' };
+const stepArt: Record<string, StepArtName> = { Discover: 'discover', Define: 'define', Design: 'design', Build: 'build', Validate: 'validate' };
 ---
 <Base lang={lang} title={`${profile.nameEn} · Senior Product Designer`} description={profile.heroLead[lang]}>
   <section class="hero" id="top">
@@ -110,7 +111,7 @@ const stepIcons: Record<string, IconName> = { Discover: 'search', Define: 'doc',
         <p>{s.approach.lead[lang]}</p>
       </div>
       <div class="chain-grid">
-        {approach.map((st) => <div class="step"><span class="step-icon"><Icon name={stepIcons[st.title]} size={26} filled /></span><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p>{st.body[lang]}</p></div>)}
+        {approach.map((st) => <div class="step"><span class="step-icon"><StepArt name={stepArt[st.title]} /></span><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p>{st.body[lang]}</p></div>)}
       </div>
       <div class="ai-bar"><span><b>AI-Integrated Workflow</b>　{s.approach.barLeft[lang]}</span><span>{s.approach.barRight[lang]}</span></div>
     </div>

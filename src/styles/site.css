@@ -86,7 +86,7 @@
   .chain { background: var(--surface); }
   .chain-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
   .step { position: relative; background: #fff; border-radius: var(--radius); padding: 22px 20px; border: 1px solid var(--line); }
-  .step-icon { position: absolute; top: 18px; right: 18px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; background: #EEF4FB; color: var(--gold); --icon-cut: #EEF4FB; }
+  .step-icon { position: absolute; top: 14px; right: 14px; display: flex; color: var(--gold); }
   .step .step-icon ~ h3 { margin-top: 22px; }
   .btn .icon { flex: none; }
   @media (max-width: 960px) { .chain-grid .step:last-child { grid-column: 1 / -1; } }

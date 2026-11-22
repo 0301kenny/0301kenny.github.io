@@ -7,7 +7,7 @@ import Icon from '../../components/Icon.astro';
 import StepArt, { type StepArtName } from '../../components/StepArt.astro';
 import '../../styles/site.css';
 import { langs, ui, url, asset, type Lang } from '../../i18n';
-import { profile, sections as s, approach, legacy, timeline, downloads } from '../../data/profile';
+import { profile, sections as s, approach, legacy, timeline, downloads, impact } from '../../data/profile';
 import { cases } from '../../data/cases';
 import { phrases, words } from '../../utils/phrases';
 import { unitHtml } from '../../utils/numUnit';
@@ -22,6 +22,10 @@ const lang = Astro.params.lang as Lang;
 const FEATURED = ['booking', 'analytics'];
 const featured = FEATURED.map((slug) => cases.find((c) => c.slug === slug)!);
 const others = cases.filter((c) => !FEATURED.includes(c.slug));
+const otherGroups = [
+  { title: { 'zh-tw': 'WOTA 案例', en: 'More from WOTA' }, items: others.filter((c) => !c.side) },
+  { title: { 'zh-tw': '側邊專案：研究方法與 AI 工具實驗', en: 'Side projects: research methods and AI tools' }, items: others.filter((c) => c.side) },
+];
 const tx = <V,>(v: V | Record<Lang, V>): V =>
   v && typeof v === 'object' && lang in (v as object) ? (v as Record<Lang, V>)[lang] : (v as V);
 const stepArt: Record<string, StepArtName> = { Discover: 'discover', Define: 'define', Design: 'design', Build: 'build', Validate: 'validate' };
@@ -84,8 +88,11 @@ const stepArt: Record<string, StepArtName> = { Discover: 'discover', Define: 'de
         <h3>{s.work.moreTitle[lang]}</h3>
         <p>{s.work.moreLead[lang]}</p>
       </div>
-      <div class="cases-mini">
-        {others.map((c) => (
+      {otherGroups.map((g) => (
+        <div class="mini-group">
+          <h4 class="mini-group-title">{g.title[lang]}</h4>
+          <div class="cases-mini">
+            {g.items.map((c) => (
           <a class="case-mini" href={url(lang, `work/${c.slug}`)}>
             <div class="mini-media">
               {c.card.kind === 'image' && <img src={asset(c.card.src![0])} alt="" loading="lazy" width={imageSizes[c.card.src![0]]?.[0]} height={imageSizes[c.card.src![0]]?.[1]} />}
@@ -94,13 +101,16 @@ const stepArt: Record<string, StepArtName> = { Discover: 'discover', Define: 'de
               {c.card.kind === 'diagram' && <div class="mini-diagram"><Diagram kind={c.card.diagram!} lang={lang} /></div>}
             </div>
             <span class="no">CASE {c.no} · {c.period}</span>
+            {c.side && <span class="side-note">{c.side[lang]}</span>}
             <h4>{phrases(c.cardTitle[lang]).map((ph) => <span class="ph">{ph}</span>)}</h4>
             <p>{c.lead[lang]}</p>
             <div class="chips">{c.chips.map((ch, i) => <span class={i === 0 ? 'chip gold' : 'chip'}>{ch}</span>)}</div>
             <span class="more">{ui.case.read[lang]}</span>
           </a>
         ))}
-      </div>
+          </div>
+        </div>
+      ))}
     </div>
   </section>
 
@@ -111,9 +121,22 @@ const stepArt: Record<string, StepArtName> = { Discover: 'discover', Define: 'de
         <p>{s.approach.lead[lang]}</p>
       </div>
       <div class="chain-grid">
-        {approach.map((st) => <div class="step"><span class="step-band"><StepArt name={stepArt[st.title]} /></span><div class="step-body"><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p>{st.body[lang]}</p></div></div>)}
+        {approach.map((st) => <div class="step"><span class="step-band"><StepArt name={stepArt[st.title]} /></span><div class="step-body"><span class="n">{st.n}</span><h3>{st.title}</h3><span class="role">{st.role}</span><p class="split"><span class="who">AI</span><span>{st.ai[lang]}</span></p><p class="split"><span class="who me">{lang === 'zh-tw' ? '我' : 'Me'}</span><span>{st.me[lang]}</span></p></div></div>)}
       </div>
       <div class="ai-bar"><span><b>AI-Integrated Workflow</b>　{s.approach.barLeft[lang]}</span><span>{s.approach.barRight[lang]}</span></div>
+    </div>
+  </section>
+
+  <section class="impact-home" id="impact" aria-labelledby="impact-title">
+    <div class="wrap">
+      <div class="section-head">
+        <div><div class="eyebrow">Impact</div><h2 id="impact-title">{impact.title[lang]}</h2></div>
+        <p>{impact.lead[lang]}</p>
+      </div>
+      <div class="impact-row">
+        {impact.groups[0].items.map((it) => { const [k, ...rest] = it[lang].split(lang === 'zh-tw' ? '：' : ': '); return <div class="impact-item"><b>{k}</b><p>{rest.join(lang === 'zh-tw' ? '：' : ': ')}</p></div>; })}
+      </div>
+      <a class="impact-link" href={url(lang, 'about') + '#impact'}>{lang === 'zh-tw' ? '在「關於我」看我推動的跨部門決定 →' : 'See the cross-team decisions I drove on the About page →'}</a>
     </div>
   </section>
 

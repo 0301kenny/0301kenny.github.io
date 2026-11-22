@@ -58,6 +58,13 @@ const { blocks, lang } = Astro.props;
       return <div class="flow">{bk.items.map((it, i) => <>{i > 0 && <i aria-hidden="true">→</i>}<span>{it[lang]}</span></>)}</div>;
     case 'versions':
       return <ol class="versions">{bk.items.map(([v, text]) => <li><b>{typeof v === 'string' ? v : v[lang]}</b>{text[lang]}</li>)}</ol>;
+    case 'more':
+      return (
+        <details class="more-detail">
+          <summary>{bk.label[lang]}</summary>
+          <div class="more-body"><Astro.self blocks={bk.blocks} lang={lang} /></div>
+        </details>
+      );
     case 'compare':
       return (
         <div class="compare">

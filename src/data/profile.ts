@@ -10,15 +10,15 @@ export const profile = {
     en: ['Complex booking and loyalty rules,', 'made <em>easy to use</em>,', 'from requirements to launch.'],
   },
   heroLead: {
-    'zh-tw': '我有 8 年以上的產品設計經驗，在高端旅宿訂房平台負責官網與 LINE 訂房的需求規劃、介面設計與上線驗收。研究、規格和前端實作都用 AI 加快，方向與驗收由我決定。',
-    en: 'Product designer with 8+ years of experience. At a luxury hotel booking platform, I own requirements, UI design, and launch QA for the website and LINE booking. I use AI to speed up research, specs, and frontend work, and I set the direction and sign off on the results.',
+    'zh-tw': '我有 8 年以上的產品設計經驗，在高端旅宿訂房平台負責官網與 LINE 訂房的需求規劃、介面設計與上線驗收。研究、規格和前端實作都用 AI 加快，方向與驗收由我決定。上線之後，我會回頭用數據和錄影，檢查自己交付的東西。',
+    en: 'Product designer with 8+ years of experience. At a luxury hotel booking platform, I own requirements, UI design, and launch QA for the website and LINE booking. I use AI to speed up research, specs, and frontend work, and I set the direction and sign off on the results. After launch, I go back to the data and session recordings to check what I shipped.',
   } as T,
   ctaWork: { 'zh-tw': '看代表作品 ↓', en: 'See selected work ↓' } as T,
   ctaResume: { 'zh-tw': '下載一頁履歷', en: 'Download resume' } as T,
   stats: [
     { value: '8+', label: { 'zh-tw': '年產品設計經驗', en: 'years in product design' } },
     { value: '2', label: { 'zh-tw': '個訂房通路，由我主導設計到上線', en: 'booking channels I led from design to launch' } },
-    { value: '5%+', label: { 'zh-tw': '官網 3.0 上線後，酒店頁的完成訂單比例（原 1～5%）', en: 'hotel-page booking rate after the v3.0 launch (was 1–5%)' } },
+    { value: '10%+', label: { 'zh-tw': '官網 3.0 上線後，酒店頁的完成訂單比例（原 1～5%）', en: 'hotel-page booking rate after the v3.0 launch (was 1–5%)' } },
   ],
   heroTag: { 'zh-tw': '官網、LINE、銀行合作網站', en: 'Website · LINE · bank partner sites' } as T,
   contact: {
@@ -87,11 +87,11 @@ export const sections = {
 };
 
 export const approach = [
-  { n: '01', title: 'Discover', role: 'Research', body: { 'zh-tw': '看使用者行為錄影、交叉比對數據，找出真正要解決的問題。', en: 'Review session recordings and cross-check them against the data to find the problem worth solving.' } },
-  { n: '02', title: 'Define', role: 'PM', body: { 'zh-tw': '釐清商業目標與規則，寫成 PRD、User Story 與例外情境。', en: 'Pin down business goals and rules, then write them up as PRDs, user stories, and edge cases.' } },
-  { n: '03', title: 'Design', role: 'UI / UX', body: { 'zh-tw': '資訊架構、流程與介面設計，建立共用元件與顏色、字級設定。', en: 'Shape the IA, flows, and UI, then build a shared component set with common color and type settings.' } },
-  { n: '04', title: 'Build', role: 'Frontend', body: { 'zh-tw': 'HTML/CSS 與 Vue 實作，用 Claude Code 把設計直接做進專案。', en: 'Build in HTML/CSS and Vue, using Claude Code to put designs straight into the codebase.' } },
-  { n: '05', title: 'Validate', role: 'QA', body: { 'zh-tw': 'UI QA、跨平台與多語系驗收，追蹤問題直到上線。', en: 'Run UI QA across platforms and languages, and track issues through launch.' } },
+  { n: '01', title: 'Discover', role: 'Research', ai: { 'zh-tw': '擷取數據、整理錄影標註與統計', en: 'Pulls data, tags recordings, and runs counts' }, me: { 'zh-tw': '定義要回答的問題，看錄影推翻或修正結論', en: 'Defines the questions, and checks recordings to overturn or revise findings' } },
+  { n: '02', title: 'Define', role: 'PM', ai: { 'zh-tw': '整理規則、比對各版文件、產出 PRD 初稿', en: 'Organizes rules, diffs versions, and drafts the PRD' }, me: { 'zh-tw': '判斷規則衝突，決定以哪份為準和交付範圍', en: 'Resolves conflicts, and picks the source of truth and the scope' } },
+  { n: '03', title: 'Design', role: 'UI / UX', ai: { 'zh-tw': '比對新設計稿與現行畫面的差異', en: 'Diffs new designs against live screens' }, me: { 'zh-tw': '規劃資訊架構、流程與介面，建立共用元件', en: 'Shapes the IA, flows, and UI, and builds shared components' } },
+  { n: '04', title: 'Build', role: 'Frontend', ai: { 'zh-tw': '用 Claude Code 寫前端程式', en: 'Writes frontend code with Claude Code' }, me: { 'zh-tw': '審查程式與畫面，要求符合既有規範', en: 'Reviews code and screens against our standards' } },
+  { n: '05', title: 'Validate', role: 'QA', ai: { 'zh-tw': '整理測試案例和回報的問題', en: 'Compiles test cases and reported issues' }, me: { 'zh-tw': '實際操作驗收，決定優先順序與能否上線', en: 'Runs hands-on QA, sets priorities, and makes the go/no-go call' } },
 ] as const;
 
 export const legacy = [
@@ -182,7 +182,6 @@ export const workingWithMe = [
 
 export const downloads = [
   { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': '中文履歷', en: 'Resume (Chinese)' }, desc: { 'zh-tw': '產品設計經歷、代表成果與核心能力', en: 'Product design experience, key results, and core skills' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_zh.pdf', primary: true },
-  { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': 'PM 版履歷', en: 'PM resume (Chinese)' }, desc: { 'zh-tw': '著重需求定義、規格撰寫與交付驗收', en: 'Focuses on requirements, specs, and delivery QA' }, file: 'files/KennyCheng_ProductManager_Resume_2026_zh.pdf' },
   { ext: { 'zh-tw': 'PDF · 1 頁', en: 'PDF · 1 page' }, title: { 'zh-tw': 'English Resume', en: 'English Resume' }, desc: { 'zh-tw': '英文版履歷', en: 'Product design experience, key results, and core skills' }, file: 'files/KennyCheng_ProductDesigner_Resume_2026_en.pdf' },
   { ext: { 'zh-tw': 'PDF · 5 頁', en: 'PDF · 5 pages' }, title: { 'zh-tw': '英文作品集摘要', en: 'Portfolio summary' }, desc: { 'zh-tw': '作品集摘要的英文版', en: 'Key decisions and outcomes from four case studies, one page each' }, file: 'files/KennyCheng_Portfolio_Summary_2026_en.pdf' },
   { ext: { 'zh-tw': 'PDF · 5 頁', en: 'PDF · 5 pages' }, title: { 'zh-tw': '作品集摘要', en: 'Portfolio summary (Chinese)' }, desc: { 'zh-tw': '四個案例的關鍵決策與成果，一案一頁', en: 'Key decisions and outcomes from four case studies, one page each' }, file: 'files/KennyCheng_Portfolio_Summary_2026_zh.pdf' },

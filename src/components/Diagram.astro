@@ -55,6 +55,10 @@ const iaCols = [
   { title: t('會員中心', 'Member center'), items: zh ? ['會籍總覽', '酒店訂單', '一般訂單', '個人資料', '我的收藏'] : ['Membership', 'Hotel bookings', 'Other orders', 'Profile', 'Saved'] },
   { title: t('標準頁', 'Browse pages'), items: zh ? ['集團', '品牌', '國家', '城市'] : ['Groups', 'Brands', 'Countries', 'Cities'] },
 ];
+const resumeSteps = [
+  [t('選擇價格', 'Select rate'), t('要求登入', 'Login prompt'), t('登入成功', 'Logged in'), t('回不到原本表單', 'Form is lost')],
+  [t('選擇價格', 'Select rate'), t('要求登入', 'Login prompt'), t('登入成功', 'Logged in'), t('回到原本表單', 'Back to the form')],
+];
 const loopSteps = [t('打開酒店頁', 'Open hotel'), t('載入逾時', 'Timeout'), t('顯示查無酒店', 'Not found'), t('按上一頁', 'Back')];
 const latency = [
   { title: t('95% 段落的草稿延遲', 'Draft delay at the 95th percentile'), rows: [[t('修正前', 'Before'), 6.7], [t('修正後', 'After'), 3.2]] },
@@ -318,6 +322,25 @@ const pct = [
     </svg>
   )}
 
+  {kind === 'resume' && (
+    <svg viewBox="0 0 480 236" role="img" aria-label={t('登入後接續訂單：現在是選擇價格、要求登入、登入成功後回不到原本的表單；改版後登入成功會直接帶回原本的訂單表單', 'Resume booking after login: today, Select rate leads to a login prompt and, after logging in, guests lose their form; after the fix, logging in takes them straight back to the booking form')}>
+      <defs><marker id="arr-r" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker></defs>
+      {[0, 1].map((row) => (
+        <g>
+          <text x="10" y={row === 0 ? 20 : 124} font-size="13" font-weight="600" fill={row === 0 ? 'var(--d-ink-3)' : 'var(--d-gold)'}>{row === 0 ? t('現在', 'Today') : t('改版後（已排入開發）', 'After the fix (scheduled)')}</text>
+          {resumeSteps[row].map((label, i) => (
+            <g>
+              <rect x={10 + i * 118} y={row === 0 ? 30 : 134} width="108" height="48" rx="10" fill={i === 3 ? (row === 0 ? 'var(--d-surface)' : 'var(--d-ink)') : 'var(--d-bg)'} stroke={i === 3 && row === 1 ? 'none' : 'var(--d-line)'} stroke-dasharray={i === 3 && row === 0 ? '4 3' : undefined} />
+              <text x={64 + i * 118} y={row === 0 ? 59 : 163} text-anchor="middle" font-size={zh ? 14 : 13} font-weight={i === 3 ? '600' : '400'} fill={i === 3 && row === 1 ? '#fff' : 'var(--d-ink)'}>{label}</text>
+              {i < 3 && <line x1={118 + i * 118} y1={row === 0 ? 54 : 158} x2={126 + i * 118} y2={row === 0 ? 54 : 158} stroke="var(--d-ink-3)" stroke-width="1.5" marker-end="url(#arr-r)" />}
+            </g>
+          ))}
+        </g>
+      ))}
+      <text x="418" y="98" text-anchor="middle" font-size="12" fill="var(--d-ink-3)">{t('只有 44% 回到表單', 'Only 44% return')}</text>
+      <text x="240" y="216" text-anchor="middle" font-size="13" fill="var(--d-ink-3)">{t('做法：登入時帶上返回位置，不需要新畫面', 'How: pass the return location through login; no new screens needed')}</text>
+    </svg>
+  )}
   {kind === 'loop' && (
     <svg viewBox="0 0 480 192" role="img" aria-label={t('載入迴圈：打開酒店頁、載入逾時、顯示查無酒店、按上一頁後又回到同一頁', 'The loading loop: open a hotel page, the load times out, it says no hotel found, tapping back returns to the same page')}>
       <defs><marker id="arr-l" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--d-ink-3)" /></marker></defs>

@@ -4,7 +4,7 @@ const b = (zh: string, en: string): T => ({ 'zh-tw': zh, en });
 
 export type Cap = 'pm' | 'ui' | 'fe';
 
-export type DiagramKind = 'channels' | 'rules' | 'funnel' | 'groups' | 'triad' | 'mentor' | 'bars' | 'memflow' | 'correction' | 'plan' | 'latency' | 'ia' | 'loop';
+export type DiagramKind = 'channels' | 'rules' | 'funnel' | 'groups' | 'triad' | 'mentor' | 'bars' | 'memflow' | 'correction' | 'plan' | 'latency' | 'ia' | 'loop' | 'resume';
 
 export type Block =
   | { t: 'p'; text: T; todo?: boolean }
@@ -19,7 +19,8 @@ export type Block =
   | { t: 'list'; items: T[]; ordered?: boolean }
   | { t: 'diagram'; kind: DiagramKind; caption: T }
   | { t: 'versions'; items: [string | T, T][] }
-  | { t: 'compare'; ai: T; me: T; source: T; title?: T; aiLabel?: T; meLabel?: T };
+  | { t: 'compare'; ai: T; me: T; source: T; title?: T; aiLabel?: T; meLabel?: T }
+  | { t: 'more'; label: T; blocks: Block[] };
 
 export interface Section {
   id: string;
@@ -46,19 +47,21 @@ export interface Case {
   card: { kind: 'phones' | 'image' | 'tiers' | 'diagram'; src?: string[]; diagram?: DiagramKind; label: T };
   /** 只放網站，不放進 PDF 作品集摘要 */
   webOnly?: boolean;
+  /** 側邊專案：首頁「更多作品」分到側邊專案，並說明補足哪種能力 */
+  side?: T;
   sections: Section[];
 }
 
 const capLabel = { pm: 'PM', ui: 'UI / UX', fe: 'Frontend' } as const;
 export { capLabel };
 
-const realShot = b('WOTA 正式站實際畫面 · 本人參與設計與規格，非獨立完成', 'Live WOTA product · I contributed design and specs as part of the team');
+const realShot = b('WOTA 正式站實際畫面 · 產品規劃與 UI/UX 由我主導，前端由工程團隊實作', 'Live WOTA product · I led product planning and UI/UX; engineering built the frontend');
 const realShotShort = b('WOTA 正式站實際畫面', 'Live WOTA product');
 
-export const cases: Case[] = [
+const rawCases: Case[] = [
   {
     slug: 'booking',
-    glance: { problem: b('舊官網找酒店不夠好用，視覺也撐不起高端旅宿的定位。', 'The old site made finding a hotel harder than it should be, and its look didn\'t fit a luxury travel brand.'), decision: b('主導官網 3.0 的產品規劃與介面，先改搜尋與優惠的呈現，再把同一套設計延伸到 LINE 訂房。', 'I led product planning and UI design for website v3.0, starting with search and how deals are shown, then brought the same design to booking in LINE.'), result: b('官網 3.0 在 2024 年上線，LINE 訂房在 2026 年 5 月上線；上線後 30 天，酒店頁的完成訂單比例從 1～5% 升到 5% 以上。', 'Website v3.0 launched in 2024 and LINE booking in May 2026. In the 30 days after the v3.0 launch, the hotel-page booking rate rose from 1–5% to over 5%.') },
+    glance: { problem: b('舊官網找酒店不夠好用，視覺也撐不起高端旅宿的定位。', 'The old site made finding a hotel harder than it should be, and its look didn\'t fit a luxury travel brand.'), decision: b('主導官網 3.0 的產品規劃與介面，先改搜尋與優惠的呈現，再把同一套設計延伸到 LINE 訂房。', 'I led product planning and UI design for website v3.0, starting with search and how deals are shown, then brought the same design to booking in LINE.'), result: b('官網 3.0 在 2024 年上線，LINE 訂房在 2026 年 5 月上線；上線後 30 天，酒店頁的完成訂單比例從 1～5% 升到 10% 以上。', 'Website v3.0 launched in 2024 and LINE booking in May 2026. In the 30 days after the v3.0 launch, the hotel-page booking rate rose from 1–5% to over 10%.') },
     no: '01',
     period: '2023 — NOW',
     eyebrow: 'Case 01 · Product Design · Multi-platform',
@@ -192,12 +195,12 @@ export const cases: Case[] = [
         id: 'outcome', caps: ['pm', 'ui', 'fe'], tags: ['Outcome'], toc: b('成果與反思', 'Outcome'),
         title: b('官網變得典雅好找，LINE 成為新通路', 'A more refined site, easier search, and a new LINE channel'),
         blocks: [
-          { t: 'stats', items: [['5%+', b('酒店頁的完成訂單比例，上線前是 1～5%', 'hotel-page booking rate, up from 1–5% before launch')], ['<10', b('件 UI 相關 bug，上線前是 10～30 件', 'UI-related bugs, down from 10–30 before launch')], ['2', b('個訂房通路上線：官網 3.0 與 LINE 訂房', 'booking channels launched: website v3.0 and LINE')]] },
+          { t: 'stats', items: [['10%+', b('酒店頁的完成訂單比例，上線前是 1～5%', 'hotel-page booking rate, up from 1–5% before launch')], ['<10', b('件 UI 相關 bug，上線前是 10～30 件', 'UI-related bugs, down from 10–30 before launch')], ['2', b('個訂房通路上線：官網 3.0 與 LINE 訂房', 'booking channels launched: website v3.0 and LINE')]] },
           { t: 'p', text: b('數字比較官網 3.0 上線前後各 30 天（訂單比例來自 Mixpanel，bug 數來自 Jira）。這是團隊一起交付的成果，我負責產品規劃、UI/UX 與驗收。', 'Figures compare the 30 days before and after the v3.0 launch (booking rate from Mixpanel, bug counts from Jira). It was a team release; I was responsible for product planning, UI/UX, and QA.') },
           { t: 'h3', text: b('上線了什麼', 'What shipped') },
           { t: 'list', items: [b('官網 3.0（2024 年）：襯線體搭配中黑體的典雅風格，搜尋結果加上優惠標籤。', 'Website v3.0 (2024): a refined serif and sans pairing, with deal tags in search results.'), b('LINE 訂房（2026 年 5 月）：7 月加入信用卡購買會籍、英文版與 LINE 訂房通知。', 'Booking in LINE (May 2026): credit-card payment for memberships, an English version, and LINE booking notifications followed in July.')] },
           { t: 'h3', text: b('下次會怎麼做', 'What I\'d do next time') },
-          { t: 'p', text: b('下次改版前，我會先定義要看的指標和事件，讓上線前後可以直接比較成效。', 'Before the next redesign, I\'d define the metrics and events up front so we can compare results before and after launch.') },
+          { t: 'p', text: b('下次改版前，我會先定義要看的指標和事件，讓上線前後可以直接比較成效。2026 年我也回頭補上了量測，用數據檢查官網 3.0，找出登入牆等問題。', 'Before the next redesign, I\'d define the metrics and events up front so we can compare results before and after launch. In 2026 I went back, added that tracking, and used it to audit v3.0, which surfaced problems like the login wall.') },
         ],
       },
     ],
@@ -493,6 +496,7 @@ export const cases: Case[] = [
         id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
         title: b('只看得到數字，不知道原因', 'Numbers without reasons'),
         blocks: [
+          { t: 'p', text: b('這個網站就是由我主導產品規劃與介面的官網 3.0。當初上線時沒有先定義要看的指標和事件，所以 2026 年我回頭補上量測，用數據和錄影檢查自己交付的產品。', 'This is website v3.0, the redesign where I led product planning and UI. We hadn\'t defined metrics or events before launch, so in 2026 I went back, added the tracking, and used data and recordings to check the product I had shipped.') },
           { t: 'flow', items: [b('AI 初步判斷：登入有一半失敗', 'AI\'s first read: half of logins fail'), b('看錄影複查：送出帳密的人 85～90% 成功', 'Recordings: 85–90% of submitted logins succeed'), b('真正卡點：被要求登入的那一刻，以及登入後回不到表單', 'Real bottleneck: the login prompt, and not returning to the form'), b('交付：41 項排好順序的改版建議', 'Delivered: 41 prioritized recommendations')] },
           { t: 'p', text: b('團隊在 Mixpanel（網站數據分析工具）看得到流量下滑、轉換偏低，但不知道原因、也不知道客人卡在哪一步。更麻煩的是，原始數據混了約 26% 的機器流量，部分事件定義也有錯，直接引用會得出錯誤結論。這個案例裡的數字，都已排除機器流量、修正事件定義。', 'The team could see traffic dropping and low conversion in Mixpanel, but not why or where guests got stuck. Worse, about 26% of raw traffic was bots and some events were misdefined, so taking the numbers at face value would lead to the wrong conclusions. Every figure in this case study excludes bot traffic and uses the corrected event definitions.') },
           { t: 'callout', title: b('目標', 'Goal'), text: b('交給產品團隊一份附證據、可以直接排進開發時程的改版清單，也讓每次改版上線後，都能量到它有沒有帶來改善。', 'Give the product team an evidence-backed fix list they can schedule right away, and a way to measure whether each fix helps once it ships.') },
@@ -525,6 +529,7 @@ export const cases: Case[] = [
           { t: 'h3', text: b('登入牆', 'The login wall') },
           { t: 'p', text: b('點「選擇價格」之後的數據：', 'What happened after "Select rate":') },
           { t: 'list', items: [b('未登入的訪客只有 9% 走到訂單表單，已登入的會員是 50%。', 'Only 9% of logged-out visitors reached the booking form, versus 50% of logged-in members.'), b('訪客一旦走到表單，完成率和會員差不多（50% 對 46%），所以落差出在中間的登入這一步。', 'Once visitors reached the form, they completed it at about the same rate as members (50% vs 46%), so the gap is the login step in between.'), b('成功登入的人當中，只有 44% 回到原本的表單，而且註冊後不會自動登入。', 'Of those who logged in successfully, only 44% returned to their form, and signing up does not log people in automatically.'), b('會員本來就可能比較想訂房，所以 9% 和 50% 的差距不全是登入造成；但錄影裡也看得到訪客在被要求登入時離開。', 'Members may simply be more ready to book, so not all of the 9% vs 50% gap comes from the login step. But the recordings also show visitors leaving at the moment they are asked to log in.'), b('這組比例用的是當時記錄到的事件；官網手機寬度的「選擇價格」當時沒有記錄，所以主要反映桌機。手機的錄影和登入數據也看得到同樣的流失。', 'These rates come from the events recorded at the time. Mobile-width "Select rate" clicks weren\'t being tracked then, so the rates mainly reflect desktop; mobile recordings and login data show the same drop-off.')] },
+          { t: 'p', text: b('要先登入才能繼續訂房，是當時為了會員經營訂下的業務規則。數據讓這條規則的代價第一次被看見，我用這些證據推動調整。', 'Requiring login before booking was a business rule, set at the time for membership goals. The data made its cost visible for the first time, and I used that evidence to push for a change.') },
           { t: 'diagram', kind: 'funnel', caption: b('示意圖 · 依專案文件中的數字重繪', 'Diagram · redrawn from project figures') },
           { t: 'h3', text: b('看不到價格的落地頁', 'Landing pages with no prices') },
           { t: 'p', text: b('從廣告與 Google 進來的酒店頁沒有帶日期，看不到價格。', 'Hotel pages reached from ads and Google carried no dates, so they showed no prices.') },
@@ -532,6 +537,15 @@ export const cases: Case[] = [
           { t: 'figure', src: ['img/real/official-hotel-no-dates.webp'], alt: b('沒有日期的酒店頁，只顯示缺少必要參數', 'Hotel page without dates showing a missing-parameters message'), caption: b('WOTA 官網正式站實際畫面 · 2026-11-16 擷取', 'Live WOTA site · captured 2026-11-16') },
           { t: 'h3', text: b('不是問題的地方', 'What turned out fine') },
           { t: 'p', text: b('訂單表單沒送出的多是看完總價後離開的比價行為，不是表單出錯；送出後成功率約 98%。', 'Most booking forms were abandoned by people comparing prices after seeing the total, not because of form errors; about 98% of submitted forms go through.') },
+        ],
+      },
+      {
+        id: 'solution', caps: ['pm', 'ui'], tags: ['PM', 'UI / UX'], toc: b('設計方案', 'Solution'),
+        title: b('登入之後，直接回到原本的訂單', 'After login, straight back to the booking'),
+        blocks: [
+          { t: 'p', text: b('41 項建議裡最優先的是「登入後接續訂單」：客人點「選擇價格」被要求登入，登入成功後直接帶回原本的訂單表單，不必重新找酒店、選日期和房型。', 'The top item among the 41 recommendations is resuming the booking after login: when guests are asked to log in after "Select rate," logging in takes them straight back to their booking form, so they don\'t have to find the hotel and pick dates and a room again.') },
+          { t: 'diagram', kind: 'resume', caption: b('示意圖 · 依分析數據與改版規格重繪', 'Diagram · redrawn from the analysis and the fix spec') },
+          { t: 'p', text: b('做法是在登入流程中帶上返回的位置，不需要新增畫面，所以這裡的設計工作是定義跳轉行為：從哪一步進入登入、登入後回到哪裡。這一項已排入開發，上線後用每週追蹤比較登入後回到表單的比例。', 'The fix passes the return location through the login flow and needs no new screens, so the design work here is defining the redirect behavior: which step sends guests to login, and where they land afterward. It\'s scheduled for development, and once it ships the weekly tracking will compare how many people return to the form after logging in.') },
         ],
       },
       {
@@ -607,6 +621,7 @@ export const cases: Case[] = [
     hero: { kind: 'diagram', diagram: 'groups', caption: b('示意圖 · 依研究紀錄重繪', 'Diagram · redrawn from the research notes') },
     card: { kind: 'diagram', diagram: 'groups', label: b('示意圖 · 依研究紀錄重繪', 'Diagram · redrawn from the research notes') },
     webOnly: true,
+    side: b('補足質化研究：設計訪綱、擔任主訪、整合三組發現', 'Adds qualitative research: interview design, leading interviews, and synthesis'),
     sections: [
       {
         id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
@@ -729,6 +744,7 @@ export const cases: Case[] = [
     hero: { kind: 'diagram', diagram: 'memflow', caption: b('示意圖 · 依開發紀錄重繪', 'Diagram · redrawn from the development notes') },
     card: { kind: 'diagram', diagram: 'memflow', label: b('示意圖 · 依開發紀錄重繪', 'Diagram · redrawn from the development notes') },
     webOnly: true,
+    side: b('補足從 0 到 1 的產品定義：排出需求、訂驗收條件、收斂介面', 'Adds 0-to-1 product definition: ranking needs, setting acceptance criteria, and refining the UI'),
     sections: [
       {
         id: 'problem', caps: ['pm'], tags: ['PM'], toc: b('問題', 'Problem'),
@@ -846,8 +862,53 @@ export const cases: Case[] = [
   },
 ];
 
+/**
+ * v3 網站版：
+ * 1. 「AI 的產出、我的判斷」對照（過程證據）移到問題之後的獨立段落。
+ * 2. 「AI 負責／我負責」分工表與數字密集的佐證段落，收進可展開的細節。
+ * PDF 作品集摘要仍用 rawCases（不收合），內容不受影響。
+ */
+const FOLD: Record<string, [string, number][]> = {
+  booking: [['design', 8], ['design', 11], ['i18n', 2], ['build', 1], ['build', 2]],
+  rewards: [['build', 1], ['outcome', 5]],
+  'ui-spec': [['build', 1], ['outcome', 1]],
+  analytics: [['build', 1]],
+  research: [['fieldwork', 0]],
+  memory: [['build', 2], ['build', 3]],
+};
+const detailsLabel = b('看細節與數據', 'Details and figures');
+const splitLabel = b('看 AI 與我的分工', 'How AI and I split the work');
+const isAiCompare = (bk: Block) => bk.t === 'compare' && (!bk.aiLabel || /AI|樣張/.test(bk.aiLabel['zh-tw']));
+
+export const cases: Case[] = rawCases.map((c) => {
+  const fold = FOLD[c.slug] ?? [];
+  const evidence: Block[] = [];
+  const sections = c.sections.map((sec) => {
+    const blocks = sec.blocks
+      .map((bk, i): Block => {
+        if (!fold.some(([id, idx]) => id === sec.id && idx === i)) return bk;
+        const label = bk.t === 'table' && !bk.head ? splitLabel : detailsLabel;
+        return { t: 'more', label, blocks: [bk] };
+      })
+      .filter((bk) => {
+        if (isAiCompare(bk)) { evidence.push(bk); return false; }
+        return true;
+      });
+    return { ...sec, blocks };
+  });
+  if (evidence.length) {
+    const at = sections.findIndex((s) => s.id === 'problem') + 1;
+    sections.splice(at, 0, {
+      id: 'evidence', caps: ['pm', 'ui', 'fe'], tags: ['AI'], toc: b('過程證據', 'Evidence'),
+      title: b('AI 的產出，我怎麼判斷', 'What AI produced, and how I judged it'),
+      blocks: evidence,
+    });
+  }
+  return { ...c, sections };
+});
+
 /** PDF 作品集摘要用：排除只放網站的案例 */
-export const printCases = cases.filter((c) => !c.webOnly);
+export const printCases = rawCases.filter((c) => !c.webOnly);
 
 export function neighbors(slug: string) {
   const i = cases.findIndex((c) => c.slug === slug);

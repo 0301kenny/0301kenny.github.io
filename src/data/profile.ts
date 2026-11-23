@@ -1,4 +1,5 @@
 import type { T } from '../i18n';
+import { LITE, liteDeep } from '../variant';
 
 export const profile = {
   name: { 'zh-tw': '鄭偉助', en: 'Kenny Cheng' } as T,
@@ -186,3 +187,12 @@ export const downloads = [
   { ext: { 'zh-tw': 'PDF · 5 頁', en: 'PDF · 5 pages' }, title: { 'zh-tw': '英文作品集摘要', en: 'Portfolio summary' }, desc: { 'zh-tw': '作品集摘要的英文版', en: 'Key decisions and outcomes from four case studies, one page each' }, file: 'files/KennyCheng_Portfolio_Summary_2026_en.pdf' },
   { ext: { 'zh-tw': 'PDF · 5 頁', en: 'PDF · 5 pages' }, title: { 'zh-tw': '作品集摘要', en: 'Portfolio summary (Chinese)' }, desc: { 'zh-tw': '四個案例的關鍵決策與成果，一案一頁', en: 'Key decisions and outcomes from four case studies, one page each' }, file: 'files/KennyCheng_Portfolio_Summary_2026_zh.pdf' },
 ];
+
+// 隱藏數據版：換掉營運數據、作品集網址指向 /lite，下載區改用隱藏版 PDF
+if (LITE) {
+  liteDeep(profile);
+  liteDeep(sections);
+  liteDeep(impact);
+  profile.contact.portfolio = 'https://0301kenny.github.io/lite';
+  downloads.forEach((d) => { d.file = d.file.replace(/_(zh|en)\.pdf$/, '_lite_$1.pdf'); });
+}

@@ -7,7 +7,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "pdf": "bash scripts/build-pdf.sh"
+    "pdf": "bash scripts/build-pdf.sh",
+    "build:lite": "VARIANT=lite astro build"
   },
   "dependencies": {
     "astro": "7.4.12"

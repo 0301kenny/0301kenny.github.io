@@ -1,6 +1,7 @@
 ---
 import { profile, approach } from '../../data/profile';
 import { printCases as cases } from '../../data/cases';
+import { valText } from '../../variant';
 import type { Block } from '../../data/cases';
 
 const lang = 'zh-tw' as const;
@@ -125,7 +126,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? prin
         <p class="lead">{profile.heroLead[lang]}</p>
       </div>
       <div class="stats">
-        {profile.stats.map((s) => <div><b>{s.value}</b><span>{s.label[lang]}</span></div>)}
+        {profile.stats.map((s) => <div><b>{valText(s.value, lang)}</b><span>{s.label[lang]}</span></div>)}
       </div>
     </div>
     <div class="steps">
@@ -133,7 +134,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? prin
     </div>
     <div class="index">
       {cases.map((cs) => (
-        <div><small>CASE {cs.no}</small><b>{cs.cardTitle[lang]}</b><span>{cs.kpis.map(([v, l]) => `${v} ${l[lang]}`)[0]}</span></div>
+        <div><small>CASE {cs.no}</small><b>{cs.cardTitle[lang]}</b><span>{cs.kpis.map(([v, l]) => `${valText(v, lang)} ${l[lang]}`)[0]}</span></div>
       ))}
     </div>
     <div class="contact">
@@ -156,7 +157,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? prin
           <h2>{cs.title[lang].replace(/([A-Za-z0-9])\n/, '$1 ').replace('\n', '')}</h2>
           <p class="lead2">{cs.lead[lang]}</p>
           <dl class="meta">{cs.meta.map(([k, v]) => <div><dt>{k[lang]}</dt><dd>{v[lang]}</dd></div>)}</dl>
-          <div class="kpis">{cs.kpis.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>
+          <div class="kpis">{cs.kpis.map(([v, l]) => <div><b>{valText(v, lang)}</b><span>{l[lang]}</span></div>)}</div>
           {goal && <div class="goal"><b>{goal.title[lang]}</b>{goal.text[lang]}</div>}
         </div>
         <div class="right">
@@ -168,7 +169,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? prin
           </div>
           <div>
             <h3>成果</h3>
-            {outcomeStats && <div class="ostats">{outcomeStats.items.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>}
+            {outcomeStats && <div class="ostats">{outcomeStats.items.map(([v, l]) => <div><b>{valText(v, lang)}</b><span>{l[lang]}</span></div>)}</div>}
             {outcome && <p class="outcome">{outcome.text[lang]}</p>}
           </div>
           {table?.note && <div class="ai">{table.note[lang]}</div>}

@@ -3,6 +3,7 @@ import { profile, approach } from '../../data/profile';
 import { printCases as cases } from '../../data/cases';
 import type { Block } from '../../data/cases';
 import { unitHtml } from '../../utils/numUnit';
+import { valText } from '../../variant';
 
 const lang = 'en' as const;
 const c = profile.contact;
@@ -143,7 +144,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? prin
         <p class="lead">{profile.heroLead[lang]}</p>
       </div>
       <div class="stats">
-        {profile.stats.map((s) => <div><b>{s.value}</b><span>{s.label[lang]}</span></div>)}
+        {profile.stats.map((s) => <div><b>{valText(s.value, lang)}</b><span>{s.label[lang]}</span></div>)}
       </div>
     </div>
     <div class="steps">
@@ -151,7 +152,7 @@ const heroSrc = (cs: (typeof cases)[number]) => (cs.hero.kind === 'image' ? prin
     </div>
     <div class="index">
       {cases.map((cs) => (
-        <div><small>CASE {cs.no}</small><b>{cs.cardTitle[lang]}</b><span>{cs.kpis.map(([v, l]) => `${v} ${l[lang]}`)[0]}</span></div>
+        <div><small>CASE {cs.no}</small><b>{cs.cardTitle[lang]}</b><span>{cs.kpis.map(([v, l]) => `${valText(v, lang)} ${l[lang]}`)[0]}</span></div>
       ))}
     </div>
     <div class="contact">

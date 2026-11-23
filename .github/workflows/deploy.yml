@@ -25,6 +25,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      # 隱藏數據版：VARIANT=lite 建置到 dist-lite，再放進 dist/lite，部署在 /lite/
+      - run: VARIANT=lite npm run build
+      - run: mkdir -p dist/lite && cp -R dist-lite/. dist/lite/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

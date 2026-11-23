@@ -5,6 +5,7 @@ import { ui, asset, type Lang } from '../i18n';
 import { imageSizes } from '../data/imageSizes';
 import type { Block } from '../data/cases';
 import { phrases } from '../utils/phrases';
+import { valText } from '../variant';
 
 interface Props { blocks: Block[]; lang: Lang }
 const { blocks, lang } = Astro.props;
@@ -45,7 +46,7 @@ const { blocks, lang } = Astro.props;
         </>
       );
     case 'stats':
-      return <div class="issues">{bk.items.map(([v, l]) => <div><b>{v}</b><span>{l[lang]}</span></div>)}</div>;
+      return <div class="issues">{bk.items.map(([v, l]) => <div><b>{valText(v, lang)}</b><span>{l[lang]}</span></div>)}</div>;
     case 'guard':
       return <div class="guard">{bk.items.map(([title, code, desc]) => <div><b>{title[lang]}</b>{code && <code>{code}</code>}<br />{desc[lang]}</div>)}</div>;
     case 'diagram':

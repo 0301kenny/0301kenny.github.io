@@ -1,5 +1,6 @@
 ---
 import { profile } from '../../data/profile';
+import { liteText } from '../../variant';
 
 const c = profile.contact;
 const portfolioLabel = c.portfolio.replace(/^https?:\/\//, '');
@@ -12,7 +13,7 @@ const wota = [
   'Led copy management across four languages: brought 3,548 pieces of website copy into Figma in Traditional Chinese, Simplified Chinese, English, and Japanese; personally reviewed 138 judgment calls; a check of bound Figma text against the live site found zero mismatches.',
   'Initiated website behavior analysis, cross-checking session recordings with analytics: found that login is where bookings stall. After "Select rate," only 9% of logged-out visitors reached the booking form, versus 50% of members. Turned the findings into a 41-item, evidence-backed backlog with weekly automated tracking.',
   'Built an internal review tool (UI Spec) in the existing codebase with AI (Claude Code): design, PM, and QA can see 129 member screen states without switching accounts, cutting a check from about 30 minutes to under a minute (estimated); it runs only in development. Verification surfaced 2 bugs already affecting members.',
-];
+].map((s) => liteText(s, 'en'));
 
 const fusion = [
   'Owned product UI systems, UX flows, sitemaps, wireframes, and prototypes; designed responsive web interfaces with engineers.',

@@ -1,5 +1,6 @@
 ---
 import { profile } from '../../data/profile';
+import { liteText } from '../../variant';
 
 const c = profile.contact;
 const portfolioLabel = c.portfolio.replace(/^https?:\/\//, '');
@@ -12,7 +13,7 @@ const wota = [
   '主導官網四種語言的文案管理：3,548 段網站文字在 Figma 統一管理繁中、簡中、英、日四個版本，親自審核 138 筆判定，已綁定的 Figma 文字與網站核對 0 個不一致。',
   '主動發起網站行為分析，交叉比對使用者操作錄影與數據工具：發現登入是訂房的主要卡點，點了「選擇價格」的人中，未登入訪客只有 9% 走到訂單表單，會員是 50%；整理成 41 項附證據的改版清單，並設定每週自動追蹤。',
   '用 AI（Claude Code）在既有網站程式中做出內部檢查工具（UI Spec）：設計、PM 與 QA 不用換帳號，就能看到 129 種會員畫面狀態，檢查一個狀態從約 30 分鐘縮短到 1 分鐘內（估計）；只在開發環境使用，不會上正式站。驗證時發現 2 個已影響會員的錯誤。',
-];
+].map((s) => liteText(s, 'zh-tw'));
 
 const rong = [
   '負責產品 UI 視覺系統、UX Flow、Sitemap、Wireframe 與互動原型。',

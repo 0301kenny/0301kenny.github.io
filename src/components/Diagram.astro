@@ -2,11 +2,12 @@
 // 依專案文件數據重繪的示意圖（中英雙語、行內 SVG）
 import type { Lang } from '../i18n';
 import type { DiagramKind } from '../data/cases';
+import { liteText } from '../variant';
 
 interface Props { kind: DiagramKind; lang: Lang }
 const { kind, lang } = Astro.props;
 const zh = lang === 'zh-tw';
-const t = (a: string, b: string) => (zh ? a : b);
+const t = (a: string, b: string) => liteText(zh ? a : b, lang);
 
 const ruleItems = [
   t('官網與 LIFF 介面', 'Web & LIFF UI'), t('PRD', 'PRD'), t('後端 API', 'Backend API'),

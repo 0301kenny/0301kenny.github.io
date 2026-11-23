@@ -2,6 +2,7 @@
 // 處理：後綴 % 與 +、前綴 ~、比較用的斜線、時間單位「秒」「分鐘」（英文頁改成 s、min）。
 // 輸出 HTML 字串，給 set:html 使用；樣式在 b .u、b .pre、b .sep。
 import type { Lang } from '../i18n';
+import { valText, type Val } from '../variant';
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
@@ -14,8 +15,8 @@ function part(p: string, lang: Lang): string {
     .replace(/\+$/, '<span class="u up">+</span>');
 }
 
-export function unitHtml(value: string, lang: Lang): string {
-  return esc(value)
+export function unitHtml(value: Val, lang: Lang): string {
+  return esc(valText(value, lang))
     .split(/\s*\/\s*/)
     .map((p) => part(p, lang))
     .join('<span class="sep">/</span>');

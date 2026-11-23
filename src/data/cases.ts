@@ -1,4 +1,5 @@
 import type { T } from '../i18n';
+import { LITE, liteDeep, type Val } from '../variant';
 
 const b = (zh: string, en: string): T => ({ 'zh-tw': zh, en });
 
@@ -13,7 +14,7 @@ export type Block =
   | { t: 'decision'; q: T; a: T; text: T; todo?: boolean }
   | { t: 'figure'; src: string[]; alt: T; caption: T; phone?: boolean; pair?: boolean }
   | { t: 'table'; rows: [T, T, T][]; note?: T; head?: [T, T, T] }
-  | { t: 'stats'; items: [string, T][] }
+  | { t: 'stats'; items: [Val, T][] }
   | { t: 'guard'; items: [T, string, T][] }
   | { t: 'flow'; items: T[] }
   | { t: 'list'; items: T[]; ordered?: boolean }
@@ -41,7 +42,7 @@ export interface Case {
   lead: T;
   chips: string[];
   meta: [T, T][];
-  kpis: [string, T, T?][];
+  kpis: [Val, T, T?][];
   hero: { kind: 'image'; src: string; alt: T; caption: T } | { kind: 'tiers'; caption: T } | { kind: 'diagram'; diagram: DiagramKind; caption: T };
   glance?: { problem: T; decision: T; result: T };
   card: { kind: 'phones' | 'image' | 'tiers' | 'diagram'; src?: string[]; diagram?: DiagramKind; label: T };
@@ -881,6 +882,17 @@ const FOLD: Record<string, [string, number][]> = {
 const detailsLabel = b('看細節與數據', 'Details and figures');
 const splitLabel = b('看 AI 與我的分工', 'How AI and I split the work');
 const isAiCompare = (bk: Block) => bk.t === 'compare' && (!bk.aiLabel || /AI|樣張/.test(bk.aiLabel['zh-tw']));
+
+// 隱藏數據版：換掉營運數據；Case 04 的漏斗圖（長條比例會透露數值）不顯示，首頁卡片改用主視覺截圖
+if (LITE) {
+  liteDeep(rawCases);
+  for (const c of rawCases) {
+    c.sections.forEach((s) => { s.blocks = s.blocks.filter((bk) => !(bk.t === 'diagram' && bk.kind === 'funnel')); });
+    if (c.card.kind === 'diagram' && c.card.diagram === 'funnel' && c.hero.kind === 'image') {
+      c.card = { kind: 'image', src: [c.hero.src], label: c.hero.caption };
+    }
+  }
+}
 
 export const cases: Case[] = rawCases.map((c) => {
   const fold = FOLD[c.slug] ?? [];

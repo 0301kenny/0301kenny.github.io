@@ -44,8 +44,8 @@ export const sections = {
       en: 'To see how I turn complex rules into a spec, start with Case 02. The rest cover an internal tool, user research, and a personal project.',
     } as T,
     lead: {
-      'zh-tw': '時間有限的話，先看這兩個：Case 01 看我怎麼把設計做到上線，Case 04 看我怎麼從數據和錄影找出真正的問題。',
-      en: 'Short on time? Start with these two: Case 01 shows how I take a design all the way to launch, and Case 04 shows how I find the real problem in data and session recordings.',
+      'zh-tw': '兩個案例各代表一種能力：Case 01 是從規劃到上線的完整產品設計，Case 04 是用數據和使用者錄影找出訂單流失的原因。',
+      en: 'Two cases, two kinds of work: Case 01 covers product design from planning to launch, and Case 04 uses data and session recordings to find where bookings drop off.',
     } as T,
   },
   approach: {
